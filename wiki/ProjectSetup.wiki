@@ -6,7 +6,7 @@ Galileo-based Eclipse (Spring's STS was originally used)
 
 SVN Plugins:
  * http://subclipse.tigris.org/update_1.6.x
- * http://community.polarion.com/projects/subversive/download/eclipse/2.0/update-site/
+ * http://community.polarion.com/projects/subversive/download/eclipse/2.0/update-site/ (this is the used with Linux)
 
 Google Plugins:
 http://dl.google.com/eclipse/plugin/3.5
@@ -15,5 +15,4 @@ Google GAE SDK:
 http://code.google.com/appengine/downloads.html#Google_App_Engine_SDK_for_Java
 
 Libraries:
- * GAE_LOCAL points to the GAE SDK's impl and impl/agent libs.
- * GAE_TEST points to the GAE SDK's testing libs.
+ * GAE_LOCAL points to the GAE SDK's lib/testing, lib/impl and lib/impl/agent libs.
