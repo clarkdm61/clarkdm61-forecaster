@@ -6,6 +6,7 @@ Galileo-based Eclipse (Spring's STS was originally used)
 
 SVN Plugin:
 http://subclipse.tigris.org/update_1.6.x
+http://community.polarion.com/projects/subversive/download/eclipse/2.0/update-site/
 
 Google Plugins:
 http://dl.google.com/eclipse/plugin/3.5
