@@ -14,5 +14,5 @@ Google GAE SDK:
 http://code.google.com/appengine/downloads.html#Google_App_Engine_SDK_for_Java
 
 Libraries:
-* GAE_LOCAL points to the GAE SDK's impl and impl/agent libs.
-* GAE_TEST points to the GAE SDK's testing libs.
+ * GAE_LOCAL points to the GAE SDK's impl and impl/agent libs.
+ * GAE_TEST points to the GAE SDK's testing libs.
