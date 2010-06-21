@@ -14,5 +14,5 @@ http://dl.google.com/eclipse/plugin/3.5
 Google GAE SDK:
 http://code.google.com/appengine/downloads.html#Google_App_Engine_SDK_for_Java
 
-Define User Librarie:
+Define User Library:
  * GAE_LOCAL points to the GAE SDK's lib/testing, lib/impl and lib/impl/agent libs.
