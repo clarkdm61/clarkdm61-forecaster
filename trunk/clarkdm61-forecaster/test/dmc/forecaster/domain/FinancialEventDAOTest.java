@@ -13,7 +13,7 @@ import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
 public class FinancialEventDAOTest {
 	private static FinancialEventDAO dao = new FinancialEventDAO();
-	private static Long mID;
+	//private static Long mID;
     private static final LocalServiceTestHelper helper =
         new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
 
@@ -30,10 +30,11 @@ public class FinancialEventDAOTest {
 
 	@Test
 	public void testCreate() {
-		FinancialEvent newInstance = new FinancialEvent("name", "desc", new java.util.Date(), new java.util.Date(), 500.23d);
+		FinancialEventType type = FinancialEventType.valueOf("Income");
+		FinancialEvent newInstance = new FinancialEvent("name", "desc", new java.util.Date(), new java.util.Date(), 500.23d, type, Reoccurrence.Monthly);
 		dao.create(newInstance);
-		mID = newInstance.getId();
-		System.out.println("create: success ");
+		//mID = newInstance.getId();
+		System.out.println("create: success. "+newInstance);
 	}
 
 	@Test
@@ -55,6 +56,7 @@ public class FinancialEventDAOTest {
 	public void clean() {
 		List<FinancialEvent> fes = dao.findAll();
 		for (FinancialEvent fe: fes) {
+			System.out.println("deleting " + fe);
 			dao.delete(fe.getId());
 		}
 		System.out.println("cleaned up");
