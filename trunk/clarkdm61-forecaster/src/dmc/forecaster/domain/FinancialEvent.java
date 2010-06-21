@@ -6,15 +6,13 @@ import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import com.google.appengine.api.datastore.Key;
-
 public class FinancialEvent {
 	
 
 	// Fields
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-    private Key key;
+    private Long id;
 	@Persistent
 	private String name;
 	@Persistent
@@ -26,23 +24,18 @@ public class FinancialEvent {
 	@Persistent
 	private Double amount;
 	
-	public FinancialEvent(Key key, String name, String description,
+	// TODO: Reoccurrence (non, week, month, year)
+	// TODO: Type (Income, Expense) required
+	
+	public FinancialEvent(String name, String description,
 			Date startDt, Date endDt, Double amount) {
 		super();
-		this.key = key;
+		//this.id = id;
 		this.name = name;
 		this.description = description;
 		this.startDt = startDt;
 		this.endDt = endDt;
 		this.amount = amount;
-	}
-
-	public Key getKey() {
-		return key;
-	}
-
-	public void setKey(Key key) {
-		this.key = key;
 	}
 
 	public String getName() {
@@ -83,5 +76,13 @@ public class FinancialEvent {
 
 	public void setAmount(Double amount) {
 		this.amount = amount;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }
