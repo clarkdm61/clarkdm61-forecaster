@@ -10,7 +10,8 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable(detachable="true")
 public class FinancialEvent implements java.io.Serializable {
 	
-
+	private static final long serialVersionUID = 7764556144531431668L;
+	
 	// Fields
 	@PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -25,12 +26,13 @@ public class FinancialEvent implements java.io.Serializable {
 	private Date endDt;
 	@Persistent
 	private Double amount;
-	
-	// TODO: Reoccurrence (non, week, month, year)
-	// TODO: Type (Income, Expense) required
+	//@Persistent
+	private FinancialEventType type;
+	//@Persistent
+	private Reoccurrence reoccurrence;
 	
 	public FinancialEvent(String name, String description,
-			Date startDt, Date endDt, Double amount) {
+			Date startDt, Date endDt, Double amount, FinancialEventType type, Reoccurrence reoccurrence) {
 		super();
 		//this.id = id;
 		this.name = name;
@@ -38,6 +40,12 @@ public class FinancialEvent implements java.io.Serializable {
 		this.startDt = startDt;
 		this.endDt = endDt;
 		this.amount = amount;
+		this.type = type;
+		this.reoccurrence = reoccurrence;
+	}
+	
+	public String toString() {
+		return "id="+getId()+", name="+getName()+", type="+ getReoccurrence() + " " + getType();
 	}
 
 	public String getName() {
@@ -86,5 +94,21 @@ public class FinancialEvent implements java.io.Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public FinancialEventType getType() {
+		return type;
+	}
+
+	public void setType(FinancialEventType type) {
+		this.type = type;
+	}
+
+	public Reoccurrence getReoccurrence() {
+		return reoccurrence;
+	}
+
+	public void setReoccurrence(Reoccurrence reoccurrence) {
+		this.reoccurrence = reoccurrence;
 	}
 }
