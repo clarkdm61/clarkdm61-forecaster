@@ -16,15 +16,17 @@ public class Clarkdm61_forecaster implements EntryPoint {
 	 */
 	public void onModuleLoad() {
 		GreeterTab greeterTab = new GreeterTab();
+		ManageTab manageTab = new ManageTab();
+		
 		TabLayoutPanel tabs = new TabLayoutPanel(1.5, Unit.EM);
-		tabs.add(greeterTab, "Greeter");
-		tabs.add(new HTML("Todo: add manager panel"), "Manage");
+		tabs.add(manageTab, "Manage");
 		tabs.add(new HTML("Todo: add ledger panel"), "Ledger");
 		tabs.add(new HTML("Todo: add graph panel"), "Graph");
+		tabs.add(greeterTab, "Greeter");
 		
 		RootPanel.get().add(tabs);
 		
-		tabs.setSize("40em", "40em");
-		greeterTab.setSize("40em", "30em");
+		tabs.setSize("30em", "40em");
+		greeterTab.setSize("30em", "35em");
 	}
 }

@@ -123,7 +123,8 @@ public class GreeterTab extends Grid {
 								serverResponseLabel
 										.addStyleName("serverResponseLabelError");
 								serverResponseLabel.setHTML(SERVER_ERROR);
-								dialogBox.center();
+								dialogBox.setPopupPosition(getAbsoluteLeft(), getAbsoluteTop());
+								dialogBox.show();
 								closeButton.setFocus(true);
 							}
 
@@ -132,7 +133,8 @@ public class GreeterTab extends Grid {
 								serverResponseLabel
 										.removeStyleName("serverResponseLabelError");
 								serverResponseLabel.setHTML(result);
-								dialogBox.center();
+								dialogBox.setPopupPosition(getAbsoluteLeft(), getAbsoluteTop());
+								dialogBox.show();
 								closeButton.setFocus(true);
 							}
 						});
