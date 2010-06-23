@@ -10,10 +10,18 @@
     <servlet-name>greetServlet</servlet-name>
     <servlet-class>dmc.forecaster.server.GreetingServiceImpl</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>forecasterServlet</servlet-name>
+    <servlet-class>dmc.forecaster.server.ForecasterServiceImpl</servlet-class>
+  </servlet>
   
   <servlet-mapping>
     <servlet-name>greetServlet</servlet-name>
     <url-pattern>/clarkdm61_forecaster/greet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>forecasterServlet</servlet-name>
+    <url-pattern>/clarkdm61_forecaster/forecaster</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->
