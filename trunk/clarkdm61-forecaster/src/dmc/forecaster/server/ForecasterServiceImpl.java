@@ -15,7 +15,7 @@ public class ForecasterServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void create(FinancialEvent fe) throws IllegalArgumentException {
-		
+		System.out.println("ForecasterServiceImpl.create() - " + fe);
 	}
 
 	@Override
