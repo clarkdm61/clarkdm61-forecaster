@@ -10,6 +10,11 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable(detachable="true")
 public class FinancialEvent implements java.io.Serializable {
 	
+	public FinancialEvent() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	private static final long serialVersionUID = 7764556144531431668L;
 	
 	// Fields
