@@ -24,7 +24,7 @@ public class ManageTab extends DockLayoutPanel {
 	public static String STATUS_FAIL = "FAILED";
 
 	private FinancialEvent selectedEvent = null;
-	public static HTML status = new HTML("");
+	public static HTML status = new HTML("-");
 	
 
 	public ManageTab() {
@@ -33,25 +33,24 @@ public class ManageTab extends DockLayoutPanel {
 		// create buttons
 	    Button btnNew = new Button("New", new ClickHandler() {
 	        public void onClick(ClickEvent event) {
-	          Window.alert("Show data entry pop-up");
 	          doNew();
 	        }
 	    });
 	    Button btnEdit = new Button("Edit", new ClickHandler() {
 	        public void onClick(ClickEvent event) {
-	          Window.alert("Show data entry pop-up");
 	        }
 	    });
 	    Button btnDelete = new Button("Delete", new ClickHandler() {
 	        public void onClick(ClickEvent event) {
-	          Window.alert("Show delete confirm pop-up");
 	        }
 	    });
-	    FlowPanel pnlButtons = new FlowPanel();
-	    pnlButtons.add(btnNew);
-	    pnlButtons.add(btnEdit);
-	    pnlButtons.add(btnDelete);
-	    this.addSouth(pnlButtons, 2);
+
+	    Grid buttonGrid = new Grid(1, 4);
+	    buttonGrid.setWidget(0, 0, btnNew);
+	    buttonGrid.setWidget(0, 1, btnEdit);
+	    buttonGrid.setWidget(0, 2, btnDelete);
+	    buttonGrid.setWidget(0, 3, status);
+	    this.addSouth(buttonGrid, 2);
 		
 		// create pop-up window for create and update
 		
