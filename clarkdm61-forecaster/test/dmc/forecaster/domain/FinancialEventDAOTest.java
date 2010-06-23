@@ -11,6 +11,11 @@ import org.junit.Test;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 
+import dmc.forecaster.server.FinancialEventDAO;
+import dmc.forecaster.shared.FinancialEvent;
+import dmc.forecaster.shared.FinancialEventType;
+import dmc.forecaster.shared.Reoccurrence;
+
 public class FinancialEventDAOTest {
 	private static FinancialEventDAO dao = new FinancialEventDAO();
 	//private static Long mID;
