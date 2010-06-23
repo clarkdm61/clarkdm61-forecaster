@@ -10,7 +10,7 @@ import dmc.forecaster.shared.FinancialEvent;
 /**
  * The client side stub for the RPC service.
  */
-@RemoteServiceRelativePath("forcaster")
+@RemoteServiceRelativePath("forecaster")
 public interface ForecasterService extends RemoteService {
 	List<FinancialEvent> getAllEvents() throws IllegalArgumentException;
 	void create(FinancialEvent fe) throws IllegalArgumentException;
