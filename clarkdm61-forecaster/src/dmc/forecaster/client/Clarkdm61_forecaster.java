@@ -1,6 +1,7 @@
 package dmc.forecaster.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -10,6 +11,11 @@ import com.google.gwt.user.client.ui.TabLayoutPanel;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Clarkdm61_forecaster implements EntryPoint {
+	
+	/**
+	 * service proxy
+	 */
+	public static final ForecasterServiceAsync forecasterService = GWT.create(ForecasterService.class);
 
 	/**
 	 * This is the entry point method.
