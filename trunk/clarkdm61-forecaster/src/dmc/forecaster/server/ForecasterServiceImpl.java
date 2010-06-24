@@ -15,19 +15,20 @@ public class ForecasterServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public void create(FinancialEvent fe) throws IllegalArgumentException {
-		System.out.println("ForecasterServiceImpl.create() - " + fe);
+		FinancialEventDAO dao = new FinancialEventDAO();
+		dao.create(fe);
 	}
 
 	@Override
 	public List<FinancialEvent> getAllEvents() throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		return null;
+		FinancialEventDAO dao = new FinancialEventDAO();
+		return dao.findAll();
 	}
 
 	@Override
 	public void update(FinancialEvent fe) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
-		
+		FinancialEventDAO dao = new FinancialEventDAO();
+		dao.update(fe);
 	}
 
 

@@ -2,6 +2,7 @@ package dmc.forecaster.client;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Grid;
@@ -11,9 +12,12 @@ import com.google.gwt.user.client.ui.RadioButton;
 import com.google.gwt.user.client.ui.TextBox;
 
 import dmc.forecaster.shared.FinancialEvent;
+import dmc.forecaster.shared.FinancialEventType;
 import dmc.forecaster.shared.Reoccurrence;
 
 public class FinancialEventDialog extends DialogBox {
+	private ManageTab manageTab = null;
+	
 	private boolean newEvent;
 	private FinancialEvent financialEvent;
 	
@@ -26,7 +30,9 @@ public class FinancialEventDialog extends DialogBox {
 	private TextBox txtEndDt = new TextBox();
 	private TextBox txtAmount = new TextBox();
 	
-	public FinancialEventDialog() {
+	public FinancialEventDialog(ManageTab manageTab) {
+		this.manageTab = manageTab;
+		
 		lbReoccurrence.addItem(Reoccurrence.None.toString());
 		lbReoccurrence.addItem(Reoccurrence.Weekly.toString());
 		lbReoccurrence.addItem(Reoccurrence.BiWeekly.toString());
@@ -63,8 +69,12 @@ public class FinancialEventDialog extends DialogBox {
 
 			@Override
 			public void onClick(ClickEvent event) {
+				// validate
+				
 				FinancialEventDialog.this.hide();
 				// callback to parent?
+				updateFinancialEventFromScreen();
+				FinancialEventDialog.this.manageTab.invokeCreate(getFinancialEvent());
 			}
 		});
 		Button cancel = new Button("Cancel");
@@ -82,16 +92,28 @@ public class FinancialEventDialog extends DialogBox {
 	}
 
 	public void openForNewEvent() {
+		setFinancialEvent(new FinancialEvent());
 		setNewEvent(true);
 		setText("Create Event");
+		txtName.setText("");
+		txtDescription.setText("");
+		txtStartDt.setText(DateTimeFormat.getMediumDateFormat().format(new java.util.Date()));
+		txtEndDt.setText("");
+		txtEndDt.setEnabled(false);
 		rbExpense.setValue(true);
 		lbReoccurrence.setSelectedIndex(0);
+		txtAmount.setText("");
 		this.show();
 	}
 
 	public void openForExistingEvent(FinancialEvent financialEvent) {
 		setNewEvent(false);
 		setText("Edit Event");
+		setFinancialEvent(financialEvent);
+		txtName.setText(financialEvent.getName());
+		txtDescription.setText(financialEvent.getDescription());
+		txtAmount.setText(financialEvent.getAmount().toString());
+		
 		this.show();
 	}
 
@@ -110,6 +132,20 @@ public class FinancialEventDialog extends DialogBox {
 
 	public void setFinancialEvent(FinancialEvent financialEvent) {
 		this.financialEvent = financialEvent;
+	}
+	
+	/**
+	 * copy field values into local model
+	 */
+	private void updateFinancialEventFromScreen() {
+		getFinancialEvent().setName(txtName.getText());
+		getFinancialEvent().setDescription(txtDescription.getText());
+		getFinancialEvent().setReoccurrence(Reoccurrence.valueOf(lbReoccurrence.getValue(lbReoccurrence.getSelectedIndex())));
+		FinancialEventType type = rbIncome.getValue() ? FinancialEventType.Income : FinancialEventType.Income;
+		getFinancialEvent().setType(type);
+		Double amount = new Double(txtAmount.getText());
+		getFinancialEvent().setAmount(amount);
+		// dates
 	}
 
 }

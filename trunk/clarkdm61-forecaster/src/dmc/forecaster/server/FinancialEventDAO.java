@@ -17,10 +17,12 @@ public class FinancialEventDAO {
 	}
 	
 	public void create(FinancialEvent newInstance) {
+		System.out.println("FinancialEventDAO.create(..)");
 		getPersistenceManager().makePersistent(newInstance);
 	}
 	
 	public List<FinancialEvent> findAll() {
+		System.out.println("FinancialEventDAO.findAll()");
 		Extent<FinancialEvent> extent = getPersistenceManager().getExtent(FinancialEvent.class);
 		ArrayList<FinancialEvent> financialEvents = new ArrayList<FinancialEvent>();
 		for(FinancialEvent fe: extent) {
@@ -30,15 +32,18 @@ public class FinancialEventDAO {
 	}
 	
 	public void update(FinancialEvent detatchedInstance) {
+		System.out.println("FinancialEventDAO.update(..)");
 		getPersistenceManager().makePersistent(detatchedInstance);
 	}
 	
 	public void delete(Long id) {
+		System.out.println("FinancialEventDAO.delete(Long id)");
 		FinancialEvent fe = findById(id);
 		getPersistenceManager().deletePersistent(fe);
 	}
 	
 	public FinancialEvent findById(Long id) {
+		System.out.println("FinancialEventDAO.findById(Long id)");
 		return (FinancialEvent) getPersistenceManager().getObjectById(FinancialEvent.class, id);
 	}
 	
