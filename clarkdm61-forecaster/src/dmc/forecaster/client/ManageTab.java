@@ -9,11 +9,9 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HTML;
 
-import dmc.forecaster.server.FinancialEventDAO;
 import dmc.forecaster.shared.FinancialEvent;
 import dmc.forecaster.shared.FinancialEventType;
 import dmc.forecaster.shared.Reoccurrence;
@@ -25,6 +23,7 @@ public class ManageTab extends DockLayoutPanel {
 
 	private FinancialEvent selectedEvent = null;
 	public static HTML status = new HTML("-");
+	private final FinancialEventDialog financialEventDialog = new FinancialEventDialog();
 	
 
 	public ManageTab() {
@@ -33,11 +32,16 @@ public class ManageTab extends DockLayoutPanel {
 		// create buttons
 	    Button btnNew = new Button("New", new ClickHandler() {
 	        public void onClick(ClickEvent event) {
-	          doNew();
+	        	financialEventDialog.openForNewEvent();
 	        }
 	    });
 	    Button btnEdit = new Button("Edit", new ClickHandler() {
 	        public void onClick(ClickEvent event) {
+	        	if (getSelectedEvent() == null) {
+	        		Window.alert("Nothing selected");
+	        		return;
+	        	}
+	        	financialEventDialog.openForExistingEvent(getSelectedEvent());
 	        }
 	    });
 	    Button btnDelete = new Button("Delete", new ClickHandler() {
@@ -78,6 +82,8 @@ public class ManageTab extends DockLayoutPanel {
 	public void doNew() {
 		
 		status.setText(STATUS_WAITING);
+		
+		
 		FinancialEvent testEvent = new FinancialEvent("name", "description", null, null, 500.40d, FinancialEventType.Expense, Reoccurrence.None);
 		Clarkdm61_forecaster.forecasterService.create(testEvent, new AsyncCallback<Void>() {
 			
