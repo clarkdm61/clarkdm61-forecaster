@@ -14,4 +14,6 @@ public interface ForecasterServiceAsync {
 
 	void update(FinancialEvent fe, AsyncCallback<Void> callback);
 
+	void delete(Long id, AsyncCallback<Void> callback);
+
 }

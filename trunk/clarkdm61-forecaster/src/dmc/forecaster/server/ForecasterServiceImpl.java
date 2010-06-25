@@ -31,5 +31,11 @@ public class ForecasterServiceImpl extends RemoteServiceServlet implements
 		dao.update(fe);
 	}
 
+	@Override
+	public void delete(Long id) throws IllegalArgumentException {
+		FinancialEventDAO dao = new FinancialEventDAO();
+		dao.delete(id);
+	}
+
 
 }
