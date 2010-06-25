@@ -16,8 +16,6 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.ScrollPanel;
 
 import dmc.forecaster.shared.FinancialEvent;
-import dmc.forecaster.shared.FinancialEventType;
-import dmc.forecaster.shared.Reoccurrence;
 
 public class ManageTab extends DockLayoutPanel {
 	public static String STATUS_OK = "OK";
@@ -26,10 +24,11 @@ public class ManageTab extends DockLayoutPanel {
 
 	private SelectableCell selectedCell = null;
 	
-	public static HTML status = new HTML("-");
-	private final FinancialEventDialog financialEventDialog = new FinancialEventDialog(this);
+	public static final HTML status = new HTML("-");
+	private static final FinancialEventDialog financialEventDialog = new FinancialEventDialog();
 	
 	private FlexTable selectableList = new FlexTable();
+	private List<FinancialEvent> eventList = null;
 	
 
 	public ManageTab() {
@@ -169,6 +168,7 @@ public class ManageTab extends DockLayoutPanel {
 	
 	private void initEventList(List<FinancialEvent> list) {
 		System.out.println("initEventList() enter");
+		setEventList(list);
 		// find all
 		int row = 0;
 		
@@ -184,9 +184,6 @@ public class ManageTab extends DockLayoutPanel {
 		return selectableList;
 	}
 
-	private void setSelectableList(FlexTable selectableList) {
-		this.selectableList = selectableList;
-	}
 
 	public SelectableCell getSelectedCell() {
 		return selectedCell;
@@ -194,6 +191,14 @@ public class ManageTab extends DockLayoutPanel {
 
 	public void setSelectedCell(SelectableCell selectedCell) {
 		this.selectedCell = selectedCell;
+	}
+
+	public List<FinancialEvent> getEventList() {
+		return eventList;
+	}
+
+	public void setEventList(List<FinancialEvent> eventList) {
+		this.eventList = eventList;
 	}
 
 }

@@ -16,17 +16,17 @@ public class Clarkdm61_forecaster implements EntryPoint {
 	 * service proxy
 	 */
 	public static final ForecasterServiceAsync forecasterService = GWT.create(ForecasterService.class);
+	public static final GreeterTab greeterTab = new GreeterTab();
+	public static final ManageTab manageTab = new ManageTab();
+	public static final LedgerTab ledgerTab = new LedgerTab();
 
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		GreeterTab greeterTab = new GreeterTab();
-		ManageTab manageTab = new ManageTab();
-		
 		TabLayoutPanel tabs = new TabLayoutPanel(1.5, Unit.EM);
 		tabs.add(manageTab, "Manage");
-		tabs.add(new HTML("Todo: add ledger panel"), "Ledger");
+		tabs.add(ledgerTab, "Ledger");
 		tabs.add(new HTML("Todo: add graph panel"), "Graph");
 		tabs.add(greeterTab, "Greeter");
 		
