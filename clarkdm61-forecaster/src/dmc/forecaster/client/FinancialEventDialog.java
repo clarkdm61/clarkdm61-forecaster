@@ -18,8 +18,6 @@ import dmc.forecaster.shared.FinancialEventType;
 import dmc.forecaster.shared.Reoccurrence;
 
 public class FinancialEventDialog extends DialogBox {
-	private ManageTab manageTab = null;
-	
 	private boolean newEvent;
 	private FinancialEvent financialEvent;
 	
@@ -32,9 +30,7 @@ public class FinancialEventDialog extends DialogBox {
 	private TextBox txtEndDt = new TextBox();
 	private TextBox txtAmount = new TextBox();
 	
-	public FinancialEventDialog(ManageTab manageTab) {
-		this.manageTab = manageTab;
-		
+	public FinancialEventDialog() {		
 		lbReoccurrence.addItem(Reoccurrence.None.toString());
 		lbReoccurrence.addItem(Reoccurrence.Weekly.toString());
 		lbReoccurrence.addItem(Reoccurrence.BiWeekly.toString());
@@ -74,9 +70,9 @@ public class FinancialEventDialog extends DialogBox {
 				// validate
 				
 				FinancialEventDialog.this.hide();
-				// callback to parent?
+				// update manageTab
 				updateFinancialEventFromScreen();
-				FinancialEventDialog.this.manageTab.invokeCreate(getFinancialEvent());
+				Clarkdm61_forecaster.manageTab.invokeCreate(getFinancialEvent());
 			}
 		});
 		Button cancel = new Button("Cancel");
