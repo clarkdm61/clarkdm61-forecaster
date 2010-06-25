@@ -52,6 +52,10 @@ public class FinancialEvent implements java.io.Serializable {
 	public String toString() {
 		return "id="+getId()+", name="+getName()+", type="+ getReoccurrence() + " " + getType();
 	}
+	
+	public String getLabelString() {
+		return getName()+", "+ getReoccurrence() + " " + getType() +", " + getAmount();
+	}
 
 	public String getName() {
 		return name;

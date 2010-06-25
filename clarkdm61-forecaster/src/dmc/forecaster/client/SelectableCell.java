@@ -11,7 +11,7 @@ public class SelectableCell extends Label {
 
 	public SelectableCell(FinancialEvent financialEvent, final ManageTab manageTab) {
 		setFinancialEvent(financialEvent);
-		setText(financialEvent.toString());
+		setText(financialEvent.getLabelString());
 		
 		addClickHandler(new ClickHandler() {
 			

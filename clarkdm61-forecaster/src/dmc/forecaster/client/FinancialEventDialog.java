@@ -1,5 +1,7 @@
 package dmc.forecaster.client;
 
+import java.util.Date;
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
@@ -97,7 +99,7 @@ public class FinancialEventDialog extends DialogBox {
 		setText("Create Event");
 		txtName.setText("");
 		txtDescription.setText("");
-		txtStartDt.setText(DateTimeFormat.getMediumDateFormat().format(new java.util.Date()));
+		txtStartDt.setText(DateTimeFormat.getShortDateFormat().format(new java.util.Date()));
 		txtEndDt.setText("");
 		txtEndDt.setEnabled(false);
 		rbExpense.setValue(true);
@@ -110,10 +112,22 @@ public class FinancialEventDialog extends DialogBox {
 		setNewEvent(false);
 		setText("Edit Event");
 		setFinancialEvent(financialEvent);
+		
 		txtName.setText(financialEvent.getName());
 		txtDescription.setText(financialEvent.getDescription());
 		txtAmount.setText(financialEvent.getAmount().toString());
-		
+		txtStartDt.setText(DateTimeFormat.getShortDateFormat().format(financialEvent.getStartDt()));
+		Date endDt = financialEvent.getEndDt();
+		String szEndDt = endDt==null ? "" : DateTimeFormat.getShortDateFormat().format(endDt);;
+		txtEndDt.setText(szEndDt);
+		if (financialEvent.getType() == FinancialEventType.Income) {
+			rbIncome.setValue(true);
+		} else {
+			rbExpense.setValue(true);
+		}
+				 
+				
+		lbReoccurrence.setSelectedIndex(financialEvent.getReoccurrence().getIndex());
 		this.show();
 	}
 
@@ -141,11 +155,14 @@ public class FinancialEventDialog extends DialogBox {
 		getFinancialEvent().setName(txtName.getText());
 		getFinancialEvent().setDescription(txtDescription.getText());
 		getFinancialEvent().setReoccurrence(Reoccurrence.valueOf(lbReoccurrence.getValue(lbReoccurrence.getSelectedIndex())));
-		FinancialEventType type = rbIncome.getValue() ? FinancialEventType.Income : FinancialEventType.Income;
+		FinancialEventType type = rbIncome.getValue() ? FinancialEventType.Income : FinancialEventType.Expense;
 		getFinancialEvent().setType(type);
 		Double amount = new Double(txtAmount.getText());
 		getFinancialEvent().setAmount(amount);
 		// dates
+		getFinancialEvent().setStartDt(new java.util.Date(txtStartDt.getText()));
+		if (txtEndDt.getText().length()>1)
+			getFinancialEvent().setEndDt(new java.util.Date(txtEndDt.getText()));
 	}
 
 }
