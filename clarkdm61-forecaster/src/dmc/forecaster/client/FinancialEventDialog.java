@@ -120,7 +120,7 @@ public class FinancialEventDialog extends DialogBox {
 		Date endDt = financialEvent.getEndDt();
 		String szEndDt = endDt==null ? "" : DateTimeFormat.getShortDateFormat().format(endDt);;
 		txtEndDt.setText(szEndDt);
-		if (financialEvent.getType() == FinancialEventType.Income) {
+		if (financialEvent.getType().equals(FinancialEventType.Income)) {
 			rbIncome.setValue(true);
 		} else {
 			rbExpense.setValue(true);
