@@ -56,6 +56,7 @@ public class ManageTab extends DockLayoutPanel {
 	        		Window.alert("Nothing selected");
 	        		return;
 	        	}
+	        	invokeDelete(getSelectedCell().getFinancialEvent());
 	        }
 	    });
 
@@ -108,6 +109,30 @@ public class ManageTab extends DockLayoutPanel {
 			public void onSuccess(Void result) {
 				status.setText(STATUS_OK);
 				
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				status.setText(STATUS_FAIL);
+				caught.printStackTrace();
+			}
+		});
+	}
+	
+	public void invokeDelete(FinancialEvent fe) {
+		
+		status.setText(STATUS_WAITING);
+				
+		Clarkdm61_forecaster.forecasterService.delete(fe.getId(), new AsyncCallback<Void>() {
+			
+			@Override
+			public void onSuccess(Void result) {
+				status.setText(STATUS_OK);
+				
+				// TODO: Optimize this block
+				System.out.println("invokeCreate - re-initializing list");
+				getSelectableList().clear();
+				invokeGetAll();
 			}
 			
 			@Override

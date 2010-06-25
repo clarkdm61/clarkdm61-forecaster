@@ -15,4 +15,5 @@ public interface ForecasterService extends RemoteService {
 	List<FinancialEvent> getAllEvents() throws IllegalArgumentException;
 	void create(FinancialEvent fe) throws IllegalArgumentException;
 	void update(FinancialEvent fe) throws IllegalArgumentException;
+	void delete(Long id) throws IllegalArgumentException;
 }
