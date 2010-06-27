@@ -1,6 +1,7 @@
 package dmc.forecaster.client;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.google.gwt.dom.client.Style.Unit;
@@ -168,6 +169,7 @@ public class ManageTab extends DockLayoutPanel {
 	
 	private void initEventList(List<FinancialEvent> list) {
 		System.out.println("initEventList() enter");
+		Collections.sort(list);
 		setEventList(list);
 		// find all
 		int row = 0;
