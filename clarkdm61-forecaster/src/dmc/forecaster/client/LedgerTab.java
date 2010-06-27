@@ -13,9 +13,11 @@ import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 
 import dmc.forecaster.shared.FinancialEvent;
+import dmc.forecaster.shared.Reoccurrence;
 
 public class LedgerTab extends DockLayoutPanel {
 	private static final FlexTable ledgerGrid = new FlexTable();
@@ -47,7 +49,9 @@ public class LedgerTab extends DockLayoutPanel {
 		// add to this 
 		addNorth(topPanel, 2);
 		
-		add(ledgerGrid);
+		ledgerGrid.setBorderWidth(1);
+		ScrollPanel scrollPanel = new ScrollPanel(ledgerGrid);
+		add(scrollPanel);
 		
 	}
 	
@@ -57,24 +61,43 @@ public class LedgerTab extends DockLayoutPanel {
 		// for each FinancialEvent..
 		// create instances within date range
 		for (FinancialEvent event : Clarkdm61_forecaster.manageTab.getEventList()) {
-			// TODO: LedgerEntry.date needs to be calculated
 			// is this reoccurring?
-			if (true) {
-				// create instances in range
+			if (!event.getReoccurrence().equals(Reoccurrence.None)) {
+				// if neither start date nor end date are in range, just stop
+				if (!isDateInLedgerRange(event.getStartDt()) && !isDateInLedgerRange(event.getEndDt())) {
+					break; // skip this event altogether
+				}
+				Date instanceDate = event.getStartDt();
+				// we know it's in range, so make instances
+				do {
+					// is date in range of ledger (could be too soon)?
+					if (isDateGreaterThanOrEqualToStart(instanceDate)) {
+						// add to ledger
+						LedgerEntry entry = new LedgerEntry(event.getName(), event.getType(), event.getAmount(), instanceDate);
+						ledgerEntries.add(entry);
+					} 
+					// increment
+					instanceDate = event.getReoccurrence().getNext(instanceDate);
+					// only stop if incremented instanceDate exceeds end date
+				} while (isDateLessThanOrEqualToEnd(instanceDate)); 
 			} else {
-				// break loop if the startDt not in range?
+				addLedgerEntryIfEventIsInRange(ledgerEntries, event);
 			}
-			Date date = event.getStartDt();
-			LedgerEntry entry = new LedgerEntry(event.getName(), event.getType(), event.getAmount(), date);
-			ledgerEntries.add(entry);
 		}
 		
 		// sort entries by start date 
 		Collections.sort(ledgerEntries);
 		
 		// update ui
-		ledgerGrid.clear();
+		ledgerGrid.removeAllRows();
 		int row = 0;
+		ledgerGrid.setWidget(row, 0, new Label("Date"));
+		ledgerGrid.setWidget(row, 1, new Label("Event"));
+		ledgerGrid.setWidget(row, 2, new Label("Income"));
+		ledgerGrid.setWidget(row, 3, new Label("Expense"));
+		ledgerGrid.setWidget(row, 4, new Label("Balance"));
+		
+		row++;
 		LedgerEntry lastEntry = null;
 		for (LedgerEntry entry : ledgerEntries) {
 			// capture and set initial balance here (instead of 0d)
@@ -92,12 +115,41 @@ public class LedgerTab extends DockLayoutPanel {
 			row ++;
 			lastEntry = entry;
 		}
-		
+	}
+
+	/**
+	 * If event's date is in range, create and add a ledger instance
+	 * @param ledgerEntries
+	 * @param event
+	 */
+	private void addLedgerEntryIfEventIsInRange(
+			ArrayList<LedgerEntry> ledgerEntries, FinancialEvent event) {
+		if (isDateInLedgerRange(event.getStartDt())) {
+			LedgerEntry entry = new LedgerEntry(event.getName(), event.getType(), event.getAmount(), event.getStartDt());
+			ledgerEntries.add(entry);	
+		}
 	}
 	
+	/**
+	 * @param aDate
+	 * @return true if specified date is between start and end dates (inclusive)
+	 */
+	private boolean isDateInLedgerRange(Date aDate) {
+		return isDateGreaterThanOrEqualToStart(aDate) && isDateLessThanOrEqualToEnd(aDate);
+	}
+	
+	private boolean isDateGreaterThanOrEqualToStart(Date aDate) {
+		return aDate.equals(getStartDt()) || aDate.after(getStartDt());
+	}
+	private boolean isDateLessThanOrEqualToEnd(Date aDate) {
+		return aDate.equals(getEndDt()) || aDate.before(getEndDt());
+	}
+	
+	@SuppressWarnings("deprecation")
 	private Date getStartDt() {
 		return new Date(txtStart.getText());
 	}
+	@SuppressWarnings("deprecation")
 	private Date getEndDt() {
 		return new Date(txtEnd.getText());
 	}

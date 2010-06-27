@@ -1,8 +1,11 @@
 package dmc.forecaster.client;
 
+import java.util.Date;
+
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
@@ -34,5 +37,12 @@ public class Clarkdm61_forecaster implements EntryPoint {
 		
 		tabs.setSize("25em", "30em");
 		greeterTab.setSize("25em", "25em");
+	}
+	
+	public static String decimalFormat(Double d) {
+		return String.format("$%,.2f", d);
+	}
+	public static String dateFormat(Date d) {
+		return DateTimeFormat.getShortDateFormat().format(d);
 	}
 }
