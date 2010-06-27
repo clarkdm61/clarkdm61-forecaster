@@ -36,7 +36,7 @@ public class FinancialEventDialog extends DialogBox {
 		lbReoccurrence.addItem(Reoccurrence.BiWeekly.toString());
 		lbReoccurrence.addItem(Reoccurrence.Monthly.toString());
 		lbReoccurrence.addItem(Reoccurrence.Yearly.toString());
-		lbReoccurrence.addItem(Reoccurrence.BiYearly.toString());
+		lbReoccurrence.addItem(Reoccurrence.TwiceYearly.toString());
 		lbReoccurrence.addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(ClickEvent event) {
