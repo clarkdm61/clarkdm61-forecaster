@@ -7,6 +7,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import dmc.forecaster.client.Clarkdm61_forecaster;
+
 @PersistenceCapable(detachable="true")
 public class FinancialEvent implements java.io.Serializable, Comparable<FinancialEvent> {
 	
@@ -53,7 +55,7 @@ public class FinancialEvent implements java.io.Serializable, Comparable<Financia
 	}
 	
 	public String getLabelString() {
-		return getName()+", "+ getReoccurrence() + " " + getType() +", " + getAmount();
+		return Clarkdm61_forecaster.dateFormat(getStartDt()) + " - " + Clarkdm61_forecaster.dateFormat(getEndDt()) + ", " +  getName()+", "+ getReoccurrence() + " " + getType() +", " + getAmount();
 	}
 
 	public String getName() {
@@ -123,5 +125,15 @@ public class FinancialEvent implements java.io.Serializable, Comparable<Financia
 	@Override
 	public int compareTo(FinancialEvent o) {
 		return getStartDt().compareTo(o.getStartDt());
+	}
+	
+	/**
+	 * @param aDate
+	 * @return true if specified date is between start and end dates (inclusive)
+	 */
+	public boolean isInDateRange(Date aDate) {
+		return (aDate.equals(getStartDt()) || aDate.after(getStartDt()))
+				&&
+				(aDate.after(getEndDt()) || aDate.before(getEndDt()));
 	}
 }

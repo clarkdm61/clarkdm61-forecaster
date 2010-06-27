@@ -25,6 +25,7 @@ public enum Reoccurrence {
 	}
 	/**
 	 * Return the next date based on Reoccurrence
+	 * TODO: Try using GWT's Joda time to calculate Reoccurrence nextDate
 	 * @param priorDate
 	 * @return
 	 */
