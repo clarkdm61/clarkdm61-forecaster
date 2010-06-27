@@ -37,6 +37,12 @@ public class FinancialEventDialog extends DialogBox {
 		lbReoccurrence.addItem(Reoccurrence.Monthly.toString());
 		lbReoccurrence.addItem(Reoccurrence.Yearly.toString());
 		lbReoccurrence.addItem(Reoccurrence.BiYearly.toString());
+		lbReoccurrence.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				toggleEndDate(Reoccurrence.valueOf(lbReoccurrence.getValue(lbReoccurrence.getSelectedIndex()))); 
+			}
+		});
 		
 		int rows =8, columns=2;
 		Grid grid = new Grid(rows, columns);
@@ -116,13 +122,15 @@ public class FinancialEventDialog extends DialogBox {
 		Date endDt = financialEvent.getEndDt();
 		String szEndDt = endDt==null ? "" : DateTimeFormat.getShortDateFormat().format(endDt);;
 		txtEndDt.setText(szEndDt);
+		if (getFinancialEvent().getReoccurrence().equals(Reoccurrence.None)) {
+			txtEndDt.setEnabled(false);
+		}
 		if (financialEvent.getType().equals(FinancialEventType.Income)) {
 			rbIncome.setValue(true);
 		} else {
 			rbExpense.setValue(true);
 		}
 				 
-				
 		lbReoccurrence.setSelectedIndex(financialEvent.getReoccurrence().getIndex());
 		this.show();
 	}
@@ -145,12 +153,29 @@ public class FinancialEventDialog extends DialogBox {
 	}
 	
 	/**
+	 * Invoked by ClickHandler on rbReoccurrence. Disable endDate when reoccurrence is 'none'
+	 * @param event
+	 */
+	public void toggleEndDate(Reoccurrence r) {
+		if (r.equals(Reoccurrence.None)) {
+			txtEndDt.setEnabled(false);
+		} else {
+			txtEndDt.setEnabled(true);
+		}
+	}
+	
+	/**
 	 * copy field values into local model
 	 */
 	private void updateFinancialEventFromScreen() {
 		getFinancialEvent().setName(txtName.getText());
 		getFinancialEvent().setDescription(txtDescription.getText());
 		getFinancialEvent().setReoccurrence(Reoccurrence.valueOf(lbReoccurrence.getValue(lbReoccurrence.getSelectedIndex())));
+		// set end date same as start date if it's not a reoccurring event
+		if (getFinancialEvent().getReoccurrence().equals(Reoccurrence.None)) {
+			getFinancialEvent().setEndDt(getFinancialEvent().getStartDt());
+		}
+		
 		FinancialEventType type = rbIncome.getValue() ? FinancialEventType.Income : FinancialEventType.Expense;
 		getFinancialEvent().setType(type);
 		Double amount = new Double(txtAmount.getText());

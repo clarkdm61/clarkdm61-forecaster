@@ -14,6 +14,13 @@ public class LedgerEntry implements Comparable<LedgerEntry>{
 	
 	public LedgerEntry() {}
 	
+	/**
+	 * Constructor that applies amount to either income or expense based on FinancialEventType
+	 * @param name
+	 * @param type
+	 * @param amount
+	 * @param date
+	 */
 	public LedgerEntry(String name, FinancialEventType type, Double amount, Date date) {
 		super();
 		this.name = name;
@@ -25,6 +32,7 @@ public class LedgerEntry implements Comparable<LedgerEntry>{
 			setExpenseAmount(amount);
 		}
 		this.date = date;
+		setBalance(0d);
 	}
 
 	@Override

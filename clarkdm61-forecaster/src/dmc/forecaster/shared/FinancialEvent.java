@@ -8,11 +8,10 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable(detachable="true")
-public class FinancialEvent implements java.io.Serializable {
+public class FinancialEvent implements java.io.Serializable, Comparable<FinancialEvent> {
 	
 	public FinancialEvent() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	private static final long serialVersionUID = 7764556144531431668L;
@@ -119,5 +118,10 @@ public class FinancialEvent implements java.io.Serializable {
 
 	public void setReoccurrence(Reoccurrence reoccurrence) {
 		this.reoccurrence = reoccurrence;
+	}
+
+	@Override
+	public int compareTo(FinancialEvent o) {
+		return getStartDt().compareTo(o.getStartDt());
 	}
 }
