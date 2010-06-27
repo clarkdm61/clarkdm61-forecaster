@@ -35,14 +35,13 @@ public class Clarkdm61_forecaster implements EntryPoint {
 		
 		RootPanel.get().add(tabs);
 		
-		tabs.setSize("25em", "30em");
-		greeterTab.setSize("25em", "25em");
+		tabs.setSize("40em", "40em");
+		greeterTab.setSize("40em", "35em");
 	}
 	
-	public static String decimalFormat(Double d) {
-		return String.format("$%,.2f", d);
-	}
+ 
 	public static String dateFormat(Date d) {
+		if (d == null) return "";
 		return DateTimeFormat.getShortDateFormat().format(d);
 	}
 }

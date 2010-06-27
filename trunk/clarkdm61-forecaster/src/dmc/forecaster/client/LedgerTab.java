@@ -61,27 +61,11 @@ public class LedgerTab extends DockLayoutPanel {
 		// for each FinancialEvent..
 		// create instances within date range
 		for (FinancialEvent event : Clarkdm61_forecaster.manageTab.getEventList()) {
-			// is this reoccurring?
+			// handle reoccurring events differently
 			if (!event.getReoccurrence().equals(Reoccurrence.None)) {
-				// if neither start date nor end date are in range, just stop
-				if (!isDateInLedgerRange(event.getStartDt()) && !isDateInLedgerRange(event.getEndDt())) {
-					break; // skip this event altogether
-				}
-				Date instanceDate = event.getStartDt();
-				// we know it's in range, so make instances
-				do {
-					// is date in range of ledger (could be too soon)?
-					if (isDateGreaterThanOrEqualToStart(instanceDate)) {
-						// add to ledger
-						LedgerEntry entry = new LedgerEntry(event.getName(), event.getType(), event.getAmount(), instanceDate);
-						ledgerEntries.add(entry);
-					} 
-					// increment
-					instanceDate = event.getReoccurrence().getNext(instanceDate);
-					// only stop if incremented instanceDate exceeds end date
-				} while (isDateLessThanOrEqualToEnd(instanceDate)); 
+				createLedgerEntries(ledgerEntries, event); 
 			} else {
-				addLedgerEntryIfEventIsInRange(ledgerEntries, event);
+				createLedgerEntry(ledgerEntries, event);
 			}
 		}
 		
@@ -118,11 +102,36 @@ public class LedgerTab extends DockLayoutPanel {
 	}
 
 	/**
+	 * Update legerEntries from the reoccurring event within user-specified range 
+	 * @param ledgerEntries
+	 * @param event
+	 */
+	private void createLedgerEntries(ArrayList<LedgerEntry> ledgerEntries, FinancialEvent event) {
+		// if neither start date nor end date are in range, just stop
+		if (!isDateInLedgerRange(event.getStartDt()) && !isDateInLedgerRange(event.getEndDt())) {
+			return; // skip this event altogether
+		}
+		Date instanceDate = event.getStartDt();
+		// we know it's in range, so make instances
+		do {
+			// is date in range of ledger (could be too soon)?
+			if (isDateGreaterThanOrEqualToStart(instanceDate)) {
+				// add to ledger
+				LedgerEntry entry = new LedgerEntry(event.getName(), event.getType(), event.getAmount(), instanceDate);
+				ledgerEntries.add(entry);
+			} 
+			// increment
+			instanceDate = event.getReoccurrence().getNext(instanceDate);
+			// only stop if incremented instanceDate exceeds end date
+		} while (isDateLessThanOrEqualToEnd(instanceDate));
+	}
+
+	/**
 	 * If event's date is in range, create and add a ledger instance
 	 * @param ledgerEntries
 	 * @param event
 	 */
-	private void addLedgerEntryIfEventIsInRange(
+	private void createLedgerEntry(
 			ArrayList<LedgerEntry> ledgerEntries, FinancialEvent event) {
 		if (isDateInLedgerRange(event.getStartDt())) {
 			LedgerEntry entry = new LedgerEntry(event.getName(), event.getType(), event.getAmount(), event.getStartDt());
@@ -135,14 +144,24 @@ public class LedgerTab extends DockLayoutPanel {
 	 * @return true if specified date is between start and end dates (inclusive)
 	 */
 	private boolean isDateInLedgerRange(Date aDate) {
-		return isDateGreaterThanOrEqualToStart(aDate) && isDateLessThanOrEqualToEnd(aDate);
+		if (aDate == null) {
+			// if it's null, it's an endDate, which is always in range
+			return true;
+		} else {
+			return isDateGreaterThanOrEqualToStart(aDate) && isDateLessThanOrEqualToEnd(aDate);
+		}
 	}
 	
 	private boolean isDateGreaterThanOrEqualToStart(Date aDate) {
 		return aDate.equals(getStartDt()) || aDate.after(getStartDt());
 	}
 	private boolean isDateLessThanOrEqualToEnd(Date aDate) {
-		return aDate.equals(getEndDt()) || aDate.before(getEndDt());
+		if (aDate == null) {
+			// if it's null, it's an endDate, which is always in range
+			return true;
+		} else {
+			return aDate.equals(getEndDt()) || aDate.before(getEndDt());
+		}
 	}
 	
 	@SuppressWarnings("deprecation")
