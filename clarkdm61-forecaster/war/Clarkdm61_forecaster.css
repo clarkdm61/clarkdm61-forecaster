@@ -36,3 +36,18 @@ h1 {
 #closeButton {
   margin: 15px 6px 6px;
 }
+
+table.ledger
+{
+border-collapse:collapse;
+width:100%;
+}
+table.ledger,th.ledger,td.ledger,tr.ledger-header
+{
+border: 1px solid black;
+}
+td.ledger-header
+{
+background-color: black;
+color: white;
+}
