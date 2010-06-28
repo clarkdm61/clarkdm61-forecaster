@@ -15,7 +15,7 @@ public enum Reoccurrence {
 	private static long MINUTE = SECOND*60;
 	private static long HOUR = MINUTE*60;
 	private static long DAY = HOUR*24;
-	private static long WEEK = DAY*7;
+	public static long WEEK = DAY*7;
 	
 	private Reoccurrence(int index) {
 		this.index = index;

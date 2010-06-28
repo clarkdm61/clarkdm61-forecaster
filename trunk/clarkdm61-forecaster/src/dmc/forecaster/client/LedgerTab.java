@@ -31,12 +31,14 @@ public class LedgerTab extends DockLayoutPanel {
 		// start date
 		topPanel.add(new Label("Start "));
 		txtStart.setWidth("5em");
-		txtStart.setText(DateTimeFormat.getShortDateFormat().format(new java.util.Date()));
+		Date todayDt = new Date();
+		Date nextDt = new Date( todayDt.getTime()+Reoccurrence.WEEK*12 );
+		txtStart.setText(DateTimeFormat.getShortDateFormat().format(todayDt));
 		topPanel.add(txtStart);
 		// end date
 		topPanel.add(new Label("End "));
 		txtEnd.setWidth("5em");
-		txtEnd.setText(DateTimeFormat.getShortDateFormat().format(new java.util.Date()));
+		txtEnd.setText(DateTimeFormat.getShortDateFormat().format(nextDt));
 		topPanel.add(txtEnd);
 		// button
 	    Button btnGo = new Button("Go", new ClickHandler() {
