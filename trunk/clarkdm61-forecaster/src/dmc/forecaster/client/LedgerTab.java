@@ -11,6 +11,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -27,31 +28,32 @@ public class LedgerTab extends DockLayoutPanel {
 	public LedgerTab() {
 		super(Unit.EM); // needed for DockLayoutPanel
 		
-		HorizontalPanel topPanel = new HorizontalPanel();
+		Grid topPanel = new Grid(1,5);
 		// start date
-		topPanel.add(new Label("Start "));
+		topPanel.setWidget(0, 0, new Label("Start "));
 		txtStart.setWidth("5em");
 		Date todayDt = new Date();
 		Date nextDt = new Date( todayDt.getTime()+Reoccurrence.WEEK*12 );
 		txtStart.setText(DateTimeFormat.getShortDateFormat().format(todayDt));
-		topPanel.add(txtStart);
+		topPanel.setWidget(0, 1, txtStart);
 		// end date
-		topPanel.add(new Label("End "));
+		topPanel.setWidget(0, 2, new Label("End "));
 		txtEnd.setWidth("5em");
 		txtEnd.setText(DateTimeFormat.getShortDateFormat().format(nextDt));
-		topPanel.add(txtEnd);
+		topPanel.setWidget(0, 3, txtEnd);
 		// button
 	    Button btnGo = new Button("Go", new ClickHandler() {
 	        public void onClick(ClickEvent event) {
 	        	createLedger(txtStart.getText(), txtEnd.getText());
 	        }
 	    });
-	    topPanel.add(btnGo);
+	    topPanel.setWidget(0, 4, btnGo);
 		
 		// add to this 
 		addNorth(topPanel, 2);
 		
-		ledgerGrid.setBorderWidth(1);
+		//ledgerGrid.setStyleName(style);
+		ledgerGrid.setStylePrimaryName("ledger");
 		ScrollPanel scrollPanel = new ScrollPanel(ledgerGrid);
 		add(scrollPanel);
 		
@@ -77,11 +79,11 @@ public class LedgerTab extends DockLayoutPanel {
 		// update ui
 		ledgerGrid.removeAllRows();
 		int row = 0;
-		ledgerGrid.setWidget(row, 0, new Label("Date"));
-		ledgerGrid.setWidget(row, 1, new Label("Event"));
-		ledgerGrid.setWidget(row, 2, new Label("Income"));
-		ledgerGrid.setWidget(row, 3, new Label("Expense"));
-		ledgerGrid.setWidget(row, 4, new Label("Balance"));
+		createLedgerHeaderCell(row, 0, "Date");
+		createLedgerHeaderCell(row, 1, "Event");
+		createLedgerHeaderCell(row, 2, "Income");
+		createLedgerHeaderCell(row, 3, "Expense");
+		createLedgerHeaderCell(row, 4, "Balance");
 		
 		row++;
 		LedgerEntry lastEntry = null;
@@ -92,15 +94,26 @@ public class LedgerTab extends DockLayoutPanel {
 			balance -= entry.getExpenseAmount();
 			entry.setBalance(balance);
 			
-			ledgerGrid.setWidget(row, 0, new Label(DateTimeFormat.getShortDateFormat().format(entry.getDate()))); // TODO: create a common date format
-			ledgerGrid.setWidget(row, 1, new Label(entry.getName()));
-			ledgerGrid.setWidget(row, 2, new Label(entry.getIncomeAmount().toString()));
-			ledgerGrid.setWidget(row, 3, new Label(entry.getExpenseAmount().toString()));
-			ledgerGrid.setWidget(row, 4, new Label(entry.getBalance().toString()));
+			createLedgerBodyCell(row, 0, DateTimeFormat.getShortDateFormat().format(entry.getDate())); // TODO: create a common date format
+			createLedgerBodyCell(row, 1, entry.getName());
+			createLedgerBodyCell(row, 2, entry.getIncomeAmount().toString());
+			createLedgerBodyCell(row, 3, entry.getExpenseAmount().toString());
+			createLedgerBodyCell(row, 4, entry.getBalance().toString());
 
 			row ++;
 			lastEntry = entry;
 		}
+	}
+	
+	private void createLedgerHeaderCell(int row, int column, String text) {
+		createLedgerCell(row, column, text, "ledger-header");
+	}
+	private void createLedgerBodyCell(int row, int column, String text) {
+		createLedgerCell(row, column, text, "ledger");
+	}
+	private void createLedgerCell(int row, int column, String text, String style) {
+		ledgerGrid.setWidget(row, column, new Label(text));
+		ledgerGrid.getCellFormatter().setStyleName(row, column,style);
 	}
 
 	/**
