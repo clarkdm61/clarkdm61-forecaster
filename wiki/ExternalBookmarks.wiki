@@ -1,4 +1,4 @@
 #Relevant bookmarks for this project.
 
-  * http://code.google.com/docreader/#p=gwt-google-apis&s=gwt-google-apis&t=VisualizationGettingStarted
-  * http://code.google.com/webtoolkit/googleapilibraries.html
+  * [http://code.google.com/docreader/#p=gwt-google-apis&s=gwt-google-apis&t=VisualizationGettingStarted Getting Started With Google Visualization APIs]
+  * [http://code.google.com/webtoolkit/googleapilibraries.html Google GWT Libs]
