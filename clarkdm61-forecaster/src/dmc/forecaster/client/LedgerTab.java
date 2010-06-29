@@ -22,8 +22,9 @@ import dmc.forecaster.shared.Reoccurrence;
 
 public class LedgerTab extends DockLayoutPanel {
 	private static final FlexTable ledgerGrid = new FlexTable();
-	private final TextBox txtStart = new TextBox();
-	private final TextBox txtEnd = new TextBox();
+	private static ArrayList<LedgerEntry> ledgerEntries = null;
+	private static final TextBox txtStart = new TextBox();
+	private static final TextBox txtEnd = new TextBox();
 	
 	public LedgerTab() {
 		super(Unit.EM); // needed for DockLayoutPanel
@@ -60,7 +61,7 @@ public class LedgerTab extends DockLayoutPanel {
 	}
 	
 	private void createLedger(String startDt, String endDt) {
-		ArrayList<LedgerEntry> ledgerEntries = new ArrayList<LedgerEntry>();
+		ledgerEntries = new ArrayList<LedgerEntry>();
 		
 		// for each FinancialEvent..
 		// create instances within date range
