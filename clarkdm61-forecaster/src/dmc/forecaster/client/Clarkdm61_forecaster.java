@@ -22,6 +22,7 @@ public class Clarkdm61_forecaster implements EntryPoint {
 	public static final GreeterTab greeterTab = new GreeterTab();
 	public static final ManageTab manageTab = new ManageTab();
 	public static final LedgerTab ledgerTab = new LedgerTab();
+	public static final GraphTab graphTab = new GraphTab();
 
 	/**
 	 * This is the entry point method.
@@ -30,12 +31,12 @@ public class Clarkdm61_forecaster implements EntryPoint {
 		TabLayoutPanel tabs = new TabLayoutPanel(1.5, Unit.EM);
 		tabs.add(manageTab, "Manage");
 		tabs.add(ledgerTab, "Ledger");
-		tabs.add(new HTML("Todo: add graph panel"), "Graph");
+		tabs.add(graphTab, "Graph");
 		tabs.add(greeterTab, "Greeter");
 		
 		RootPanel.get().add(tabs);
 		
-		tabs.setSize("40em", "40em");
+		tabs.setSize("100em", "50em");
 		greeterTab.setSize("40em", "35em");
 	}
 	

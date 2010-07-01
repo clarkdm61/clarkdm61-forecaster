@@ -11,6 +11,7 @@ import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
@@ -21,7 +22,7 @@ import dmc.forecaster.shared.Reoccurrence;
 
 public class LedgerTab extends DockLayoutPanel {
 	private static final FlexTable ledgerGrid = new FlexTable();
-	private static ArrayList<LedgerEntry> ledgerEntries = null;
+	public static ArrayList<LedgerEntry> ledgerEntries = null;
 	private static final TextBox txtStart = new TextBox();
 	private static final TextBox txtEnd = new TextBox();
 	
@@ -53,7 +54,9 @@ public class LedgerTab extends DockLayoutPanel {
 		addNorth(topPanel, 2);
 		
 		ledgerGrid.setStyleName("ledger");
-		ScrollPanel scrollPanel = new ScrollPanel(ledgerGrid);
+		FlowPanel flowPanel = new FlowPanel(); // adding this flow panel for iPhone/Safari (android also)
+		flowPanel.add(ledgerGrid);
+		ScrollPanel scrollPanel = new ScrollPanel(flowPanel);
 		add(scrollPanel);
 		
 	}
@@ -104,12 +107,31 @@ public class LedgerTab extends DockLayoutPanel {
 		}
 	}
 	
+	/**
+	 * @deprecated use visualizations
+	 * @param row
+	 * @param column
+	 * @param text
+	 */
 	private void createLedgerHeaderCell(int row, int column, String text) {
 		createLedgerCell(row, column, text, "ledger-header");
 	}
+	/**
+	 * @deprecated use visualizations
+	 * @param row
+	 * @param column
+	 * @param text
+	 */
 	private void createLedgerBodyCell(int row, int column, String text) {
 		createLedgerCell(row, column, text, "ledger");
 	}
+	/**
+	 * @deprecated use visualizations
+	 * @param row
+	 * @param column
+	 * @param text
+	 * @param style
+	 */
 	private void createLedgerCell(int row, int column, String text, String style) {
 		ledgerGrid.setWidget(row, column, new Label(text));
 		ledgerGrid.getCellFormatter().setStyleName(row, column,style);
