@@ -7,6 +7,11 @@ public class GraphTab extends DockLayoutPanel {
 
 	public GraphTab() {
 		super(Unit.EM);
+		
+		// button on top
+		
+		// panel in the middle
+		
 	}
 	
 	

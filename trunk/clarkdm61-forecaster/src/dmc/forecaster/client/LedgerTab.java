@@ -12,7 +12,6 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -53,8 +52,7 @@ public class LedgerTab extends DockLayoutPanel {
 		// add to this 
 		addNorth(topPanel, 2);
 		
-		//ledgerGrid.setStyleName(style);
-		ledgerGrid.setStylePrimaryName("ledger");
+		ledgerGrid.setStyleName("ledger");
 		ScrollPanel scrollPanel = new ScrollPanel(ledgerGrid);
 		add(scrollPanel);
 		
