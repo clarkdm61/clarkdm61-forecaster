@@ -171,19 +171,22 @@ public class FinancialEventDialog extends DialogBox {
 		getFinancialEvent().setName(txtName.getText());
 		getFinancialEvent().setDescription(txtDescription.getText());
 		getFinancialEvent().setReoccurrence(Reoccurrence.valueOf(lbReoccurrence.getValue(lbReoccurrence.getSelectedIndex())));
-		// set end date same as start date if it's not a reoccurring event
-		if (getFinancialEvent().getReoccurrence().equals(Reoccurrence.None)) {
-			getFinancialEvent().setEndDt(getFinancialEvent().getStartDt());
-		}
 		
 		FinancialEventType type = rbIncome.getValue() ? FinancialEventType.Income : FinancialEventType.Expense;
 		getFinancialEvent().setType(type);
 		Double amount = new Double(txtAmount.getText());
 		getFinancialEvent().setAmount(amount);
+		
+		// TODO: add date validations before getting here
 		// dates
 		getFinancialEvent().setStartDt(new java.util.Date(txtStartDt.getText()));
-		if (txtEndDt.getText().length()>1)
+		if (txtEndDt.getText().length()>1) {
 			getFinancialEvent().setEndDt(new java.util.Date(txtEndDt.getText()));
+		}
+		// set end date same as start date if it's not a reoccurring event
+		if (getFinancialEvent().getReoccurrence().equals(Reoccurrence.None)) {
+			getFinancialEvent().setEndDt(getFinancialEvent().getStartDt());
+		} 
 	}
 
 }
