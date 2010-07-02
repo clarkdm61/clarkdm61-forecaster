@@ -10,21 +10,25 @@ import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.FlexTable;
-import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.visualization.client.AbstractDataTable;
+import com.google.gwt.visualization.client.DataTable;
+import com.google.gwt.visualization.client.VisualizationUtils;
+import com.google.gwt.visualization.client.AbstractDataTable.ColumnType;
+import com.google.gwt.visualization.client.visualizations.Table;
 
 import dmc.forecaster.shared.FinancialEvent;
 import dmc.forecaster.shared.Reoccurrence;
 
 public class LedgerTab extends DockLayoutPanel {
-	private static final FlexTable ledgerGrid = new FlexTable();
 	public static ArrayList<LedgerEntry> ledgerEntries = null;
 	private static final TextBox txtStart = new TextBox();
 	private static final TextBox txtEnd = new TextBox();
+	// reference to last table it can be removed when regenerating
+	private static Table lastTable = null; //TODO: verify lastTable is still used
 	
 	public LedgerTab() {
 		super(Unit.EM); // needed for DockLayoutPanel
@@ -53,11 +57,11 @@ public class LedgerTab extends DockLayoutPanel {
 		// add to this 
 		addNorth(topPanel, 2);
 		
-		ledgerGrid.setStyleName("ledger");
-		FlowPanel flowPanel = new FlowPanel(); // adding this flow panel for iPhone/Safari (android also)
-		flowPanel.add(ledgerGrid);
-		ScrollPanel scrollPanel = new ScrollPanel(flowPanel);
-		add(scrollPanel);
+//		ledgerGrid.setStyleName("ledger");
+//		FlowPanel flowPanel = new FlowPanel(); // adding this flow panel for iPhone/Safari (android also)
+//		flowPanel.add(ledgerGrid);
+//		ScrollPanel scrollPanel = new ScrollPanel(flowPanel);
+//		add(scrollPanel);
 		
 	}
 	
@@ -75,68 +79,76 @@ public class LedgerTab extends DockLayoutPanel {
 			}
 		}
 		
-		// sort entries by start date 
+		// sort entries by start date (note: the balance can't be calculated until this happens)
 		Collections.sort(ledgerEntries);
 		
-		// update ui
-		ledgerGrid.removeAllRows();
-		int row = 0;
-		createLedgerHeaderCell(row, 0, "Date");
-		createLedgerHeaderCell(row, 1, "Event");
-		createLedgerHeaderCell(row, 2, "Income");
-		createLedgerHeaderCell(row, 3, "Expense");
-		createLedgerHeaderCell(row, 4, "Balance");
+		// update ui, and calculate balance while enumerating entries
+		Runnable runnableCallBack = new Runnable() {
+			public void run() {
+				Table table = new Table(createTable(), createOptions());
+				ScrollPanel scrollPanel = new ScrollPanel(table);
+				LedgerTab.this.add(scrollPanel);
+				//if (lastTable!=null) LedgerTab.this.remove(lastTable);
+				//lastTable = table;
+			}
+		};
+
+		VisualizationUtils.loadVisualizationApi(runnableCallBack,
+				Table.PACKAGE);
 		
-		row++;
+	}
+	
+	/**
+	 * prepare data model, and calculate balance fields
+	 * @return
+	 */
+	private AbstractDataTable createTable() {
+		DataTable data = DataTable.create();
+		data.addColumn(ColumnType.DATE, "Date");     //0
+		data.addColumn(ColumnType.STRING, "Event");  //1
+		data.addColumn(ColumnType.NUMBER, "Income"); //2
+		data.addColumn(ColumnType.NUMBER, "Expense");//3
+		data.addColumn(ColumnType.NUMBER, "Balance");//4
+	
+		// the fourth column is not used, it would be extra text
+		data.addRows(LedgerTab.ledgerEntries.size());
+		
+		int row = 0;
 		LedgerEntry lastEntry = null;
-		for (LedgerEntry entry : ledgerEntries) {
-			// capture and set initial balance here (instead of 0d)
+		for (LedgerEntry entry : LedgerTab.ledgerEntries) {
 			Double balance = lastEntry == null ? 0d : lastEntry.getBalance(); 
 			balance += entry.getIncomeAmount();
 			balance -= entry.getExpenseAmount();
 			entry.setBalance(balance);
-			
-			createLedgerBodyCell(row, 0, DateTimeFormat.getShortDateFormat().format(entry.getDate())); // TODO: create a common date format
-			createLedgerBodyCell(row, 1, entry.getName());
-			createLedgerBodyCell(row, 2, entry.getIncomeAmount().toString());
-			createLedgerBodyCell(row, 3, entry.getExpenseAmount().toString());
-			createLedgerBodyCell(row, 4, entry.getBalance().toString());
 
-			row ++;
+			Date date = entry.getDate();
+			date.setYear(date.getYear()+100); // bug in google's widget maybe?
+			
+			data.setValue(row, 0, date);
+			data.setValue(row, 1, entry.getName());
+			data.setValue(row, 2, entry.getIncomeAmount());
+			data.setValue(row, 3, entry.getExpenseAmount());
+			data.setValue(row, 4, entry.getBalance());
+			row++;
 			lastEntry = entry;
 		}
+		
+		return data;
 	}
 	
 	/**
-	 * @deprecated use visualizations
-	 * @param row
-	 * @param column
-	 * @param text
+	 * create table options - disable sorting
+	 * @return
 	 */
-	private void createLedgerHeaderCell(int row, int column, String text) {
-		createLedgerCell(row, column, text, "ledger-header");
+	private Table.Options createOptions() {
+		Table.Options options = Table.Options.create();
+		options.setSort(Table.Options.Policy.DISABLE);
+		options.setWidth("70em");
+		//options.setPage(Table.Options.Policy.ENABLE); 
+		//options.setPageSize(40);
+		return options;
 	}
-	/**
-	 * @deprecated use visualizations
-	 * @param row
-	 * @param column
-	 * @param text
-	 */
-	private void createLedgerBodyCell(int row, int column, String text) {
-		createLedgerCell(row, column, text, "ledger");
-	}
-	/**
-	 * @deprecated use visualizations
-	 * @param row
-	 * @param column
-	 * @param text
-	 * @param style
-	 */
-	private void createLedgerCell(int row, int column, String text, String style) {
-		ledgerGrid.setWidget(row, column, new Label(text));
-		ledgerGrid.getCellFormatter().setStyleName(row, column,style);
-	}
-
+	
 	/**
 	 * Update legerEntries from the reoccurring event within user-specified range 
 	 * @param ledgerEntries
