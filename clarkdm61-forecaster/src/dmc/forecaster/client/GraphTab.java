@@ -1,7 +1,5 @@
 package dmc.forecaster.client;
 
-import java.util.Date;
-
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -37,7 +35,7 @@ public class GraphTab extends DockLayoutPanel {
 			public void run() {
 				AnnotatedTimeLine timeLine = new AnnotatedTimeLine(createTable(),
 						createOptions(), "110em", "40em");
-				GraphTab.this.remove(lastTimeLine);
+				if (lastTimeLine != null) GraphTab.this.remove(lastTimeLine);;
 				GraphTab.this.add(timeLine);
 				lastTimeLine=timeLine;
 			}
@@ -72,11 +70,14 @@ public class GraphTab extends DockLayoutPanel {
 		
 		int row = 0;
 		for (LedgerEntry entry : LedgerTab.ledgerEntries) {
+
+			/* commenting out since date was already rolled when the ledger was generated
 			Date date = entry.getDate();
-			date.setYear(date.getYear()+1); // bug in google's widget maybe?
+			date.setYear(date.getYear()+100); // bug in google's widget maybe?
+			*/
 			
-			data.setValue(row, 0, date);
-			data.setValue(row, 1, new Double(entry.getBalance()));
+			data.setValue(row, 0, entry.getDate());
+			data.setValue(row, 1, entry.getBalance());
 			data.setValue(row, 2, entry.getName());
 			data.setValue(row, 3, formatAmountLabel(entry));
 			row++;
@@ -85,7 +86,7 @@ public class GraphTab extends DockLayoutPanel {
 		return data;
 	}
 	public String formatAmountLabel(LedgerEntry entry) {
-		if (entry.getIncomeAmount().equals("0")) {
+		if (entry.getIncomeAmount().equals(0)) {
 			return "Expense:" + entry.getExpenseAmount();
 		} else {
 			return "Income: " + entry.getIncomeAmount();
