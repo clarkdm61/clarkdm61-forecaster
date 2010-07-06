@@ -26,12 +26,22 @@ public class ForecasterServiceImpl extends RemoteServiceServlet implements
 
 	@Override
 	public List<FinancialEvent> getAllEvents() throws IllegalArgumentException {
-		//System.out.println("getAllEvents() [user principal] - "+getThreadLocalRequest().getUserPrincipal());
-		UserService userService = UserServiceFactory.getUserService();
-		String user = "user is [" + userService.getCurrentUser().getUserId() + "]" + userService.getCurrentUser().getEmail(); 
-
-		logger.warning("getAllEvents() [user principal] - "+getThreadLocalRequest().getUserPrincipal());
-		logger.warning("getAllEvents() - "+ user);
+		try {
+			//System.out.println("getAllEvents() [user principal] - "+getThreadLocalRequest().getUserPrincipal());
+			UserService userService = UserServiceFactory.getUserService();
+			if (userService != null) {
+				String user = "user is [" + userService.getCurrentUser() ;//.getUserId() + "]" + userService.getCurrentUser().getEmail();
+				logger.warning("getAllEvents() - "+ user);
+			} else {
+				logger.severe("getAllEvents() - UserService is null!");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			logger.severe("getAllEvents() failed in regards to user service. " + e.getMessage());
+		}
+ 
+		//logger.warning("getAllEvents() [user principal] - "+getThreadLocalRequest().getUserPrincipal());
+		
 		FinancialEventDAO dao = new FinancialEventDAO();
 		return dao.findAll();
 	}
