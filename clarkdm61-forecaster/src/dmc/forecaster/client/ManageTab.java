@@ -86,7 +86,6 @@ public class ManageTab extends DockLayoutPanel {
 				status.setText(STATUS_OK);
 				
 				// TODO: Optimize this block
-				System.out.println("invokeCreate - re-initializing list");
 				getSelectableList().clear();
 				invokeGetAll();
 			}
@@ -130,7 +129,6 @@ public class ManageTab extends DockLayoutPanel {
 				status.setText(STATUS_OK);
 				
 				// TODO: Optimize this block
-				System.out.println("invokeCreate - re-initializing list");
 				getSelectableList().clear();
 				invokeGetAll();
 			}
@@ -168,7 +166,6 @@ public class ManageTab extends DockLayoutPanel {
 	}
 	
 	private void initEventList(List<FinancialEvent> list) {
-		System.out.println("initEventList() enter");
 		Collections.sort(list);
 		setEventList(list);
 		// find all
@@ -179,7 +176,6 @@ public class ManageTab extends DockLayoutPanel {
 			final SelectableCell selectablePanel = new SelectableCell(fe, ManageTab.this);
 			getSelectableList().setWidget(row++, 0, selectablePanel);
 		}
-		System.out.println("initEventList() exit");
 	}
 
 	public FlexTable getSelectableList() {
