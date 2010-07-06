@@ -55,7 +55,7 @@ public class LedgerTab extends DockLayoutPanel {
 	    topPanel.setWidget(0, 4, btnGo);
 		
 		// add to this 
-		addNorth(topPanel, 2);
+		addNorth(topPanel, 3);
 		
 //		ledgerGrid.setStyleName("ledger");
 //		FlowPanel flowPanel = new FlowPanel(); // adding this flow panel for iPhone/Safari (android also)
