@@ -1,4 +1,4 @@
-package dmc.forecaster.shared;
+package dmc.forecaster.domain;
 
 import java.util.Date;
 
@@ -7,15 +7,9 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import dmc.forecaster.client.Clarkdm61_forecaster;
-
 @PersistenceCapable(detachable="true")
-public class FinancialEvent implements java.io.Serializable, Comparable<FinancialEvent> {
+public class FinancialEvent implements java.io.Serializable {
 	
-	public FinancialEvent() {
-		super();
-	}
-
 	private static final long serialVersionUID = 7764556144531431668L;
 	
 	// Fields
@@ -52,10 +46,6 @@ public class FinancialEvent implements java.io.Serializable, Comparable<Financia
 	
 	public String toString() {
 		return "id="+getId()+", name="+getName()+", type="+ getReoccurrence() + " " + getType();
-	}
-	
-	public String getLabelString() {
-		return Clarkdm61_forecaster.dateFormat(getStartDt()) + " - " + Clarkdm61_forecaster.dateFormat(getEndDt()) + ", " +  getName()+", "+ getReoccurrence() + " " + getType() +", " + getAmount();
 	}
 
 	public String getName() {
@@ -120,20 +110,5 @@ public class FinancialEvent implements java.io.Serializable, Comparable<Financia
 
 	public void setReoccurrence(Reoccurrence reoccurrence) {
 		this.reoccurrence = reoccurrence;
-	}
-
-	@Override
-	public int compareTo(FinancialEvent o) {
-		return getStartDt().compareTo(o.getStartDt());
-	}
-	
-	/**
-	 * @param aDate
-	 * @return true if specified date is between start and end dates (inclusive)
-	 */
-	public boolean isInDateRange(Date aDate) {
-		return (aDate.equals(getStartDt()) || aDate.after(getStartDt()))
-				&&
-				(aDate.after(getEndDt()) || aDate.before(getEndDt()));
 	}
 }

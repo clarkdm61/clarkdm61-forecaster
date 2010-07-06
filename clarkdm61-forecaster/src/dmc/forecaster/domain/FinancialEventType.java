@@ -1,4 +1,4 @@
-package dmc.forecaster.shared;
+package dmc.forecaster.domain;
 
 public enum FinancialEventType {
 	Income,
