@@ -28,7 +28,7 @@ public class Clarkdm61_forecaster implements EntryPoint {
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad() {
-		TabLayoutPanel tabs = new TabLayoutPanel(1.5, Unit.EM);
+		TabLayoutPanel tabs = new TabLayoutPanel(2, Unit.EM);
 		tabs.add(manageTab, "Manage");
 		tabs.add(ledgerTab, "Ledger");
 		tabs.add(graphTab, "Graph");
