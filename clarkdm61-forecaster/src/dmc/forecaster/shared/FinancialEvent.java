@@ -32,10 +32,13 @@ public class FinancialEvent implements java.io.Serializable, Comparable<Financia
 	private Date endDt;
 	@Persistent
 	private Double amount;
-	//@Persistent
+	@Persistent
 	private FinancialEventType type;
-	//@Persistent
+	@Persistent
 	private Reoccurrence reoccurrence;
+	// userId is never used by the client
+	@Persistent
+	private String userId;
 	
 	public FinancialEvent(String name, String description,
 			Date startDt, Date endDt, Double amount, FinancialEventType type, Reoccurrence reoccurrence) {
@@ -50,8 +53,13 @@ public class FinancialEvent implements java.io.Serializable, Comparable<Financia
 		this.reoccurrence = reoccurrence;
 	}
 	
+	public FinancialEvent deepCopy() {
+		FinancialEvent fe = new FinancialEvent(name, description, startDt, endDt, amount, type, reoccurrence);
+		return fe;
+	}
+	
 	public String toString() {
-		return "id="+getId()+", name="+getName()+", type="+ getReoccurrence() + " " + getType();
+		return "id="+getId()+", name="+getName()+", type="+ getReoccurrence() + " " + getType() + ", userId=" + getUserId();
 	}
 	
 	public String getLabelString() {
@@ -122,6 +130,14 @@ public class FinancialEvent implements java.io.Serializable, Comparable<Financia
 		this.reoccurrence = reoccurrence;
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
 	@Override
 	public int compareTo(FinancialEvent o) {
 		return getStartDt().compareTo(o.getStartDt());
@@ -136,4 +152,5 @@ public class FinancialEvent implements java.io.Serializable, Comparable<Financia
 				&&
 				(aDate.after(getEndDt()) || aDate.before(getEndDt()));
 	}
+
 }
