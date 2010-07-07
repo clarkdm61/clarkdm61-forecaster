@@ -1,7 +1,6 @@
 package dmc.forecaster.server;
 
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.appengine.api.users.UserService;
@@ -17,44 +16,55 @@ public class ForecasterServiceImpl extends RemoteServiceServlet implements
 
 	private static final long serialVersionUID = 2779871172875732317L;
 	private static Logger logger = Logger.getLogger(ForecasterServiceImpl.class.getName());
+	private FinancialEventDAO _dao = null;
 	
 	@Override
 	public void create(FinancialEvent fe) throws IllegalArgumentException {
-		FinancialEventDAO dao = new FinancialEventDAO();
-		dao.create(fe);
+		this.createUpdate(fe);
+	}
+
+	private void createUpdate(FinancialEvent fe) throws IllegalArgumentException {
+		UserService userService = UserServiceFactory.getUserService();
+		fe.setUserId(userService.getCurrentUser().getUserId());
+		logger.severe("creating/updating " + fe);
+		getDao().createUpdate(fe);
 	}
 
 	@Override
 	public List<FinancialEvent> getAllEvents() throws IllegalArgumentException {
-		try {
-			UserService userService = UserServiceFactory.getUserService();
-			if (userService != null) {
-				String user = "user is [" + userService.getCurrentUser().getUserId() + "]" + userService.getCurrentUser().getEmail();
-				logger.warning("getAllEvents() - "+ user);
-			} else {
-				logger.severe("getAllEvents() - UserService is null!");
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			logger.severe("getAllEvents() failed in regards to user service. " + e.getMessage());
-		}
- 
-		//logger.warning("getAllEvents() [user principal] - "+getThreadLocalRequest().getUserPrincipal());
+		UserService userService = UserServiceFactory.getUserService();
 		
-		FinancialEventDAO dao = new FinancialEventDAO();
-		return dao.findAll();
+		
+		List<FinancialEvent> events = getDao().findAll(userService.getCurrentUser().getUserId());
+		
+		// run once
+//		List<FinancialEvent> events = getDao().findAll();
+//		FinancialEvent fe2 = null;
+//		for(FinancialEvent fe:events) {
+//			fe2 = fe.deepCopy();
+//			getDao().delete(fe.getId());
+//			// Deep copy during this 'run once'
+//			createUpdate(fe2);
+//		}
+		
+		return events;
 	}
 
 	@Override
 	public void update(FinancialEvent fe) throws IllegalArgumentException {
-		FinancialEventDAO dao = new FinancialEventDAO();
-		dao.update(fe);
+		this.createUpdate(fe);
 	}
 
 	@Override
 	public void delete(Long id) throws IllegalArgumentException {
-		FinancialEventDAO dao = new FinancialEventDAO();
-		dao.delete(id);
+		getDao().delete(id);
+	}
+
+	public FinancialEventDAO getDao() {
+		if (_dao == null) {
+			_dao = new FinancialEventDAO();
+		}
+		return _dao;
 	}
 
 
