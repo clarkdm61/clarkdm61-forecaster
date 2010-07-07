@@ -37,7 +37,7 @@ public class FinancialEventDAOTest {
 	public void testCreate() {
 		FinancialEventType type = FinancialEventType.valueOf("Income");
 		FinancialEvent newInstance = new FinancialEvent("name", "desc", new java.util.Date(), new java.util.Date(), 500.23d, type, Reoccurrence.Monthly);
-		dao.create(newInstance);
+		dao.createUpdate(newInstance);
 		//mID = newInstance.getId();
 		System.out.println("create: success. "+newInstance);
 	}
