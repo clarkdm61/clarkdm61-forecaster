@@ -86,10 +86,10 @@ public class GraphTab extends DockLayoutPanel {
 		return data;
 	}
 	public String formatAmountLabel(LedgerEntry entry) {
-		if (entry.getIncomeAmount().equals(0)) {
-			return "Expense:" + entry.getExpenseAmount();
+		if (entry.isIncome()) {
+			return "$" + entry.getIncomeAmount();
 		} else {
-			return "Income: " + entry.getIncomeAmount();
+			return "$(" + entry.getExpenseAmount()+")";
 		}
 	}
 

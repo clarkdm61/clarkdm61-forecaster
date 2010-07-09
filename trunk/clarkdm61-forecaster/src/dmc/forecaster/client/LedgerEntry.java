@@ -11,6 +11,7 @@ public class LedgerEntry implements Comparable<LedgerEntry>{
 	private Double expenseAmount;
 	private Date date;
 	private Double balance;
+	private boolean income = false;
 	
 	public LedgerEntry() {}
 	
@@ -27,9 +28,11 @@ public class LedgerEntry implements Comparable<LedgerEntry>{
 		if (type.equals(FinancialEventType.Income)) {
 			setIncomeAmount(amount);
 			setExpenseAmount(0d);
+			income=true;
 		} else {
 			setIncomeAmount(0d);
 			setExpenseAmount(amount);
+			income=false;
 		}
 		this.date = date;
 		setBalance(0d);
@@ -79,5 +82,9 @@ public class LedgerEntry implements Comparable<LedgerEntry>{
 
 	public void setBalance(Double balance) {
 		this.balance = balance;
+	}
+	
+	public boolean isIncome() {
+		return income;
 	}
 }
