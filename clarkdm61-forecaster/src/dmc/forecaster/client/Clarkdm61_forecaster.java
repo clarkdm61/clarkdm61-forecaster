@@ -36,7 +36,7 @@ public class Clarkdm61_forecaster implements EntryPoint {
 		
 		RootPanel.get().add(tabs);
 		
-		tabs.setSize("100em", "50em");
+		tabs.setSize("100em", "40em");
 		greeterTab.setSize("40em", "35em");
 	}
 	
