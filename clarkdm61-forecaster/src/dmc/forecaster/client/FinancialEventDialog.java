@@ -1,10 +1,12 @@
 package dmc.forecaster.client;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.Grid;
@@ -74,11 +76,12 @@ public class FinancialEventDialog extends DialogBox {
 			@Override
 			public void onClick(ClickEvent event) {
 				// validate
-				
-				FinancialEventDialog.this.hide();
-				// update manageTab
-				updateFinancialEventFromScreen();
-				Clarkdm61_forecaster.manageTab.invokeCreate(getFinancialEvent());
+				if (validate()) {
+					FinancialEventDialog.this.hide();
+					// update manageTab
+					updateFinancialEventFromScreen();
+					Clarkdm61_forecaster.manageTab.invokeCreate(getFinancialEvent());
+				}
 			}
 		});
 		Button cancel = new Button("Cancel");
@@ -187,6 +190,34 @@ public class FinancialEventDialog extends DialogBox {
 		if (getFinancialEvent().getReoccurrence().equals(Reoccurrence.None)) {
 			getFinancialEvent().setEndDt(getFinancialEvent().getStartDt());
 		} 
+	}
+	
+	private boolean validate() {
+		ArrayList<String> msgs = new ArrayList<String>();
+		// name
+		if (txtName.getText() == null || txtName.getText().length()==0) {
+			msgs.add("Name is required.");
+		}
+		// start date
+		// try to parse date
+		try {
+			Date dt = new Date(txtStartDt.getText());
+		} catch (Exception e) {
+			msgs.add("Valid Start Date is required (mm/dd/yy).");
+		}
+		// amount
+		try {
+			Double d = new Double (txtAmount.getText());
+		} catch (Exception e) {
+			msgs.add("A valid Amount is required.");
+		}
+		
+		if (msgs.isEmpty()) {
+			return true;
+		} else {
+			Window.alert(msgs.toString());
+			return false;
+		}
 	}
 
 }
