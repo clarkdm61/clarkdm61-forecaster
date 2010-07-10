@@ -133,6 +133,9 @@ public class LedgerTab extends DockLayoutPanel {
 			if (entry.getRowColor() != null) {
 				modifyRow(row, 5, data, "color:"+entry.getRowColor());
 			}
+			if (entry.getBalance() < 0) {
+				data.setProperty(row, 4, "style", "color:red");
+			}
 			row++;
 			lastEntry = entry;
 		}
@@ -185,7 +188,7 @@ public class LedgerTab extends DockLayoutPanel {
 				// add to ledger
 				LedgerEntry entry = new LedgerEntry(event.getName(), event.getType(), event.getAmount(), instanceDate);
 				if (event.getReoccurrence().equals(Reoccurrence.TwiceYearly)) {
-					entry.setRowColor("red"); // TODO: make colors constants
+					entry.setRowColor("blue"); // TODO: make colors constants
 				}
 				ledgerEntries.add(entry);
 			} 
@@ -204,7 +207,7 @@ public class LedgerTab extends DockLayoutPanel {
 			ArrayList<LedgerEntry> ledgerEntries, FinancialEvent event) {
 		if (isDateInLedgerRange(event.getStartDt())) {
 			LedgerEntry entry = new LedgerEntry(event.getName(), event.getType(), event.getAmount(), event.getStartDt());
-			entry.setRowColor("red");// TODO: make colors constants
+			entry.setRowColor("blue");// TODO: make colors constants
 			ledgerEntries.add(entry);	
 		}
 	}

@@ -180,7 +180,6 @@ public class FinancialEventDialog extends DialogBox {
 		Double amount = new Double(txtAmount.getText());
 		getFinancialEvent().setAmount(amount);
 		
-		// TODO: add date validations before getting here
 		// dates
 		getFinancialEvent().setStartDt(new java.util.Date(txtStartDt.getText()));
 		if (txtEndDt.getText().length()>1) {
@@ -204,6 +203,13 @@ public class FinancialEventDialog extends DialogBox {
 			Date dt = new Date(txtStartDt.getText());
 		} catch (Exception e) {
 			msgs.add("Valid Start Date is required (mm/dd/yy).");
+		}
+		if (txtEndDt.getText().length()>1) {
+			try {
+				Date dt = new Date(txtEndDt.getText());
+			} catch (Exception e) {
+				msgs.add("Invalid End Date provided (mm/dd/yy).");
+			}
 		}
 		// amount
 		try {
