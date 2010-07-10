@@ -1,12 +1,10 @@
 #summary Eclipse configuration guide.
 
-= Introduction =
-
 Galileo-based Eclipse (Spring's STS was originally used)
 
 SVN Plugins:
  * http://subclipse.tigris.org/update_1.6.x
- * http://community.polarion.com/projects/subversive/download/eclipse/2.0/update-site/ (this is the used with Linux)
+ * http://community.polarion.com/projects/subversive/download/eclipse/2.0/update-site/ (I used this with Linux)
 
 Google Plugins:
 http://dl.google.com/eclipse/plugin/3.5
