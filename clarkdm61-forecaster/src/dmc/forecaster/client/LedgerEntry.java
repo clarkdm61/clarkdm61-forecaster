@@ -12,6 +12,7 @@ public class LedgerEntry implements Comparable<LedgerEntry>{
 	private Date date;
 	private Double balance;
 	private boolean income = false;
+	private String rowColor;
 	
 	public LedgerEntry() {}
 	
@@ -86,5 +87,13 @@ public class LedgerEntry implements Comparable<LedgerEntry>{
 	
 	public boolean isIncome() {
 		return income;
+	}
+
+	public String getRowColor() {
+		return rowColor;
+	}
+
+	public void setRowColor(String rowColor) {
+		this.rowColor = rowColor;
 	}
 }

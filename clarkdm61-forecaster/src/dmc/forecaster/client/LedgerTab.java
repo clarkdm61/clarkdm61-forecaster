@@ -129,11 +129,28 @@ public class LedgerTab extends DockLayoutPanel {
 			data.setValue(row, 2, entry.getIncomeAmount());
 			data.setValue(row, 3, entry.getExpenseAmount());
 			data.setValue(row, 4, entry.getBalance());
+			
+			if (entry.getRowColor() != null) {
+				modifyRow(row, 5, data, "color:"+entry.getRowColor());
+			}
 			row++;
 			lastEntry = entry;
 		}
 		
 		return data;
+	}
+	/**
+	 * Apply specified style to specified row
+	 * @param row index
+	 * @param cols number of cols in row
+	 * @param data
+	 * @param style
+	 */
+	private void modifyRow(int row, int cols, DataTable data, String style) {
+		for (int i = 0; i < cols; i++) {
+			data.setProperty(row, i, "style", style);
+		}
+		
 	}
 	
 	/**
@@ -146,6 +163,7 @@ public class LedgerTab extends DockLayoutPanel {
 		options.setWidth("70em");
 		//options.setPage(Table.Options.Policy.ENABLE); 
 		//options.setPageSize(40);
+		options.setAllowHtml(true);
 		return options;
 	}
 	
@@ -166,6 +184,9 @@ public class LedgerTab extends DockLayoutPanel {
 			if (isDateGreaterThanOrEqualToStart(instanceDate)) {
 				// add to ledger
 				LedgerEntry entry = new LedgerEntry(event.getName(), event.getType(), event.getAmount(), instanceDate);
+				if (event.getReoccurrence().equals(Reoccurrence.TwiceYearly)) {
+					entry.setRowColor("red"); // TODO: make colors constants
+				}
 				ledgerEntries.add(entry);
 			} 
 			// increment
@@ -183,6 +204,7 @@ public class LedgerTab extends DockLayoutPanel {
 			ArrayList<LedgerEntry> ledgerEntries, FinancialEvent event) {
 		if (isDateInLedgerRange(event.getStartDt())) {
 			LedgerEntry entry = new LedgerEntry(event.getName(), event.getType(), event.getAmount(), event.getStartDt());
+			entry.setRowColor("red");// TODO: make colors constants
 			ledgerEntries.add(entry);	
 		}
 	}
