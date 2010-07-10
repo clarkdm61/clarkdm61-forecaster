@@ -19,7 +19,6 @@ public class Clarkdm61_forecaster implements EntryPoint {
 	 * service proxy
 	 */
 	public static final ForecasterServiceAsync forecasterService = GWT.create(ForecasterService.class);
-	public static final GreeterTab greeterTab = new GreeterTab();
 	public static final ManageTab manageTab = new ManageTab();
 	public static final LedgerTab ledgerTab = new LedgerTab();
 	public static final GraphTab graphTab = new GraphTab();
@@ -32,12 +31,10 @@ public class Clarkdm61_forecaster implements EntryPoint {
 		tabs.add(manageTab, "Manage");
 		tabs.add(ledgerTab, "Ledger");
 		tabs.add(graphTab, "Graph");
-		tabs.add(greeterTab, "Greeter");
 		
 		RootPanel.get().add(tabs);
 		
-		tabs.setSize("100em", "40em");
-		greeterTab.setSize("40em", "35em");
+		tabs.setSize("90em", "40em");
 	}
 	
  
