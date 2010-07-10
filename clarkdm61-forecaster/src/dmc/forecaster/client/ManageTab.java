@@ -85,7 +85,7 @@ public class ManageTab extends DockLayoutPanel {
 			public void onSuccess(Void result) {
 				status.setText(STATUS_OK);
 				
-				// TODO: Optimize this block
+				// TODO: Could be optimized to update locally regardless of callback
 				getSelectableList().clear();
 				invokeGetAll();
 			}
@@ -128,7 +128,7 @@ public class ManageTab extends DockLayoutPanel {
 			public void onSuccess(Void result) {
 				status.setText(STATUS_OK);
 				
-				// TODO: Optimize this block
+				// TODO: Could be optimized to update locally regardless of callback
 				getSelectableList().clear();
 				invokeGetAll();
 			}

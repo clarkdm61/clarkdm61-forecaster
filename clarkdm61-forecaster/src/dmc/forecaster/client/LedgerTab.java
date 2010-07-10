@@ -27,8 +27,6 @@ public class LedgerTab extends DockLayoutPanel {
 	public static ArrayList<LedgerEntry> ledgerEntries = null;
 	private static final TextBox txtStart = new TextBox();
 	private static final TextBox txtEnd = new TextBox();
-	// reference to last table it can be removed when regenerating
-	private static Table lastTable = null; //TODO: verify lastTable is still used
 	
 	public LedgerTab() {
 		super(Unit.EM); // needed for DockLayoutPanel
@@ -56,15 +54,13 @@ public class LedgerTab extends DockLayoutPanel {
 		
 		// add to this 
 		addNorth(topPanel, 3);
-		
-//		ledgerGrid.setStyleName("ledger");
-//		FlowPanel flowPanel = new FlowPanel(); // adding this flow panel for iPhone/Safari (android also)
-//		flowPanel.add(ledgerGrid);
-//		ScrollPanel scrollPanel = new ScrollPanel(flowPanel);
-//		add(scrollPanel);
-		
 	}
 	
+	/**
+	 * Entry point for button handler to create ledger
+	 * @param startDt
+	 * @param endDt
+	 */
 	private void createLedger(String startDt, String endDt) {
 		ledgerEntries = new ArrayList<LedgerEntry>();
 		
@@ -88,14 +84,11 @@ public class LedgerTab extends DockLayoutPanel {
 				Table table = new Table(createTable(), createOptions());
 				ScrollPanel scrollPanel = new ScrollPanel(table);
 				LedgerTab.this.add(scrollPanel);
-				//if (lastTable!=null) LedgerTab.this.remove(lastTable);
-				//lastTable = table;
 			}
 		};
 
 		VisualizationUtils.loadVisualizationApi(runnableCallBack,
 				Table.PACKAGE);
-		
 	}
 	
 	/**
@@ -153,7 +146,6 @@ public class LedgerTab extends DockLayoutPanel {
 		for (int i = 0; i < cols; i++) {
 			data.setProperty(row, i, "style", style);
 		}
-		
 	}
 	
 	/**
@@ -166,7 +158,7 @@ public class LedgerTab extends DockLayoutPanel {
 		options.setWidth("70em");
 		//options.setPage(Table.Options.Policy.ENABLE); 
 		//options.setPageSize(40);
-		options.setAllowHtml(true);
+		options.setAllowHtml(true); // required to enable DataTable styles to be applied
 		return options;
 	}
 	
@@ -245,5 +237,4 @@ public class LedgerTab extends DockLayoutPanel {
 	private Date getEndDt() {
 		return new Date(txtEnd.getText());
 	}
-
 }
