@@ -34,7 +34,7 @@ public class GraphTab extends DockLayoutPanel {
 		Runnable runnableCallBack = new Runnable() {
 			public void run() {
 				AnnotatedTimeLine timeLine = new AnnotatedTimeLine(createTable(),
-						createOptions(), "110em", "40em");
+						createOptions(), "98em", "40em");
 				if (lastTimeLine != null) GraphTab.this.remove(lastTimeLine);;
 				GraphTab.this.add(timeLine);
 				lastTimeLine=timeLine;
