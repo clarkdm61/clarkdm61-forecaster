@@ -13,6 +13,10 @@ public class SelectableCell extends Label {
 		setFinancialEvent(financialEvent);
 		setText(financialEvent.getLabelString());
 		
+		if (financialEvent.getEndDt() != null && financialEvent.getEndDt().getTime() < System.currentTimeMillis()) {
+			this.addStyleName("oldItem");
+		}
+		
 		addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -23,7 +27,7 @@ public class SelectableCell extends Label {
 					manageTab.setSelectedCell(null);
 				} else {
 					// change selection 
-					SelectableCell.this.setStyleName("selectedItem");
+					SelectableCell.this.addStyleName("selectedItem");
 					if (manageTab.getSelectedCell()!=null) manageTab.getSelectedCell().removeStyleName("selectedItem");
 					manageTab.setSelectedCell(SelectableCell.this);
 				}
