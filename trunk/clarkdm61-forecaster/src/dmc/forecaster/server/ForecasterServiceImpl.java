@@ -26,7 +26,6 @@ public class ForecasterServiceImpl extends RemoteServiceServlet implements
 	private void createUpdate(FinancialEvent fe) throws IllegalArgumentException {
 		UserService userService = UserServiceFactory.getUserService();
 		fe.setUserId(userService.getCurrentUser().getUserId());
-		logger.severe("creating/updating " + fe);
 		getDao().createUpdate(fe);
 	}
 
