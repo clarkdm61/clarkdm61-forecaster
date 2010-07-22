@@ -118,6 +118,10 @@ public class ManageTab extends DockLayoutPanel {
 		});
 	}
 	
+	/**
+	 * Calls the ForecasterService.delete(..) operation
+	 * @param fe
+	 */
 	public void invokeDelete(FinancialEvent fe) {
 		
 		status.setText(STATUS_WAITING);

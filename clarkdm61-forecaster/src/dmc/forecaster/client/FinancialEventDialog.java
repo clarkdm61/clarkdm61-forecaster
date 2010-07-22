@@ -32,6 +32,9 @@ public class FinancialEventDialog extends DialogBox {
 	private TextBox txtEndDt = new TextBox();
 	private TextBox txtAmount = new TextBox();
 	
+	/**
+	 * Constructor - one-time, generic initialization of the dialog object
+	 */
 	public FinancialEventDialog() {		
 		lbReoccurrence.addItem(Reoccurrence.None.toString());
 		lbReoccurrence.addItem(Reoccurrence.Weekly.toString());
@@ -98,6 +101,9 @@ public class FinancialEventDialog extends DialogBox {
 		setWidget(grid);
 	}
 
+	/**
+	 * Called by ManageTab's New Event button click handler
+	 */
 	public void openForNewEvent() {
 		setFinancialEvent(new FinancialEvent());
 		setNewEvent(true);
@@ -113,6 +119,9 @@ public class FinancialEventDialog extends DialogBox {
 		this.show();
 	}
 
+	/**
+	 * Called by ManageTab's Edit Event button click handler
+	 */
 	public void openForExistingEvent(FinancialEvent financialEvent) {
 		setNewEvent(false);
 		setText("Edit Event");
