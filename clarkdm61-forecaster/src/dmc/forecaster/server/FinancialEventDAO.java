@@ -38,6 +38,11 @@ public class FinancialEventDAO {
 		getPersistenceManager().makePersistent(newInstance);
 	}
 	
+	/**
+	 * Returns all financial events - should only be used for schema migration since events need to be filtered for the current user.
+	 * @see FinancialEventDAO#findAll(String)
+	 * @return
+	 */
 	@Deprecated
 	public List<FinancialEvent> findAll() {
 		logger.fine("FinancialEventDAO.findAll()...");
@@ -52,6 +57,11 @@ public class FinancialEventDAO {
 		return financialEvents;
 	}
 	
+	/**
+	 * Returns all financial events belonging to the specified userId
+	 * @param userId
+	 * @return
+	 */
 	public List<FinancialEvent> findAll(String userId) {
 		logger.fine("FinancialEventDAO.findAll(userId)...");
 		
