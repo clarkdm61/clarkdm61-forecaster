@@ -2,7 +2,10 @@ package dmc.forecaster.shared;
 
 import java.util.Date;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
 /**
  * UserPreference stores a user's preferences
@@ -12,9 +15,17 @@ import javax.jdo.annotations.PersistenceCapable;
 @PersistenceCapable(detachable="true")
 public class UserPreference implements java.io.Serializable {
 
+	private static final long serialVersionUID = -8770822656351367393L;
+
+	// Fields
+	@PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+    private Long id;
+	@Persistent
 	private String userId;
-	private String userEmail;
+	@Persistent
 	private Date ledgerStartDate;
+	@Persistent
 	private Date ledgerEndDate;
 	
 	public UserPreference() {
@@ -27,14 +38,6 @@ public class UserPreference implements java.io.Serializable {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
 	}
 
 	public Date getLedgerStartDate() {
@@ -51,6 +54,14 @@ public class UserPreference implements java.io.Serializable {
 
 	public void setLedgerEndDate(Date ledgerEndDate) {
 		this.ledgerEndDate = ledgerEndDate;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 }
