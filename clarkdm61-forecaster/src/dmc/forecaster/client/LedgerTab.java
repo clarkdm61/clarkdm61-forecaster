@@ -8,6 +8,8 @@ import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.Grid;
@@ -22,11 +24,13 @@ import com.google.gwt.visualization.client.visualizations.Table;
 
 import dmc.forecaster.shared.FinancialEvent;
 import dmc.forecaster.shared.Reoccurrence;
+import dmc.forecaster.shared.UserPreference;
 
 public class LedgerTab extends DockLayoutPanel {
 	public static ArrayList<LedgerEntry> ledgerEntries = null;
 	private static final TextBox txtStart = new TextBox();
 	private static final TextBox txtEnd = new TextBox();
+	private static UserPreference userPreference = null;
 	
 	public LedgerTab() {
 		super(Unit.EM); // needed for DockLayoutPanel
@@ -35,18 +39,18 @@ public class LedgerTab extends DockLayoutPanel {
 		// start date
 		topPanel.setWidget(0, 0, new Label("Start "));
 		txtStart.setWidth("5em");
-		Date todayDt = new Date();
-		Date nextDt = new Date( todayDt.getTime()+Reoccurrence.WEEK*12 );
-		txtStart.setText(DateTimeFormat.getShortDateFormat().format(todayDt));
+		
+		setLedgerRangeFromUserPreference();
+		
 		topPanel.setWidget(0, 1, txtStart);
 		// end date
 		topPanel.setWidget(0, 2, new Label("End "));
 		txtEnd.setWidth("5em");
-		txtEnd.setText(DateTimeFormat.getShortDateFormat().format(nextDt));
 		topPanel.setWidget(0, 3, txtEnd);
 		// button
 	    Button btnGo = new Button("Go", new ClickHandler() {
 	        public void onClick(ClickEvent event) {
+	        	updateLedgerRangeOnUserPreference();
 	        	createLedger(txtStart.getText(), txtEnd.getText());
 	        }
 	    });
@@ -54,6 +58,51 @@ public class LedgerTab extends DockLayoutPanel {
 		
 		// add to this 
 		addNorth(topPanel, 3);
+	}
+
+	/**
+	 * Get UserPreference, update ledger range on UI 
+	 */
+	private void setLedgerRangeFromUserPreference() {
+		/* enhancement to get range from user pref */
+		Clarkdm61_forecaster.forecasterService.getUserPreference(new AsyncCallback<UserPreference>() {
+			
+			@Override
+			public void onSuccess(UserPreference result) {
+				userPreference = result;
+				Date todayDt = userPreference.getLedgerStartDate();
+				Date nextDt = userPreference.getLedgerEndDate();
+				txtStart.setText(DateTimeFormat.getShortDateFormat().format(todayDt));
+				txtEnd.setText(DateTimeFormat.getShortDateFormat().format(nextDt));
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Critical error: LedgerTab failed to find and/or generate UserPreference");
+			}
+		});
+	}
+	
+	/**
+	 * Update ledger range on UserPreference from UI
+	 */
+	private void updateLedgerRangeOnUserPreference() {
+		
+		userPreference.setLedgerStartDate(getStartDt());
+		userPreference.setLedgerEndDate(getEndDt());
+		
+		Clarkdm61_forecaster.forecasterService.updateUserPreference(userPreference, new AsyncCallback<Void>() {
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Critical error: LedgerTab failed to update UserPreference");
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				
+			}
+		});
 	}
 	
 	/**
