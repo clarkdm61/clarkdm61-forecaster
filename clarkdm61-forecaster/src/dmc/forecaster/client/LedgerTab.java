@@ -228,7 +228,10 @@ public class LedgerTab extends DockLayoutPanel {
 			if (isDateGreaterThanOrEqualToStart(instanceDate)) {
 				// add to ledger
 				LedgerEntry entry = new LedgerEntry(event.getName(), event.getType(), event.getAmount(), instanceDate);
-				if (event.getReoccurrence().equals(Reoccurrence.TwiceYearly)) {
+				// highlight unusual events
+				if (event.getReoccurrence().equals(Reoccurrence.TwiceYearly)
+						|| event.getReoccurrence().equals(Reoccurrence.Yearly)
+						) {
 					entry.setRowColor("blue"); // TODO: make colors constants
 				}
 				ledgerEntries.add(entry);
