@@ -5,7 +5,6 @@ import java.util.Date;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -110,7 +109,7 @@ public class FinancialEventDialog extends DialogBox {
 		setText("Create Event");
 		txtName.setText("");
 		txtDescription.setText("");
-		txtStartDt.setText(DateTimeFormat.getShortDateFormat().format(new java.util.Date()));
+		txtStartDt.setText(Clarkdm61_forecaster.dateFormat(new java.util.Date()));
 		txtEndDt.setText("");
 		txtEndDt.setEnabled(false);
 		rbExpense.setValue(true);
@@ -130,9 +129,9 @@ public class FinancialEventDialog extends DialogBox {
 		txtName.setText(financialEvent.getName());
 		txtDescription.setText(financialEvent.getDescription());
 		txtAmount.setText(financialEvent.getAmount().toString());
-		txtStartDt.setText(DateTimeFormat.getShortDateFormat().format(financialEvent.getStartDt()));
+		txtStartDt.setText(Clarkdm61_forecaster.dateFormat(financialEvent.getStartDt()));
 		Date endDt = financialEvent.getEndDt();
-		String szEndDt = endDt==null ? "" : DateTimeFormat.getShortDateFormat().format(endDt);;
+		String szEndDt = endDt==null ? "" : Clarkdm61_forecaster.dateFormat(endDt);;
 		txtEndDt.setText(szEndDt);
 		if (getFinancialEvent().getReoccurrence().equals(Reoccurrence.None)) {
 			txtEndDt.setEnabled(false);
@@ -211,13 +210,13 @@ public class FinancialEventDialog extends DialogBox {
 		try {
 			Date dt = new Date(txtStartDt.getText());
 		} catch (Exception e) {
-			msgs.add("Valid Start Date is required (mm/dd/yy).");
+			msgs.add("Valid Start Date is required (mm/dd/yyyy).");
 		}
 		if (txtEndDt.getText().length()>1) {
 			try {
 				Date dt = new Date(txtEndDt.getText());
 			} catch (Exception e) {
-				msgs.add("Invalid End Date provided (mm/dd/yy).");
+				msgs.add("Invalid End Date provided (mm/dd/yyyy).");
 			}
 		}
 		// amount
