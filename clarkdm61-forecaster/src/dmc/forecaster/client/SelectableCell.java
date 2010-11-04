@@ -10,18 +10,14 @@ import dmc.forecaster.shared.FinancialEvent;
 
 public class SelectableCell extends Label {
 	private FinancialEvent financialEvent = null;
-	private static long currTimeAdjusted = 0;
-	static {
-		Date adjDt = new Date(System.currentTimeMillis());
-		adjDt.setYear(adjDt.getYear()-100);
-		currTimeAdjusted = adjDt.getTime();
-	}
+	private static long currTime = System.currentTimeMillis();
+	//private static Date currentDate = new Date(System.currentTimeMillis());
 
 	public SelectableCell(FinancialEvent financialEvent, final ManageTab manageTab) {
 		setFinancialEvent(financialEvent);
 		setText(financialEvent.getLabelString());
 		
-		if (financialEvent.getEndDt() != null && financialEvent.getEndDt().getTime() < currTimeAdjusted) {
+		if (financialEvent.getEndDt() != null && financialEvent.getEndDt().getTime() < currTime) {
 			this.addStyleName("oldItem");
 		}
 		

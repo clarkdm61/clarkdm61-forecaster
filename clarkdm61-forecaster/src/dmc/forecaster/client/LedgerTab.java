@@ -7,7 +7,6 @@ import java.util.Date;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -72,8 +71,8 @@ public class LedgerTab extends DockLayoutPanel {
 				userPreference = result;
 				Date todayDt = userPreference.getLedgerStartDate();
 				Date nextDt = userPreference.getLedgerEndDate();
-				txtStart.setText(DateTimeFormat.getShortDateFormat().format(todayDt));
-				txtEnd.setText(DateTimeFormat.getShortDateFormat().format(nextDt));
+				txtStart.setText(Clarkdm61_forecaster.dateFormat(todayDt));
+				txtEnd.setText(Clarkdm61_forecaster.dateFormat(nextDt));
 			}
 			
 			@Override
@@ -164,7 +163,7 @@ public class LedgerTab extends DockLayoutPanel {
 			entry.setBalance(balance);
 
 			Date date = entry.getDate();
-			date.setYear(date.getYear()+100); // bug in google's widget maybe?
+			date.setYear(date.getYear()); // Defect/Issue #12 - removed 100 year adjustment
 			
 			data.setValue(row, 0, date);
 			data.setValue(row, 1, entry.getName());
