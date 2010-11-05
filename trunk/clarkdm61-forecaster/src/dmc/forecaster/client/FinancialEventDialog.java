@@ -138,8 +138,10 @@ public class FinancialEventDialog extends DialogBox {
 		}
 		if (financialEvent.getType().equals(FinancialEventType.Income)) {
 			rbIncome.setValue(true);
+			rbExpense.setValue(false);
 		} else {
 			rbExpense.setValue(true);
+			rbIncome.setValue(false);
 		}
 				 
 		lbReoccurrence.setSelectedIndex(financialEvent.getReoccurrence().getIndex());
