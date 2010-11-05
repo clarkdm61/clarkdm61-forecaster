@@ -216,10 +216,11 @@ public class LedgerTab extends DockLayoutPanel {
 	 * @param event
 	 */
 	private void createLedgerEntries(ArrayList<LedgerEntry> ledgerEntries, FinancialEvent event) {
-		// if neither start date nor end date are in range, just stop
-		if (!isDateInLedgerRange(event.getStartDt()) && !isDateInLedgerRange(event.getEndDt())) {
-			return; // skip this event altogether
+		// if the start date is future, or the end date is past; just stop.
+		if (isDateGreaterThanEnd(event.getStartDt()) || isDateLessThanStart(event.getEndDt())) {
+			return;
 		}
+		
 		Date instanceDate = event.getStartDt();
 		// we know it's in range, so make instances
 		do {
@@ -268,15 +269,44 @@ public class LedgerTab extends DockLayoutPanel {
 		}
 	}
 	
+	/**
+	 * Returns true if aDate >= Ledger Start Date
+	 * @param aDate
+	 * @return
+	 */
 	private boolean isDateGreaterThanOrEqualToStart(Date aDate) {
 		return aDate.equals(getStartDt()) || aDate.after(getStartDt());
 	}
+	
+	/**
+	 * Returns true if aDate <= Ledger End Date
+	 * @param aDate
+	 * @return
+	 */
 	private boolean isDateLessThanOrEqualToEnd(Date aDate) {
 		if (aDate == null) {
 			// if it's null, it's an endDate, which is always in range
 			return true;
 		} else {
 			return aDate.equals(getEndDt()) || aDate.before(getEndDt());
+		}
+	}
+	
+	/**
+	 * Returns true if [start]aDate >= Ledger End Date
+	 */
+	private boolean isDateGreaterThanEnd(Date aDate) {
+		return aDate.after(getEndDt());
+	}
+	
+	/**
+	 * Returns true if [end]aDate < Ledger Start Date
+	 */
+	private boolean isDateLessThanStart(Date aDate) {
+		if (aDate == null) {
+			return false;
+		} else {
+			return aDate.before(getStartDt());
 		}
 	}
 	
