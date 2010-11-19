@@ -9,9 +9,9 @@ public class ForecasterWicketApplication extends WebApplication {
 	}
 
 	@Override
-	public Class<BasePage> getHomePage() {
+	public Class<ManagerPage> getHomePage() {
 		// TODO return page class
-		return BasePage.class;
+		return ManagerPage.class;
 	}
 
 }
