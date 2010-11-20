@@ -2,3 +2,4 @@
 
   * [http://code.google.com/docreader/#p=gwt-google-apis&s=gwt-google-apis&t=VisualizationGettingStarted Getting Started With Google Visualization APIs]
   * [http://code.google.com/webtoolkit/googleapilibraries.html Google GWT Libs]
+  * [http://code.google.com/p/wicket-gae-template/]
