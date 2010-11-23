@@ -1,12 +1,11 @@
 package dmc.forecaster.wicket;
 
-import java.util.Arrays;
 import java.util.List;
 
+import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.ListChoice;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import dmc.forecaster.server.ForecasterServiceImpl;
 import dmc.forecaster.shared.FinancialEvent;
@@ -27,7 +26,7 @@ public class ManagerPage extends BasePage {
 		ForecasterServiceImpl service = new ForecasterServiceImpl();
 		List<FinancialEvent> events = service.getAllEvents();
 		
-		PropertyModel<String> eventModel = new PropertyModel<String>(events, "description");
+		PropertyModel<FinancialEvent> eventModel = new PropertyModel<FinancialEvent>(events, "description");
 		
 		ListChoice eventlist = new ListChoice("eventlist",eventModel);
 		form.add(eventlist);
