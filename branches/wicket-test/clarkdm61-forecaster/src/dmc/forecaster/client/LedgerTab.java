@@ -220,7 +220,6 @@ public class LedgerTab extends DockLayoutPanel {
 		if (isDateGreaterThanEnd(event.getStartDt()) || isDateLessThanStart(event.getEndDt())) {
 			return;
 		}
-		
 		Date instanceDate = event.getStartDt();
 		// we know it's in range, so make instances
 		do {
@@ -238,8 +237,10 @@ public class LedgerTab extends DockLayoutPanel {
 			} 
 			// increment
 			instanceDate = event.getReoccurrence().getNext(instanceDate);
-			// only stop if incremented instanceDate exceeds end date
-		} while (isDateLessThanOrEqualToEnd(instanceDate));
+			// stop if incremented instanceDate exceeds ledger end date, or the event's end date
+		} while (isDateLessThanOrEqualToEnd(instanceDate) && 
+				(instanceDate.before(event.getEndDt()) || instanceDate.equals(event.getEndDt()))
+				);
 	}
 
 	/**
@@ -309,7 +310,7 @@ public class LedgerTab extends DockLayoutPanel {
 			return aDate.before(getStartDt());
 		}
 	}
-	
+		
 	@SuppressWarnings("deprecation")
 	private Date getStartDt() {
 		return new Date(txtStart.getText());
