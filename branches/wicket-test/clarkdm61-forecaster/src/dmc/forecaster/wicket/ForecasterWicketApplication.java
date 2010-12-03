@@ -19,7 +19,7 @@ public class ForecasterWicketApplication extends WebApplication {
     {
         super.init();
 
-        // for Google App Engine
+        // Not sure why, but this seems to be required for Google App Engine. 
         getResourceSettings().setResourcePollFrequency(null);
 
         // Enable Guice for field injection on Wicket pages.  Unfortunately, constructor injection into
