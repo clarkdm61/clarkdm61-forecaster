@@ -238,9 +238,7 @@ public class LedgerTab extends DockLayoutPanel {
 			// increment
 			instanceDate = event.getReoccurrence().getNext(instanceDate);
 			// stop if incremented instanceDate exceeds ledger end date, or the event's end date
-		} while (isDateLessThanOrEqualToEnd(instanceDate) && 
-				(instanceDate.before(event.getEndDt()) || instanceDate.equals(event.getEndDt()))
-				);
+		} while (isDateLessThanOrEqualToEnd(instanceDate) && event.isInDateRange(instanceDate));
 	}
 
 	/**
