@@ -148,9 +148,12 @@ public class FinancialEvent implements java.io.Serializable, Comparable<Financia
 	 * @return true if specified date is between start and end dates (inclusive)
 	 */
 	public boolean isInDateRange(Date aDate) {
+		if (getEndDt() == null) {
+			return (aDate.equals(getStartDt()) || aDate.after(getStartDt()));
+		}
 		return (aDate.equals(getStartDt()) || aDate.after(getStartDt()))
 				&&
-				(aDate.after(getEndDt()) || aDate.before(getEndDt()));
+				(aDate.equals(getEndDt()) || aDate.before(getEndDt()));
 	}
 
 }
