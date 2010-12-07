@@ -66,4 +66,9 @@ public class ManagerPage extends BasePage {
 		System.out.println("no-session const");
 	}
 
+	@Override
+	protected String getTitle() {
+		return "Manager Page";
+	}
+
 }
