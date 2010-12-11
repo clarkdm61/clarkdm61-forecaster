@@ -7,8 +7,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import dmc.forecaster.client.Clarkdm61_forecaster;
-
 @PersistenceCapable(detachable="true")
 public class FinancialEvent implements java.io.Serializable, Comparable<FinancialEvent> {
 	
@@ -63,7 +61,7 @@ public class FinancialEvent implements java.io.Serializable, Comparable<Financia
 	}
 	
 	public String getLabelString() {
-		return /*Clarkdm61_forecaster.dateFormat(getStartDt()) + " - " + Clarkdm61_forecaster.dateFormat(getEndDt()) + ", " + */ getName()+", "+ getReoccurrence() + " " + getType() +", " + getAmount();
+		return Utils.dateFormat(getStartDt()) + " - " + Utils.dateFormat(getEndDt()) + ", " +  getName()+", "+ getReoccurrence() + " " + getType() +", " + getAmount();
 	}
 
 	public String getName() {
