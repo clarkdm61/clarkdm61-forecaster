@@ -1,6 +1,7 @@
 package dmc.forecaster.wicket;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -48,8 +49,9 @@ public class LedgerPage extends BasePage {
 			}
 		}
 		
-		// sort entries by date
-		
+		// sort entries by start date (note: the balance can't be calculated until this happens)
+		Collections.sort(ledgerEntries);
+
 		return ledgerEntries;
 	}
 
