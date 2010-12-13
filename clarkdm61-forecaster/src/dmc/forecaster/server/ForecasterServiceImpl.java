@@ -22,14 +22,14 @@ public class ForecasterServiceImpl extends RemoteServiceServlet implements
 	private FinancialEventDAO _financialEventDAO = null;
 	private UserPreferenceDAO _userPreferenceDAO = null;
 	
-	public FinancialEventDAO getFinancialEventDao() {
+	private FinancialEventDAO getFinancialEventDao() {
 		if (_financialEventDAO == null) {
 			_financialEventDAO = new FinancialEventDAO();
 		}
 		return _financialEventDAO;
 	}
 	
-	public UserPreferenceDAO getUserPreferenceDao() {
+	private UserPreferenceDAO getUserPreferenceDao() {
 		if (_userPreferenceDAO == null) {
 			_userPreferenceDAO = new UserPreferenceDAO();
 		}
