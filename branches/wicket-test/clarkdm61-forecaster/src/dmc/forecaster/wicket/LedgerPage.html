@@ -1,6 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.3-strict.dtd" >
 	<wicket:extend>
-		Ledger Page
+		<span wicket:id="dateRange">date range</span>
+		<table class="ledger">
+			<thead>
+				<tr>
+					<td>Date</td>
+					<td>Event</td>
+					<td>Income</td>
+					<td>Expense</td>
+					<td>Balance</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr wicket:id="ledgerRows">
+					<td><span wicket:id="date">dateValue</span></td>
+					<td><span wicket:id="event">nameValue</span></td>
+					<td><span wicket:id="income">incomeValue</span></td>
+					<td><span wicket:id="expense">expenseValue</span></td>
+					<td><span wicket:id="balance">balanceValue</span></td>
+				</tr>
+			</tbody>
+		</table>
 	</wicket:extend>
 </html>
