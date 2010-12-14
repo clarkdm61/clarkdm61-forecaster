@@ -1,11 +1,13 @@
 package dmc.forecaster.client;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import dmc.forecaster.shared.FinancialEventType;
 
-public class LedgerEntry implements Comparable<LedgerEntry>{
+public class LedgerEntry implements Serializable, Comparable<LedgerEntry>{
 
+	private static final long serialVersionUID = 423920526198787425L;
 	private String name;
 	private Double incomeAmount;
 	private Double expenseAmount;
