@@ -17,8 +17,6 @@ public class ManagerPage extends BasePage {
 	
 
 	public ManagerPage() {
-		System.out.println("def const");
-		
 		Form form = new Form("form") {
 			protected void onSubmit() {
 				System.out.println("click");
@@ -55,15 +53,6 @@ public class ManagerPage extends BasePage {
 		form.add(eventlist);
 		
 		add(form);
-	}
-
-	/**
-	 * no-session constructor
-	 * @param parameters
-	 */
-	public ManagerPage(PageParameters parameters) {
-		//super(parameters);
-		System.out.println("no-session const");
 	}
 
 	@Override

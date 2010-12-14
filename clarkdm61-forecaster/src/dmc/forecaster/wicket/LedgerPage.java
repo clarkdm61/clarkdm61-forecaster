@@ -5,11 +5,17 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.repeater.Item;
+import org.apache.wicket.markup.repeater.data.DataView;
+import org.apache.wicket.markup.repeater.data.ListDataProvider;
+
 import dmc.forecaster.client.LedgerEntry;
 import dmc.forecaster.server.ForecasterServiceImpl;
 import dmc.forecaster.shared.FinancialEvent;
 import dmc.forecaster.shared.Reoccurrence;
 import dmc.forecaster.shared.UserPreference;
+import dmc.forecaster.shared.Utils;
 
 public class LedgerPage extends BasePage {
 	static final String title = "Ledger Page";
@@ -20,12 +26,43 @@ public class LedgerPage extends BasePage {
 		// get events, process events into instances
 		ForecasterServiceImpl service = new ForecasterServiceImpl();
 		UserPreference prefs = service.getUserPreference();
-		setUserPrefs(userPrefs);
+		setUserPrefs(prefs);
 		
 		List<FinancialEvent> events = service.getAllEvents();
 		
 		// create table
 		List<LedgerEntry> ledgerEntries = createLedger(events);
+		
+		// Create the data view
+		DataView<LedgerEntry> ledgerRows = new DataView<LedgerEntry>("ledgerRows", new ListDataProvider<LedgerEntry>(ledgerEntries)) {
+			private LedgerEntry lastEntry = null;
+			private int row = 0;
+			
+			@Override
+			protected void populateItem(Item<LedgerEntry> item) {
+				LedgerEntry entry = item.getModel().getObject();
+				Double balance = lastEntry == null ? 0d : lastEntry.getBalance(); 
+				balance += entry.getIncomeAmount();
+				balance -= entry.getExpenseAmount();
+				entry.setBalance(balance);
+
+				Date date = entry.getDate();
+				date.setYear(date.getYear()); // Defect/Issue #12 - removed 100 year adjustment
+				
+				item.add(new Label("date", Utils.dateFormat(date)));
+				item.add(new Label("event", entry.getName()));
+				item.add(new Label("income", String.valueOf(entry.getIncomeAmount())));
+				item.add(new Label("expense", String.valueOf(entry.getExpenseAmount())));
+				Label lblBalance = new Label("balance", String.valueOf(entry.getBalance()));
+				item.add(lblBalance);
+				
+				row++;
+				lastEntry = entry;
+			}
+		};
+		
+		add(new Label("dateRange", "Date range: " + Utils.dateFormat(getUserPrefs().getLedgerStartDate()) + " to " + Utils.dateFormat(getUserPrefs().getLedgerEndDate())));
+		add(ledgerRows);
 		
 	}
 
