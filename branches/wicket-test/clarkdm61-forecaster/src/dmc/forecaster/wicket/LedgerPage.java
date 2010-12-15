@@ -5,10 +5,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
+import org.apache.wicket.model.IModel;
 
 import dmc.forecaster.client.LedgerEntry;
 import dmc.forecaster.server.ForecasterServiceImpl;
@@ -36,7 +38,7 @@ public class LedgerPage extends BasePage {
 		// Create the data view
 		DataView<LedgerEntry> ledgerRows = new DataView<LedgerEntry>("ledgerRows", new ListDataProvider<LedgerEntry>(ledgerEntries)) {
 			private LedgerEntry lastEntry = null;
-			private int row = 0;
+			private RowAlternatorModel rowAlternator = new RowAlternatorModel();
 			
 			@Override
 			protected void populateItem(Item<LedgerEntry> item) {
@@ -54,9 +56,13 @@ public class LedgerPage extends BasePage {
 				item.add(new Label("income", String.valueOf(entry.getIncomeAmount())));
 				item.add(new Label("expense", String.valueOf(entry.getExpenseAmount())));
 				Label lblBalance = new Label("balance", String.valueOf(entry.getBalance()));
+				if (entry.getBalance() < 0) {
+					// TODO: add style=color:red attribute modifier
+				}
 				item.add(lblBalance);
 				
-				row++;
+				item.add( new AttributeModifier("class", true, rowAlternator) );
+				
 				lastEntry = entry;
 			}
 		};
