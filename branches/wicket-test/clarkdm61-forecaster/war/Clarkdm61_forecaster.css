@@ -40,18 +40,27 @@ h1 {
 #closeButton {
   margin: 15px 6px 6px;
 }
-
-table.ledger
+#hor-zebra
 {
-border-collapse:collapse;
-width:100%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 12px;
+	text-align: left;
+	border-collapse: collapse;
+	width:100%;
 }
-table.ledger,th.ledger,td.ledger,tr.ledger-header
+#hor-zebra th
 {
-border: 1px solid black;
+	font-size: 14px;
+	font-weight: normal;
+	padding: 10px 8px;
+	color: #039;
 }
-td.ledger-header
+#hor-zebra td
 {
-background-color: black;
-color: white;
+	padding: 8px;
+	color: #669;
+}
+#hor-zebra .odd
+{
+	background: #e8edff; 
 }
