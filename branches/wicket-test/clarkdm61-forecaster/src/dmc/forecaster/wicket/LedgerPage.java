@@ -41,8 +41,8 @@ public class LedgerPage extends BasePage {
 			private RowAlternatorModel rowAlternator = new RowAlternatorModel();
 			
 			@Override
-			protected void populateItem(Item<LedgerEntry> item) {
-				LedgerEntry entry = item.getModel().getObject();
+			protected void populateItem(Item<LedgerEntry> row) {
+				LedgerEntry entry = row.getModel().getObject();
 				Double balance = lastEntry == null ? 0d : lastEntry.getBalance(); 
 				balance += entry.getIncomeAmount();
 				balance -= entry.getExpenseAmount();
@@ -51,17 +51,22 @@ public class LedgerPage extends BasePage {
 				Date date = entry.getDate();
 				date.setYear(date.getYear()); // Defect/Issue #12 - removed 100 year adjustment
 				
-				item.add(new Label("date", Utils.dateFormat(date)));
-				item.add(new Label("event", entry.getName()));
-				item.add(new Label("income", String.valueOf(entry.getIncomeAmount())));
-				item.add(new Label("expense", String.valueOf(entry.getExpenseAmount())));
+				row.add(new Label("date", Utils.dateFormat(date)));
+				row.add(new Label("event", entry.getName()));
+				row.add(new Label("income", String.valueOf(entry.getIncomeAmount())));
+				row.add(new Label("expense", String.valueOf(entry.getExpenseAmount())));
 				Label lblBalance = new Label("balance", String.valueOf(entry.getBalance()));
-				if (entry.getBalance() < 0) {
-					// TODO: add style=color:red attribute modifier
-				}
-				item.add(lblBalance);
 				
-				item.add( new AttributeModifier("class", true, rowAlternator) );
+				if (entry.getRowColor() != null) {
+					row.add( new AttributeModifier("style", true, new StringModel("color:"+entry.getRowColor())) );
+				}
+				// override if balance is than 0
+				if (entry.getBalance() < 0) {
+					row.add( new AttributeModifier("style", true, new StringModel("color:red")) );
+				}
+				row.add(lblBalance);
+				
+				row.add( new AttributeModifier("class", true, rowAlternator) );
 				
 				lastEntry = entry;
 			}
