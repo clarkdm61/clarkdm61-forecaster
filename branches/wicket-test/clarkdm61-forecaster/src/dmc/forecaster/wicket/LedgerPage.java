@@ -60,9 +60,8 @@ public class LedgerPage extends BasePage {
 				if (entry.getRowColor() != null) {
 					row.add( new AttributeModifier("style", true, new StringModel("color:"+entry.getRowColor())) );
 				}
-				// override if balance is than 0
 				if (entry.getBalance() < 0) {
-					row.add( new AttributeModifier("style", true, new StringModel("color:red")) );
+					lblBalance.add( new AttributeModifier("style", true, new StringModel("color:red")) );
 				}
 				row.add(lblBalance);
 				
