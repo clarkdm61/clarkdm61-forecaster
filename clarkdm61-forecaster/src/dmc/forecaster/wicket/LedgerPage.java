@@ -10,14 +10,13 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
-import org.apache.wicket.model.IModel;
 
 import dmc.forecaster.client.LedgerEntry;
 import dmc.forecaster.server.ForecasterServiceImpl;
 import dmc.forecaster.shared.FinancialEvent;
 import dmc.forecaster.shared.Reoccurrence;
 import dmc.forecaster.shared.UserPreference;
-import dmc.forecaster.shared.Utils;
+import static dmc.forecaster.shared.Utils.*;
 
 public class LedgerPage extends BasePage {
 	static final String title = "Ledger Page";
@@ -40,6 +39,15 @@ public class LedgerPage extends BasePage {
 			private LedgerEntry lastEntry = null;
 			private RowAlternatorModel rowAlternator = new RowAlternatorModel();
 			
+			/**
+			 * Added so when refresh button is used, the lastEntry is properly reset to null. 
+			 */
+			@Override
+			protected void onAfterRender() {
+				super.onAfterRender();
+				lastEntry = null;
+			};
+			
 			@Override
 			protected void populateItem(Item<LedgerEntry> row) {
 				LedgerEntry entry = row.getModel().getObject();
@@ -51,11 +59,11 @@ public class LedgerPage extends BasePage {
 				Date date = entry.getDate();
 				date.setYear(date.getYear()); // Defect/Issue #12 - removed 100 year adjustment
 				
-				row.add(new Label("date", Utils.dateFormat(date)));
+				row.add(new Label("date", dateFormat(date)));
 				row.add(new Label("event", entry.getName()));
-				row.add(new Label("income", String.valueOf(entry.getIncomeAmount())));
-				row.add(new Label("expense", String.valueOf(entry.getExpenseAmount())));
-				Label lblBalance = new Label("balance", String.valueOf(entry.getBalance()));
+				row.add(new Label("income", currencyFormat(entry.getIncomeAmount())));
+				row.add(new Label("expense", currencyFormat(entry.getExpenseAmount())));
+				Label lblBalance = new Label("balance", currencyFormat(entry.getBalance()));
 				
 				if (entry.getRowColor() != null) {
 					row.add( new AttributeModifier("style", true, new StringModel("color:"+entry.getRowColor())) );
@@ -71,9 +79,8 @@ public class LedgerPage extends BasePage {
 			}
 		};
 		
-		add(new Label("dateRange", "Date range: " + Utils.dateFormat(getUserPrefs().getLedgerStartDate()) + " to " + Utils.dateFormat(getUserPrefs().getLedgerEndDate())));
+		add(new Label("dateRange", "Date range: " + dateFormat(getUserPrefs().getLedgerStartDate()) + " to " + dateFormat(getUserPrefs().getLedgerEndDate())));
 		add(ledgerRows);
-		
 	}
 
 	/**
