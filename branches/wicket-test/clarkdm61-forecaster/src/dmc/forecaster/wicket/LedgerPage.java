@@ -230,5 +230,12 @@ public class LedgerPage extends BasePage {
 	public void setUserPrefs(UserPreference userPrefs) {
 		this.userPrefs = userPrefs;
 	}
+	
+	public static String currencyFormat(Double amt) {
+		if (amt == 0d) {
+			return "-";
+		}
+		return String.format("$%.2f", Math.abs(amt));
+	}
 
 }
