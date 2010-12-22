@@ -8,12 +8,4 @@ public class Utils {
 		if (d == null) return "*";
 		return (d.getMonth() + 1) + "/" + d.getDate() + "/" + (d.getYear() + 1900);
 	}
-	
-	public static String currencyFormat(Double amt) {
-		if (amt == 0d) {
-			return "-";
-		}
-		return String.format("$%.2f", Math.abs(amt));
-	}
-
 }
