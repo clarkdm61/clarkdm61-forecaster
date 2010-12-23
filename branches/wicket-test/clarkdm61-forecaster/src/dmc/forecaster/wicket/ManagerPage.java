@@ -2,43 +2,42 @@ package dmc.forecaster.wicket;
 
 import java.util.List;
 
-import org.apache.wicket.PageParameters;
+import org.apache.wicket.IClusterable;
+import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
-import org.apache.wicket.markup.html.form.ListChoice;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
-import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.markup.html.form.RadioChoice;
+import org.apache.wicket.model.CompoundPropertyModel;
 
 import dmc.forecaster.server.ForecasterServiceImpl;
 import dmc.forecaster.shared.FinancialEvent;
 
 public class ManagerPage extends BasePage {
+	public enum LocalAction {ADD, EDIT, DELETE}
+	public LocalAction localAction = null;
 	
-
+	/**
+	 * Constructor
+	 */
 	public ManagerPage() {
-		Form form = new Form("form") {
-			protected void onSubmit() {
-				System.out.println("click");
+		
+		ForecasterServiceImpl service = new ForecasterServiceImpl();
+		final List<FinancialEvent> events = service.getAllEvents();
+		
+		// model wrapper layer 1
+		final IClusterable input = new IClusterable() {
+			public FinancialEvent event = events.get(0);
+			
+			public String toString() {
+				return event.getLabelString();
 			}
 		};
+		// wrapping model again?
+		setDefaultModel(new CompoundPropertyModel<IClusterable>(input));
 		
-		//List<String> events = Arrays.asList(new String[]{"one","two"});
-		ForecasterServiceImpl service = new ForecasterServiceImpl();
-		List<FinancialEvent> events = service.getAllEvents();
-//		ListView eventsView = new ListView("events", events) {
-//			static int index = 0;
-//			protected void populateItem(ListItem item) {
-//				item.add(
-//						new ListItem(index++, new PropertyModel(item.getModel(), "description"))
-//						);
-//			}
-//		};
-		
-		//PropertyModel<FinancialEvent> eventModel = new PropertyModel<FinancialEvent>(events, "description");
-		
-		ListChoice eventlist = new ListChoice("eventlist",events, new IChoiceRenderer<FinancialEvent>() {
-
+		// construct the RadioChoice list of FinancialEvents - events
+		// some magic ties the "event" to input.event, and some other magic enables input.event=events.get(0) to work
+		RadioChoice<List> eventlist = new RadioChoice("event",events, new IChoiceRenderer<FinancialEvent>() {
 			@Override
 			public Object getDisplayValue(FinancialEvent arg0) {
 				return arg0.getLabelString();
@@ -50,8 +49,40 @@ public class ManagerPage extends BasePage {
 			}
 			
 		});
-		form.add(eventlist);
+
 		
+		Form form = new Form("form") {
+			@Override
+			protected void onSubmit() {
+				System.out.println( localAction + " : " + input);
+			}
+			
+		};
+		
+		// add
+		form.add (new Button("btnAdd") {
+			public void onSubmit() {
+				localAction = LocalAction.ADD;
+				System.out.println( "add" );
+			}
+		});
+		// edit
+		form.add( new Button("btnEdit") {
+			public void onSubmit() {
+				localAction = LocalAction.EDIT;
+				System.out.println("edit");
+			}
+		});
+		
+		// delete
+		form.add (new Button("btnDelete") {
+			public void onSubmit() {
+				localAction = LocalAction.DELETE;
+				System.out.println("delete");
+			}
+		});
+
+		form.add(eventlist);
 		add(form);
 	}
 

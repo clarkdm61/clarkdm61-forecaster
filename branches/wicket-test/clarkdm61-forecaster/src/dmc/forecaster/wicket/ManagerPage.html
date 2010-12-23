@@ -2,11 +2,13 @@
 <html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.3-strict.dtd" >
 	<wicket:extend>
 		<form wicket:id="form">
-			<select wicket:id="eventlist" name="event">
-				<option>eventlist</option>
-			</select>
-			<br></br><br></br>
-			<!-- <input type="submit" value="edit"/>  -->
+			<span wicket:id="event">
+				<input type="radio" value="1" />Event 1<br></br>
+				<input type="radio"/>Event 2
+			</span>
+			<input type="submit" wicket:id="btnAdd" value="Add"></input> 
+			<input type="submit" wicket:id="btnEdit" value="Edit"></input>
+			<input type="submit" wicket:id="btnDelete" value="Delete"></input>
 		</form>
 	</wicket:extend>
 </html>
