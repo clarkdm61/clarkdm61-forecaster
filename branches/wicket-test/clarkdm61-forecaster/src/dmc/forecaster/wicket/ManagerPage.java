@@ -32,7 +32,7 @@ public class ManagerPage extends BasePage {
 				return event.getLabelString();
 			}
 		};
-		// wrapping model again?
+		// wrapping model again
 		setDefaultModel(new CompoundPropertyModel<IClusterable>(input));
 		
 		// construct the RadioChoice list of FinancialEvents - events
@@ -55,8 +55,12 @@ public class ManagerPage extends BasePage {
 			@Override
 			protected void onSubmit() {
 				System.out.println( localAction + " : " + input);
+				switch (localAction) {
+					case ADD: openForAdd(); break;
+					case EDIT: openForEdit(events.get(0)); break;
+					case DELETE: confirmDelete(events.get(0)); break;
+				}
 			}
-			
 		};
 		
 		// add
@@ -84,6 +88,21 @@ public class ManagerPage extends BasePage {
 
 		form.add(eventlist);
 		add(form);
+	}
+
+	protected void openForAdd() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void confirmDelete(FinancialEvent financialEvent) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void openForEdit(FinancialEvent financialEvent) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
