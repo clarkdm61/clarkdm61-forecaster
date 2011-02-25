@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.3-strict.dtd" >
 	<wicket:extend>
-		<span wicket:id="dateRange">date range</span>
+		
+		<form wicket:id="form">
+			Start <input type="text" wicket:id="startDt" size="10" /> 
+			End <input type="text" wicket:id="endDt" size="10" /> 
+			<input type="submit" value="Go" />
+		</form>
 		<table id="hor-zebra">
 			<thead>
 				<tr>
