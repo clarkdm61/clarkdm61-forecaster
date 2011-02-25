@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
+import org.apache.wicket.model.CompoundPropertyModel;
 
 import dmc.forecaster.client.LedgerEntry;
 import dmc.forecaster.server.ForecasterServiceImpl;
@@ -20,17 +25,64 @@ import static dmc.forecaster.shared.Utils.*;
 
 public class LedgerPage extends BasePage {
 	static final String title = "Ledger Page";
-	
+	static Logger log = Logger.getLogger(LedgerPage.class.getName());
 	private UserPreference userPrefs = null;
 	
+	private CompoundPropertyModel<UserPreference> propertyModel = null;
+	
+	private class FormModel {
+		private UserPreference prefs = null;
+		public FormModel(UserPreference prefs) {
+			this.prefs = prefs;
+		}
+		public String getStartDt() {
+			return dateFormat(prefs.getLedgerStartDate());
+		}
+		public void setStartDt(String szDate) {
+			System.out.println("setting start date="+szDate);
+			Date d = new Date(szDate);
+			prefs.setLedgerStartDate(d);
+		}
+		public String getEndDt() {
+			return dateFormat(prefs.getLedgerEndDate());
+		}
+		public void setEndDt(String szDate) {
+			Date d = new Date(szDate);
+			prefs.setLedgerEndDate(d);
+		}
+	}
+	
 	public LedgerPage() {
+		log.fine("LedgerPage() constructed");
 		// get events, process events into instances
-		ForecasterServiceImpl service = new ForecasterServiceImpl();
-		UserPreference prefs = service.getUserPreference();
+		final ForecasterServiceImpl service = new ForecasterServiceImpl();
+		final UserPreference prefs = service.getUserPreference();
 		setUserPrefs(prefs);
+		propertyModel = new CompoundPropertyModel<UserPreference>(new FormModel(prefs));
 		
+		DataView<LedgerEntry> ledgerRows = renderTable(service);
+		
+		//add(new Label("dateRange", "Date range: " + dateFormat(getUserPrefs().getLedgerStartDate()) + " to " + dateFormat(getUserPrefs().getLedgerEndDate())));
+		
+		Form form = new Form("form") {
+			protected void onSubmit() {
+				log.fine("onSubmit()");
+				service.updateUserPreference(getUserPrefs());
+				// actually navigate to self?
+				//LedgerPage nextPage = new LedgerPage();
+			}
+		};
+		form.add(new TextField("startDt"));
+		form.add(new TextField("endDt"));
+		add(form);
+		form.setDefaultModel(propertyModel);
+		add(ledgerRows);
+	}
+
+	private DataView<LedgerEntry> renderTable(
+			final ForecasterServiceImpl service) {
 		List<FinancialEvent> events = service.getAllEvents();
-		
+		log.fine("renderTable(..)");
 		// create table
 		List<LedgerEntry> ledgerEntries = createLedger(events);
 		
@@ -78,9 +130,7 @@ public class LedgerPage extends BasePage {
 				lastEntry = entry;
 			}
 		};
-		
-		add(new Label("dateRange", "Date range: " + dateFormat(getUserPrefs().getLedgerStartDate()) + " to " + dateFormat(getUserPrefs().getLedgerEndDate())));
-		add(ledgerRows);
+		return ledgerRows;
 	}
 
 	/**

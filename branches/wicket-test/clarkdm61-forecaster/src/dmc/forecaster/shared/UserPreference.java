@@ -63,5 +63,9 @@ public class UserPreference implements java.io.Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public String toString() {
+		return "userId="+getUserId()+", ledgerStartDate="+getLedgerStartDate()+", ledgerEndDate="+getLedgerEndDate();
+	}
 
 }
