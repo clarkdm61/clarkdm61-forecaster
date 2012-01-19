@@ -1,4 +1,4 @@
-#Explanation of Tags and Branches in SVN
+#summary Explanation of Tags and Branches in SVN
 
 ==Tags==
   *v0.1 ?
