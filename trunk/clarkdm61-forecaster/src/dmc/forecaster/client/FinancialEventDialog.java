@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import dmc.forecaster.shared.FinancialEvent;
 import dmc.forecaster.shared.FinancialEventType;
 import dmc.forecaster.shared.Reoccurrence;
+import dmc.forecaster.shared.Util;
 
 public class FinancialEventDialog extends DialogBox {
 	private boolean newEvent;
@@ -109,7 +110,7 @@ public class FinancialEventDialog extends DialogBox {
 		setText("Create Event");
 		txtName.setText("");
 		txtDescription.setText("");
-		txtStartDt.setText(Clarkdm61_forecaster.dateFormat(new java.util.Date()));
+		txtStartDt.setText(Util.dateFormat(new java.util.Date()));
 		txtEndDt.setText("");
 		txtEndDt.setEnabled(false);
 		rbExpense.setValue(true);
@@ -129,9 +130,9 @@ public class FinancialEventDialog extends DialogBox {
 		txtName.setText(financialEvent.getName());
 		txtDescription.setText(financialEvent.getDescription());
 		txtAmount.setText(financialEvent.getAmount().toString());
-		txtStartDt.setText(Clarkdm61_forecaster.dateFormat(financialEvent.getStartDt()));
+		txtStartDt.setText(Util.dateFormat(financialEvent.getStartDt()));
 		Date endDt = financialEvent.getEndDt();
-		String szEndDt = endDt==null ? "" : Clarkdm61_forecaster.dateFormat(endDt);;
+		String szEndDt = endDt==null ? "" : Util.dateFormat(endDt);;
 		txtEndDt.setText(szEndDt);
 		if (getFinancialEvent().getReoccurrence().equals(Reoccurrence.None)) {
 			txtEndDt.setEnabled(false);

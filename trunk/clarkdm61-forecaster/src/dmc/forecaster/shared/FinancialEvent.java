@@ -63,7 +63,7 @@ public class FinancialEvent implements java.io.Serializable, Comparable<Financia
 	}
 	
 	public String getLabelString() {
-		return Clarkdm61_forecaster.dateFormat(getStartDt()) + " - " + Clarkdm61_forecaster.dateFormat(getEndDt()) + ", " +  getName()+", "+ getReoccurrence() + " " + getType() +", " + getAmount();
+		return Util.dateFormat(getStartDt()) + " - " + Util.dateFormat(getEndDt()) + ", " +  getName()+", "+ getReoccurrence() + " " + getType() +", " + getAmount();
 	}
 
 	public String getName() {

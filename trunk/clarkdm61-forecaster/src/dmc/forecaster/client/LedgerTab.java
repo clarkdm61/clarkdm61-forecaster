@@ -16,14 +16,15 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.visualization.client.AbstractDataTable;
+import com.google.gwt.visualization.client.AbstractDataTable.ColumnType;
 import com.google.gwt.visualization.client.DataTable;
 import com.google.gwt.visualization.client.VisualizationUtils;
-import com.google.gwt.visualization.client.AbstractDataTable.ColumnType;
 import com.google.gwt.visualization.client.visualizations.Table;
 
 import dmc.forecaster.shared.FinancialEvent;
 import dmc.forecaster.shared.Reoccurrence;
 import dmc.forecaster.shared.UserPreference;
+import dmc.forecaster.shared.Util;
 
 public class LedgerTab extends DockLayoutPanel {
 	public static ArrayList<LedgerEntry> ledgerEntries = null;
@@ -71,8 +72,8 @@ public class LedgerTab extends DockLayoutPanel {
 				userPreference = result;
 				Date todayDt = userPreference.getLedgerStartDate();
 				Date nextDt = userPreference.getLedgerEndDate();
-				txtStart.setText(Clarkdm61_forecaster.dateFormat(todayDt));
-				txtEnd.setText(Clarkdm61_forecaster.dateFormat(nextDt));
+				txtStart.setText(Util.dateFormat(todayDt));
+				txtEnd.setText(Util.dateFormat(nextDt));
 			}
 			
 			@Override

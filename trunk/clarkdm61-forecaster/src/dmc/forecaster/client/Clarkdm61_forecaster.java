@@ -22,7 +22,6 @@ public class Clarkdm61_forecaster implements EntryPoint {
 	public static final ManageTab manageTab = new ManageTab();
 	public static final LedgerTab ledgerTab = new LedgerTab();
 	public static final GraphTab graphTab = new GraphTab();
-	private static final DateTimeFormat ForecasterDateFormat = DateTimeFormat.getFormat("MM/dd/yyyy");
 
 	/**
 	 * This is the entry point method.
@@ -36,11 +35,5 @@ public class Clarkdm61_forecaster implements EntryPoint {
 		RootPanel.get().add(tabs);
 		
 		tabs.setSize("90em", "45em");
-	}
-	
- 
-	public static String dateFormat(Date d) {
-		if (d == null) return "";
-		return ForecasterDateFormat.format(d);
 	}
 }
