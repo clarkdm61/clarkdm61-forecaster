@@ -50,9 +50,6 @@ public class TabPanel extends CustomComponent {
 	public TabPanel() {
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
-
-//		ManagerComposite managerTabComposite = new ManagerComposite();
-//		managerTabPanelRootLayout.addComponent(managerTabComposite);
 	}
 
 
@@ -138,7 +135,7 @@ public class TabPanel extends CustomComponent {
 		// managerComposite_1
 		managerComposite_1 = new ManagerComposite();
 		managerComposite_1.setImmediate(false);
-		managerComposite_1.setWidth("-1px");
+		managerComposite_1.setWidth("100.0%");
 		managerComposite_1.setHeight("-1px");
 		managerTabPanelRootLayout.addComponent(managerComposite_1);
 		
@@ -179,7 +176,7 @@ public class TabPanel extends CustomComponent {
 		// ledgerComposite
 		ledgerComposite = new LedgerComposite();
 		ledgerComposite.setImmediate(false);
-		ledgerComposite.setWidth("-1px");
+		ledgerComposite.setWidth("100.0%");
 		ledgerComposite.setHeight("-1px");
 		verticalLayout_2.addComponent(ledgerComposite);
 		
