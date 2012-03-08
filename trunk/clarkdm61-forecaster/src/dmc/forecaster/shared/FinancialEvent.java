@@ -53,8 +53,13 @@ public class FinancialEvent implements java.io.Serializable, Comparable<Financia
 		this.reoccurrence = reoccurrence;
 	}
 	
+	/**
+	 * Returns a (transient) copy of this financial event.
+	 * @return
+	 */
 	public FinancialEvent deepCopy() {
 		FinancialEvent fe = new FinancialEvent(name, description, startDt, endDt, amount, type, reoccurrence);
+		fe.setId(this.getId());
 		return fe;
 	}
 	
