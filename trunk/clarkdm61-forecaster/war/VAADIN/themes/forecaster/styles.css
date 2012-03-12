@@ -1,1 +1,6 @@
-@import "/VAADIN/themes/runo/styles.css"
+@import url(/VAADIN/themes/reindeer/styles.css);
+/* Style specifically for the "black" cells. */
+
+.v-table-cell-content-oldItem {
+	color:gray;
+}
