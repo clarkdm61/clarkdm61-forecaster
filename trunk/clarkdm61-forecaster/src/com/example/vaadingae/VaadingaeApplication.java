@@ -13,7 +13,7 @@ public class VaadingaeApplication extends Application {
 	
 	@Override
 	public void init() {
-		setTheme("forecaster");
+		
 		Window mainWindow = new Window("Vaadingae Application");
 		mainWindow.setSizeFull();
 
@@ -22,6 +22,7 @@ public class VaadingaeApplication extends Application {
 		mainWindow.addComponent(tabs);
 		setMainWindow(mainWindow);
 		
+		setTheme("forecaster");
 	}
 	
 	public static ForecasterService getForecasterService() {

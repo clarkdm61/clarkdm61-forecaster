@@ -17,6 +17,7 @@ import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.Select;
+import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
@@ -64,6 +65,7 @@ public class FinancialEventDialog extends Window {
 			} else if ("reoccurrence".equals(pid)) {
 				Select field = new Select("Reoccurrence");
 				field.addItem(Reoccurrence.None);
+				field.addItem(Reoccurrence.Weekly);
 				field.addItem(Reoccurrence.BiWeekly);
 				field.addItem(Reoccurrence.Monthly);
 				field.addItem(Reoccurrence.TwiceYearly);
@@ -79,6 +81,11 @@ public class FinancialEventDialog extends Window {
 					}
 				});
 				return field;
+			} else if ("amount".equals(pid)) {
+				TextField field = new TextField();
+				field.setNullRepresentation("");
+				field.setRequired(true);
+				// TODO: create a "money" field, with validator
 			}
 			
 			return super.createField(item, propertyId, uiContext);
