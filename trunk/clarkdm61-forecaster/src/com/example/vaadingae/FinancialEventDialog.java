@@ -2,7 +2,6 @@ package com.example.vaadingae;
 
 import java.util.Arrays;
 
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.vaadin.data.Item;
 import com.vaadin.data.Property;
 import com.vaadin.data.Property.ValueChangeEvent;
@@ -15,15 +14,12 @@ import com.vaadin.ui.Field;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.NumericField;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.Select;
-import com.vaadin.ui.TextField;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
-import dmc.forecaster.client.Clarkdm61_forecaster;
-import dmc.forecaster.client.ForecasterService;
-import dmc.forecaster.server.ForecasterServiceImpl;
 import dmc.forecaster.shared.FinancialEvent;
 import dmc.forecaster.shared.FinancialEventType;
 import dmc.forecaster.shared.Reoccurrence;
@@ -71,7 +67,7 @@ public class FinancialEventDialog extends Window {
 				field.addItem(Reoccurrence.TwiceYearly);
 				field.addItem(Reoccurrence.Yearly);
 				field.setRequired(true);
-				field.setImmediate(true);
+				//field.setImmediate(true); // originally put here so the model was updated when a selection was made. form.commit handles this now.
 				field.setNullSelectionAllowed(false); // removes empty selection
 				field.addListener(new Property.ValueChangeListener() {
 					@Override
@@ -82,10 +78,10 @@ public class FinancialEventDialog extends Window {
 				});
 				return field;
 			} else if ("amount".equals(pid)) {
-				TextField field = new TextField();
+				NumericField field = new NumericField("Amount");
 				field.setNullRepresentation("");
 				field.setRequired(true);
-				// TODO: create a "money" field, with validator
+				return field;
 			}
 			
 			return super.createField(item, propertyId, uiContext);
@@ -115,6 +111,8 @@ public class FinancialEventDialog extends Window {
 		
 		form = new Form(formLayout, editorFieldFactory);
 		
+		//form.setImmediate(true); // validate as data is entered.
+		
 		mainLayout.addComponent(form);
 		
 		HorizontalLayout buttonLayout = new HorizontalLayout();
@@ -125,8 +123,13 @@ public class FinancialEventDialog extends Window {
 			public void buttonClick(ClickEvent event) {
 				if (financialEvent.getId() != null) {
 					// making transient copy for JDO to work with.
-					// TODO: is there a way aroung this?
+					// TODO: is there a way around this?
 					financialEvent = financialEvent.deepCopy();
+				}
+				try {
+					form.commit();
+				} catch (RuntimeException e) {
+					return;
 				}
 				VaadingaeApplication.getForecasterService().create(financialEvent);
 				managerTab.initManagerTable();
@@ -176,6 +179,11 @@ public class FinancialEventDialog extends Window {
 			f.setEnabled(false);
 		}
 		
+		Field f = form.getField("name");
+		f.setRequired(true);
+		
+		//form.setImmediate(true); // validate as data is entered?
+		
 		formLayout.setMargin(true);
 		form.setSizeUndefined();
 		mainLayout.setSizeUndefined();
@@ -192,7 +200,7 @@ public class FinancialEventDialog extends Window {
 	 * Enable/disable End Date field based on selected Reoccurrence.
 	 * @param value
 	 */
-	protected void toggleEndDate(Reoccurrence value) {
+	private void toggleEndDate(Reoccurrence value) {
 		boolean enabled = Reoccurrence.None != value;
 		Field field = form.getField("endDt");//.setEnabled(enabled);
 		if (field != null) {
@@ -204,11 +212,6 @@ public class FinancialEventDialog extends Window {
 	
 	protected void close() {
 		getParent().removeWindow(this);
-	}
-
-
-	public FinancialEvent getFinancialEvent() {
-		return financialEvent;
 	}
 
 }

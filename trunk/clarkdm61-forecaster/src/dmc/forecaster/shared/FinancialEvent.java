@@ -7,8 +7,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import dmc.forecaster.client.Clarkdm61_forecaster;
-
 @PersistenceCapable(detachable="true")
 public class FinancialEvent implements java.io.Serializable, Comparable<FinancialEvent> {
 	
