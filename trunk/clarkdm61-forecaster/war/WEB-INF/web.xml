@@ -16,6 +16,10 @@
 			<param-name>application</param-name>
 			<param-value>com.example.vaadingae.VaadingaeApplication</param-value>
 		</init-param>
+		<init-param>
+			<param-name>widgetset</param-name>
+			<param-value>com.example.vaadingae.VaadingaeWidgetset</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Vaadingae Application</servlet-name>
