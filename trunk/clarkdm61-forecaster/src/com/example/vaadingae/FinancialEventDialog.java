@@ -132,7 +132,7 @@ public class FinancialEventDialog extends Window {
 					return;
 				}
 				VaadingaeApplication.getForecasterService().create(financialEvent);
-				managerTab.initManagerTable();
+				managerTab.refreshManagerTable();
 				close();
 			}
 		}));
@@ -141,7 +141,7 @@ public class FinancialEventDialog extends Window {
 			
 			@Override
 			public void buttonClick(ClickEvent event) {
-				managerTab.initManagerTable();
+				managerTab.refreshManagerTable();
 				close();
 			}
 		}));

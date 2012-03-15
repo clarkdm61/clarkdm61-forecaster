@@ -54,8 +54,10 @@ public class ManagerTab extends CustomComponent {
 	// The currently selected event. Null when nothing is selected.
 	private FinancialEvent selectedEvent = null;
 	
-	// Not able to use the ConfirmDialog.Listener as an annonymous inner class because it
-	// is missing the Serializable implementation. A request for fix has been made to the author.
+	/**
+	 * Unable to use the ConfirmDialog.Listener as an anonymous inner class because it
+	 * is missing the Serializable implementation. A request for fix has been made to the add-on author.
+	 */
 	private class DeleteConfirmDialogListener implements ConfirmDialog.Listener, Serializable {
 		private static final long serialVersionUID = 1749112843580556004L;
 
@@ -79,16 +81,16 @@ public class ManagerTab extends CustomComponent {
 		setCompositionRoot(mainLayout);
 
 		// TODO add user code here:
-		initManagerTable();
+		refreshManagerTable();
 		
 		// add event handlers
 		addEventHandlers();
 	}
 	
 	/**
-	 * Invoke getAllEvents, then initialize list of existing FinancialEvents
+	 * Invoke getAllEvents, then update table.
 	 */
-	public void initManagerTable() {
+	public void refreshManagerTable() {
 		List<FinancialEvent> list =  VaadingaeApplication.getForecasterService().getAllEvents();
 
 		Collections.sort(list);
@@ -175,17 +177,27 @@ public class ManagerTab extends CustomComponent {
 			}});
 	}
 	
+	/**
+	 * Create the dialog callback handler, then open the confirm delete dialog.
+	 */
 	private void showConfirmDelete() {
 		DeleteConfirmDialogListener callback = new DeleteConfirmDialogListener();
 		ConfirmDialog.show(getParent().getWindow(), "Confirm Delete", "Delete record?", "Yes", "Cancel", callback);
 	}
 
-	
+	/**
+	 * Perform the delete operation and synch the list.
+	 */
 	private void doDelete() {
 		VaadingaeApplication.getForecasterService().delete(getSelectedEvent().getId());
-		initManagerTable();		
+		refreshManagerTable();		
 	}
 	
+	/**
+	 * Instantiate a FinancialEvent dialog with a reference to 'this'
+	 * (access to 'this' is inconvenient within anon inner class).
+	 * @return
+	 */
 	private FinancialEventDialog createFinancialEventDialog() {
 		return new FinancialEventDialog(this);
 	}
