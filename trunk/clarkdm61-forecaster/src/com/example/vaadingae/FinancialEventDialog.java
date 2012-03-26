@@ -31,6 +31,7 @@ import dmc.forecaster.shared.Reoccurrence;
  */
 public class FinancialEventDialog extends Window {
 
+	private static final long serialVersionUID = 7948064932575370159L;
 	private VerticalLayout mainLayout;
 	private FormLayout formLayout;
 	private Form form;
@@ -117,6 +118,7 @@ public class FinancialEventDialog extends Window {
 		
 		HorizontalLayout buttonLayout = new HorizontalLayout();
 		
+		// create Save button and event handler
 		buttonLayout.addComponent(new Button("Save", new Button.ClickListener() {
 			
 			@Override
@@ -137,6 +139,7 @@ public class FinancialEventDialog extends Window {
 			}
 		}));
 		
+		// create Cancel button and event handler
 		buttonLayout.addComponent(new Button("Cancel", new Button.ClickListener() {
 			
 			@Override
@@ -174,10 +177,11 @@ public class FinancialEventDialog extends Window {
 				"amount"
 				}));
 		
-		if (financialEvent.getReoccurrence().equals(Reoccurrence.None)) {
-			Field f = form.getField("endDt");
-			f.setEnabled(false);
-		}
+//		// disable endDt field when Reoccurrence.None
+//		if (financialEvent.getReoccurrence().equals(Reoccurrence.None)) {
+//			Field f = form.getField("endDt");
+//			f.setEnabled(false);
+//		}
 		
 		Field f = form.getField("name");
 		f.setRequired(true);
