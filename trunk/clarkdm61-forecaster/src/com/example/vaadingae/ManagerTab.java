@@ -80,7 +80,7 @@ public class ManagerTab extends CustomComponent {
 		buildMainLayout();
 		setCompositionRoot(mainLayout);
 
-		// TODO add user code here:
+		// add user code here:
 		refreshManagerTable();
 		
 		// add event handlers
@@ -92,6 +92,7 @@ public class ManagerTab extends CustomComponent {
 	 */
 	public void refreshManagerTable() {
 		List<FinancialEvent> list =  VaadingaeApplication.getForecasterService().getAllEvents();
+		VaadingaeApplication.setFinancialEventList(list);
 
 		Collections.sort(list);
 		
