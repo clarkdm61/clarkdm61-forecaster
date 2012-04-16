@@ -1,5 +1,6 @@
 package com.example.vaadingae;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import com.vaadin.ui.PopupDateField;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.VerticalLayout;
 
+import dmc.forecaster.client.LedgerEntry;
 import dmc.forecaster.shared.FinancialEvent;
 import dmc.forecaster.shared.UserPreference;
 
@@ -93,9 +95,15 @@ public class LedgerTab extends CustomComponent {
 	private void createLedger() {
 		
 		List<FinancialEvent> financialEvents = VaadingaeApplication.getFinancialEventList();
-		LedgerEntryContainer container = LedgerEntryContainerFactory.createLedgerContainer(financialEvents );
+		LedgerEntryFactory factory = new LedgerEntryFactory();
+		
+		Date startDt = (Date) getStartDate().getData();
+		Date endDt = (Date) getEndDate().getData();
+		ArrayList<LedgerEntry> ledgerEntries = factory.createLedgerEntries(financialEvents, startDt, endDt);
+		
+		LedgerEntryContainer container = new LedgerEntryContainer(LedgerEntry.class, ledgerEntries);
 			
-		// TODO: Set up the Table
+		// TODO: Set up the Table (see ManagerTab refreshManagerTable())
 		
 		
 	}
