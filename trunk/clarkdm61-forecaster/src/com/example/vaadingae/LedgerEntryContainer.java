@@ -13,7 +13,7 @@ public class LedgerEntryContainer extends BeanItemContainer<LedgerEntry> {
 	 * Natural property order for LedgerEntry bean. Used in tables and forms.
 	 */
 	public static final Object[] NATURAL_COL_ORDER = new Object[] {
-			"date", "name", "income", "expense", "balance" };
+			"date", "name", "incomeAmount", "expenseAmount", "balance" };
 
 	/**
 	 * "Human readable" captions for properties in same order as in

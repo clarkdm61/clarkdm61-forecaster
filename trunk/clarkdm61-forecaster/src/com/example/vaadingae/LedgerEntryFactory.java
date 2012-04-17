@@ -1,6 +1,7 @@
 package com.example.vaadingae;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +36,9 @@ public class LedgerEntryFactory {
 				createLedgerEntry(ledgerEntries, event);
 			}
 		}
+		
+		// sort entries by start date (note: the balance can't be calculated until this happens)
+		Collections.sort(ledgerEntries);
 		
 		return ledgerEntries;
 		
