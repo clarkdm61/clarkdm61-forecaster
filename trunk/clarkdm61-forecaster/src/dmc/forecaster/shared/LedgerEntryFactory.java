@@ -1,4 +1,4 @@
-package com.example.vaadingae;
+package dmc.forecaster.shared;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.List;
 
 import dmc.forecaster.client.LedgerEntry;
-import dmc.forecaster.shared.FinancialEvent;
-import dmc.forecaster.shared.Reoccurrence;
 
 /**
  * Factory for creating a LedgerEntryContainer from a FinancialEvent list

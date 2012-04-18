@@ -17,6 +17,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import dmc.forecaster.client.LedgerEntry;
 import dmc.forecaster.shared.FinancialEvent;
+import dmc.forecaster.shared.LedgerEntryFactory;
 import dmc.forecaster.shared.UserPreference;
 
 public class LedgerTab extends CustomComponent {

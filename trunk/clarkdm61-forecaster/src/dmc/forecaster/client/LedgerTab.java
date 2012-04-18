@@ -1,12 +1,9 @@
 package dmc.forecaster.client;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-import com.example.vaadingae.LedgerEntryFactory;
-import com.example.vaadingae.VaadingaeApplication;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -25,7 +22,7 @@ import com.google.gwt.visualization.client.VisualizationUtils;
 import com.google.gwt.visualization.client.visualizations.Table;
 
 import dmc.forecaster.shared.FinancialEvent;
-import dmc.forecaster.shared.Reoccurrence;
+import dmc.forecaster.shared.LedgerEntryFactory;
 import dmc.forecaster.shared.UserPreference;
 import dmc.forecaster.shared.Util;
 
@@ -115,7 +112,7 @@ public class LedgerTab extends DockLayoutPanel {
 	 */
 	private void createLedger(String startDt, String endDt) {
 		
-		List<FinancialEvent> financialEvents = VaadingaeApplication.getFinancialEventList();
+		List<FinancialEvent> financialEvents =  Clarkdm61_forecaster.manageTab.getEventList();
 		LedgerEntryFactory factory = new LedgerEntryFactory();
 		
 		ledgerEntries = factory.createLedgerEntries(financialEvents, getStartDt(), getEndDt());
