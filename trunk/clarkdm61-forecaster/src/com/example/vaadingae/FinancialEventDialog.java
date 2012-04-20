@@ -178,16 +178,8 @@ public class FinancialEventDialog extends Window {
 				"amount"
 				}));
 		
-//		// disable endDt field when Reoccurrence.None
-//		if (financialEvent.getReoccurrence().equals(Reoccurrence.None)) {
-//			Field f = form.getField("endDt");
-//			f.setEnabled(false);
-//		}
-		
 		Field f = form.getField("name");
 		f.setRequired(true);
-		
-		//form.setImmediate(true); // validate as data is entered?
 		
 		formLayout.setMargin(true);
 		form.setSizeUndefined();
