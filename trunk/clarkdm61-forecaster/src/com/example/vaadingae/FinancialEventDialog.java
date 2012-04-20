@@ -68,11 +68,12 @@ public class FinancialEventDialog extends Window {
 				field.addItem(Reoccurrence.TwiceYearly);
 				field.addItem(Reoccurrence.Yearly);
 				field.setRequired(true);
-				//field.setImmediate(true); // originally put here so the model was updated when a selection was made. form.commit handles this now.
+				field.setImmediate(true); // so the model is updated when a selection is made. 
 				field.setNullSelectionAllowed(false); // removes empty selection
 				field.addListener(new Property.ValueChangeListener() {
 					@Override
 					public void valueChange(ValueChangeEvent event) {
+						// TODO: why does this fire 2x?
 						Reoccurrence value = (Reoccurrence) event.getProperty().getValue();
 						toggleEndDate(value);
 					}
