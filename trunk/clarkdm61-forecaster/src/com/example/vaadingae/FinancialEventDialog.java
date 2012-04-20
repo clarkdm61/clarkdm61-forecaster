@@ -25,7 +25,8 @@ import dmc.forecaster.shared.FinancialEventType;
 import dmc.forecaster.shared.Reoccurrence;
 
 /**
- * This is not visual editor compatible.
+ * Pop-up dialog used to manage FinancialEvent data
+ * This is not compatible with the visual editor.
  * @author dclark
  *
  */
@@ -207,6 +208,9 @@ public class FinancialEventDialog extends Window {
 		}
 	}
 	
+	/**
+	 * Handle close window request.
+	 */
 	protected void close() {
 		getParent().removeWindow(this);
 	}
