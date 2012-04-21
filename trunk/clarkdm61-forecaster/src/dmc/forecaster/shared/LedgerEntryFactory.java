@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import dmc.forecaster.client.LedgerEntry;
+import dmc.forecaster.client.LedgerTab;
 
 /**
  * Factory for creating a LedgerEntryContainer from a FinancialEvent list
@@ -37,6 +38,8 @@ public class LedgerEntryFactory {
 		
 		// sort entries by start date (note: the balance can't be calculated until this happens)
 		Collections.sort(ledgerEntries);
+		
+		calculateBalance();
 		
 		return ledgerEntries;
 		
@@ -138,6 +141,34 @@ public class LedgerEntryFactory {
 			return false;
 		} else {
 			return aDate.before(getStartDt());
+		}
+	}
+	
+	/**
+	 * Once the LedgerEntries are created from the FinancialEvents,
+	 * the next step is to calculate balance throughout the ledger.
+	 */
+	private void calculateBalance() {
+		
+//		int row = 0;
+		LedgerEntry lastEntry = null;
+		
+		for (LedgerEntry entry : ledgerEntries) {
+			Double balance = lastEntry == null ? 0d : lastEntry.getBalance(); 
+			balance += entry.getIncomeAmount();
+			balance -= entry.getExpenseAmount();
+			entry.setBalance(balance);
+
+			// TODO: set colors for rows
+//			if (entry.getRowColor() != null) {
+//				modifyRow(row, 5, data, "color:"+entry.getRowColor());
+//			}
+//			if (entry.getBalance() < 0) {
+//				data.setProperty(row, 4, "style", "color:red");
+//			}
+//			
+//			row++;
+			lastEntry = entry;
 		}
 	}
 

@@ -146,12 +146,7 @@ public class LedgerTab extends DockLayoutPanel {
 		data.addRows(LedgerTab.ledgerEntries.size());
 		
 		int row = 0;
-		LedgerEntry lastEntry = null;
 		for (LedgerEntry entry : LedgerTab.ledgerEntries) {
-			Double balance = lastEntry == null ? 0d : lastEntry.getBalance(); 
-			balance += entry.getIncomeAmount();
-			balance -= entry.getExpenseAmount();
-			entry.setBalance(balance);
 
 			Date date = entry.getDate();
 			date.setYear(date.getYear()); // Defect/Issue #12 - removed 100 year adjustment
@@ -169,7 +164,6 @@ public class LedgerTab extends DockLayoutPanel {
 				data.setProperty(row, 4, "style", "color:red");
 			}
 			row++;
-			lastEntry = entry;
 		}
 		
 		return data;
