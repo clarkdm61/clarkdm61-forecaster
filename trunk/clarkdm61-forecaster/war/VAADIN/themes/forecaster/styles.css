@@ -4,3 +4,11 @@
 .v-table-cell-content-oldItem {
 	color:gray;
 }
+
+.v-table-cell-content-red {
+	color:red;
+}
+
+.v-table-cell-content-blue {
+	color:blue;
+}
