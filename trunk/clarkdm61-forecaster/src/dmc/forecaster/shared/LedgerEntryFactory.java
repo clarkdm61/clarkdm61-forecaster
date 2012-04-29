@@ -149,8 +149,7 @@ public class LedgerEntryFactory {
 	 * the next step is to calculate balance throughout the ledger.
 	 */
 	private void calculateBalance() {
-		
-//		int row = 0;
+
 		LedgerEntry lastEntry = null;
 		
 		for (LedgerEntry entry : ledgerEntries) {
@@ -159,15 +158,10 @@ public class LedgerEntryFactory {
 			balance -= entry.getExpenseAmount();
 			entry.setBalance(balance);
 
-			// TODO: set colors for rows
-//			if (entry.getRowColor() != null) {
-//				modifyRow(row, 5, data, "color:"+entry.getRowColor());
-//			}
-//			if (entry.getBalance() < 0) {
-//				data.setProperty(row, 4, "style", "color:red");
-//			}
-//			
-//			row++;
+			if (entry.getBalance() < 0) {
+				entry.setRowColor("red");
+			}
+
 			lastEntry = entry;
 		}
 	}

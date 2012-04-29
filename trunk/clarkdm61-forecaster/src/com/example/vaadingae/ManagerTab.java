@@ -102,13 +102,14 @@ public class ManagerTab extends CustomComponent {
 		managerTable.setVisibleColumns(FinancialEventContainer.NATURAL_COL_ORDER);
 		managerTable.setColumnHeaders(FinancialEventContainer.COL_HEADERS_ENGLISH);
 		
+		// add CellStyleGenerator to the managerTable so CSS style can be specified dynamically
+		// see VAADIN/themes/forecaster/style.css
 		managerTable.setCellStyleGenerator(new CellStyleGenerator() {
 			
 			private static final long serialVersionUID = -1062010296768544652L;
 
 			@Override
 			public String getStyle(Object itemId, Object propertyId) {
-				// TODO Auto-generated method stub
 				FinancialEvent financialEvent = (FinancialEvent) itemId;
 				long currTime = System.currentTimeMillis();
 				if (financialEvent.getEndDt() != null && financialEvent.getEndDt().getTime() < currTime) {
