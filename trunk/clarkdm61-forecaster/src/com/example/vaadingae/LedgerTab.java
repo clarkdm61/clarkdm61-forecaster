@@ -67,6 +67,8 @@ public class LedgerTab extends CustomComponent {
 					createLedger();
 				} catch (Exception e) {
 					getLogger().log(Level.SEVERE, "Error while handeling Go button.", e);
+					// TODO: let user know there was an error (create a common error popup)
+					throw new RuntimeException(e);
 				}
 				
 			}
@@ -111,7 +113,6 @@ public class LedgerTab extends CustomComponent {
 		
 		LedgerEntryContainer container = new LedgerEntryContainer(LedgerEntry.class, ledgerEntries);
 			
-		// TODO: Set up the Table (see ManagerTab refreshManagerTable())
 		ledgerTable.setContainerDataSource(container);
 		ledgerTable.setVisibleColumns(LedgerEntryContainer.NATURAL_COL_ORDER);
 		ledgerTable.setColumnHeaders(LedgerEntryContainer.COL_HEADERS_ENGLISH);
@@ -230,6 +231,10 @@ public class LedgerTab extends CustomComponent {
 		return topLayout;
 	}
 
+	/**
+	 * TODO: put this is a base class
+	 * @return
+	 */
 	protected Logger getLogger() {
 		return Logger.getLogger(getClass().getName());
 	}
