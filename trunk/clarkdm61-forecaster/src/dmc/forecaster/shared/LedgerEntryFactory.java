@@ -158,6 +158,9 @@ public class LedgerEntryFactory {
 			balance -= entry.getExpenseAmount();
 			entry.setBalance(balance);
 
+			if (entry.getBalance() < 2000) {
+				entry.setRowColor("orange");
+			}
 			if (entry.getBalance() < 0) {
 				entry.setRowColor("red");
 			}

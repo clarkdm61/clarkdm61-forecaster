@@ -40,6 +40,9 @@ public class VaadingaeApplication extends Application implements Serializable {
 	}
 
 	public static List<FinancialEvent> getFinancialEventList() {
+		if (financialEventList == null) {
+			financialEventList = getForecasterService().getAllEvents();
+		}
 		return financialEventList;
 	}
 
