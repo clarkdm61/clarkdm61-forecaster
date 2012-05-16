@@ -5,7 +5,7 @@
 		<description>
 		Vaadin production mode</description>
 		<param-name>productionMode</param-name>
-		<param-value>false</param-value>
+		<param-value>true</param-value>
 	</context-param>
 	<servlet>
 		<servlet-name>Vaadingae Application</servlet-name>
@@ -27,7 +27,8 @@
 	</servlet-mapping>
 	
   <!-- Servlets -->
-  <servlet>
+<!-- disabling since it seems to interfere with Vaadin in some browsers   
+	<servlet>
     <servlet-name>forecasterServlet</servlet-name>
     <servlet-class>dmc.forecaster.server.ForecasterServiceImpl</servlet-class>
   </servlet>
@@ -35,7 +36,7 @@
   <servlet-mapping>
     <servlet-name>forecasterServlet</servlet-name>
     <url-pattern>/clarkdm61_forecaster/forecaster</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
   
       <security-constraint>
         <web-resource-collection>
@@ -49,8 +50,5 @@
   
   
   <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-  </welcome-file-list>
-
+ <!-- removed welcome file list -->
 </web-app>
