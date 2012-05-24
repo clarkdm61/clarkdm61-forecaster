@@ -92,7 +92,7 @@ public class ManagerTab extends CustomComponent {
 	 */
 	public void refreshManagerTable() {
 		List<FinancialEvent> list =  VaadingaeApplication.getForecasterService().getAllEvents();
-		VaadingaeApplication.setFinancialEventList(list);
+		AppData.setFinancialEventList(list);
 
 		Collections.sort(list);
 		

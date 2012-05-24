@@ -104,12 +104,13 @@ public class LedgerTab extends CustomComponent {
 	 */
 	private void createLedger() {
 		
-		List<FinancialEvent> financialEvents = VaadingaeApplication.getFinancialEventList();
+		List<FinancialEvent> financialEvents = AppData.getFinancialEventList();
 		LedgerEntryFactory factory = new LedgerEntryFactory();
 		
 		Date startDt = (Date) getStartDate().getValue();
 		Date endDt = (Date) getEndDate().getValue();
 		ArrayList<LedgerEntry> ledgerEntries = factory.createLedgerEntries(financialEvents, startDt, endDt);
+		AppData.setLedgerEntries(ledgerEntries);
 		
 		LedgerEntryContainer container = new LedgerEntryContainer(LedgerEntry.class, ledgerEntries);
 			

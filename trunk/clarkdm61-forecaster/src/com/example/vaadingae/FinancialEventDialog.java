@@ -135,7 +135,8 @@ public class FinancialEventDialog extends Window {
 				} catch (RuntimeException e) {
 					return;
 				}
-				VaadingaeApplication.getForecasterService().create(financialEvent);
+				VaadingaeApplication application = (VaadingaeApplication)getApplication();
+				application.getForecasterService().create(financialEvent);
 				managerTab.refreshManagerTable();
 				close();
 			}
