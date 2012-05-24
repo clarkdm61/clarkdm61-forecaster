@@ -10,6 +10,14 @@ import com.vaadin.service.ApplicationContext.TransactionListener;
 import dmc.forecaster.client.LedgerEntry;
 import dmc.forecaster.shared.FinancialEvent;
 
+/**
+ * The pattern for using AppData seems to be analogous to Session data for a Vaadin app.
+ * The basis for the datastructure, use of ThreadLocal, and initialization comes directly
+ * from the Book of Vaadin.
+ * 
+ * @author David
+ *
+ */
 public class AppData implements TransactionListener, Serializable {
 	
 	private static final long serialVersionUID = 9027135772079670233L;
