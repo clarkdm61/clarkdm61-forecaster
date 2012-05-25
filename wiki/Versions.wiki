@@ -1,4 +1,4 @@
-#summary Describe the different version instances.
+#summary Describe the different GAE version instances.
   * Version 1: GWT only
-  * Version 2: GWT and Wicket (from branched)
-  * Version 3: GWT and Vaadin
+  * Version 2: GWT and Wicket (from SVN branched)
+  * Version 3: GWT and Vaadin. (Lived in trunk, first release SVN tag v1.3)
