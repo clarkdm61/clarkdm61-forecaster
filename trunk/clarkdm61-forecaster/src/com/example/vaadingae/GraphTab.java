@@ -71,8 +71,9 @@ public class GraphTab extends CustomComponent {
 		mainLayout.removeComponent(annotatedTimeLine_1);
 		annotatedTimeLine_1 = new AnnotatedTimeLine();
 		annotatedTimeLine_1.setImmediate(true);
-		annotatedTimeLine_1.setWidth("100.0%");
-		annotatedTimeLine_1.setHeight("600px");
+		annotatedTimeLine_1.setSizeFull();
+		annotatedTimeLine_1.setWidth("100px");
+		annotatedTimeLine_1.setHeight("800px");
 		mainLayout.addComponent(annotatedTimeLine_1);
 		
 		
@@ -85,8 +86,8 @@ public class GraphTab extends CustomComponent {
 		annotatedTimeLine_1.setOption("displayAnnotations", true);
 		annotatedTimeLine_1.setOption("wmode", "transparent");
 		
-		annotatedTimeLine_1.setColors("orange", "slategray");
-		annotatedTimeLine_1.addLineLabel("linelabel");
+		annotatedTimeLine_1.setColors("black");
+		annotatedTimeLine_1.addLineLabel("Amount");
 				
 		
 		for (LedgerEntry entry : ledgerEntries) {
@@ -98,47 +99,6 @@ public class GraphTab extends CustomComponent {
 			GregorianCalendar cal = new GregorianCalendar(year,month,day);
 			annotatedTimeLine_1.add(cal, timeLineEntries); 
 		}
-
-		
-		/* for reference 
-		annotatedTimeLine_1.setOption("displayAnnotations", true);
-		annotatedTimeLine_1.setOption("wmode", "transparent");
-		
-		annotatedTimeLine_1.setColors("orange", "slategray");
-		annotatedTimeLine_1.addLineLabel("Sold Pencils");
-		annotatedTimeLine_1.addLineLabel("Sold Pens");
-		
-		ArrayList<AnnotatedTimeLineEntry> timeLineEntries = new ArrayList<AnnotatedTimeLineEntry>();                               
-		timeLineEntries.add(new AnnotatedTimeLineEntry(30000,"","")); 
-		// Sold Pencils                
-		timeLineEntries.add(new AnnotatedTimeLineEntry(40645, "", "")); 
-		// Sold Pens                                                                       
-		annotatedTimeLine_1.add(new GregorianCalendar(2008,0,1), timeLineEntries);                                
-		timeLineEntries = new ArrayList<AnnotatedTimeLineEntry>();                             
-		timeLineEntries.add(new AnnotatedTimeLineEntry(14045,"","")); // Sold Pencils          
-		timeLineEntries.add(new AnnotatedTimeLineEntry(20374, "", "")); // Sold Pens          
-		annotatedTimeLine_1.add(new GregorianCalendar(2008,0,2), timeLineEntries);            
-		timeLineEntries = new ArrayList<AnnotatedTimeLineEntry>();              
-		timeLineEntries.add(new AnnotatedTimeLineEntry(55022,"","")); // Sold Pencils 
-		timeLineEntries.add(new AnnotatedTimeLineEntry(50766, "", "")); // Sold Pens  
-		annotatedTimeLine_1.add(new GregorianCalendar(2008,0,3), timeLineEntries);            
-		timeLineEntries = new ArrayList<AnnotatedTimeLineEntry>();            
-		timeLineEntries.add(new AnnotatedTimeLineEntry(75284,"","")); // Sold Pencils    
-		timeLineEntries.add(new AnnotatedTimeLineEntry(14334, "Out of Stock", "Ran out of stock at 4pm")); // Sold Pens   
-		annotatedTimeLine_1.add(new GregorianCalendar(2008,0,4), timeLineEntries);           
-		timeLineEntries = new ArrayList<AnnotatedTimeLineEntry>();   
-		timeLineEntries = new ArrayList<AnnotatedTimeLineEntry>();         
-		timeLineEntries.add(new AnnotatedTimeLineEntry(41476,"Bought Pens","Bought 200k Pens")); // Sold Pencils 
-		timeLineEntries.add(new AnnotatedTimeLineEntry(66467, "", "")); // Sold Pens           
-		annotatedTimeLine_1.add(new GregorianCalendar(2008,0,5), timeLineEntries);            
-		timeLineEntries = new ArrayList<AnnotatedTimeLineEntry>();             
-		timeLineEntries = new ArrayList<AnnotatedTimeLineEntry>();           
-		timeLineEntries.add(new AnnotatedTimeLineEntry(33322,"Closed Shop","Had enough of pencils business")); // Sold Pencils  
-		timeLineEntries.add(new AnnotatedTimeLineEntry(39463, "Pens look good", "Swapping to pens wholesale")); // Sold Pens 
-		annotatedTimeLine_1.add(new GregorianCalendar(2008,0,6), timeLineEntries);
-		*/      
-		//annotatedTimeLine_1.setSizeFull();
-
 	}
 	
 	public String formatAmountLabel(LedgerEntry entry) {
@@ -172,7 +132,7 @@ public class GraphTab extends CustomComponent {
 		
 		// button_1
 		button_1 = new Button();
-		button_1.setCaption("Button");
+		button_1.setCaption("Generate");
 		button_1.setImmediate(true);
 		button_1.setWidth("-1px");
 		button_1.setHeight("-1px");
