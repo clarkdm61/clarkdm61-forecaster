@@ -1,5 +1,17 @@
 #summary Eclipse configuration guide.
+=Vaadin Setup=
+Any version of Eclipse, but I used Java EE/Eclipse 3.7
 
+Plugins:
+ * SVN - Same as original setup (see below)
+ * Google App Engine
+ * Google Plugin
+ * Google Web Toolkit SDK 2.4
+ * Vaadin Plug-in for Eclipse (Vaadin 6.6.8)
+
+Note: Deployed libs for Vaadin, GAE, and GWT are integrated into the project, so plugins are just there for IDE feature enhancement.
+
+=Original GWT Setup=
 Galileo-based Eclipse (Spring's STS was originally used)
 
 SVN Plugins:
