@@ -131,7 +131,13 @@ public class FinancialEventDialog extends Window {
 					financialEvent = financialEvent.deepCopy();
 				}
 				try {
+					// synch UI data with model data
 					form.commit();
+					// FIX for Issue 16
+					// null out end date only after save - that way if "none" is selected by accident, the endDt isn't lost
+					if (financialEvent.getReoccurrence().equals(Reoccurrence.None)) {
+						financialEvent.setEndDt(null);
+					}
 				} catch (RuntimeException e) {
 					return;
 				}
