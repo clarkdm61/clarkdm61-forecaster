@@ -11,7 +11,7 @@ import dmc.forecaster.client.LedgerEntry;
 import dmc.forecaster.shared.FinancialEvent;
 
 /**
- * The pattern for using AppData seems to be analogous to Session data for a Vaadin app.
+ * The pattern for using AppData is analogous to Session data for a Vaadin app.
  * The basis for the datastructure, use of ThreadLocal, and initialization comes directly
  * from the Book of Vaadin.
  * 
