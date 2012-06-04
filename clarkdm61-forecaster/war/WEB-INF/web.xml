@@ -14,11 +14,11 @@
 			<description>
 			Vaadin application class to start</description>
 			<param-name>application</param-name>
-			<param-value>com.example.vaadingae.VaadingaeApplication</param-value>
+			<param-value>dmc.forecaster.vaadin.VaadingaeApplication</param-value>
 		</init-param>
 		<init-param>
 			<param-name>widgetset</param-name>
-			<param-value>com.example.vaadingae.VaadingaeWidgetset</param-value>
+			<param-value>dmc.forecaster.vaadin.VaadingaeWidgetset</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
