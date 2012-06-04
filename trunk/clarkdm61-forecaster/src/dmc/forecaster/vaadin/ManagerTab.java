@@ -91,7 +91,7 @@ public class ManagerTab extends CustomComponent {
 	 * Invoke getAllEvents, then update table.
 	 */
 	public void refreshManagerTable() {
-		List<FinancialEvent> list =  VaadingaeApplication.getForecasterService().getAllEvents();
+		List<FinancialEvent> list =  AppData.getForecasterService().getAllEvents();
 		AppData.setFinancialEventList(list);
 
 		Collections.sort(list);
@@ -191,7 +191,7 @@ public class ManagerTab extends CustomComponent {
 	 * Perform the delete operation and synch the list.
 	 */
 	private void doDelete() {
-		VaadingaeApplication.getForecasterService().delete(getSelectedEvent().getId());
+		AppData.getForecasterService().delete(getSelectedEvent().getId());
 		refreshManagerTable();		
 	}
 	

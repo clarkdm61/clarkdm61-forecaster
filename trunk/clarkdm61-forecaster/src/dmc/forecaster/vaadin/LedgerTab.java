@@ -79,21 +79,21 @@ public class LedgerTab extends CustomComponent {
 	 * Update the User Preference from values on the UI
 	 */
 	private void updateLedgerRangeOnUserPreference() {
-		UserPreference upref = VaadingaeApplication.getForecasterService().getUserPreference();
+		UserPreference upref = AppData.getForecasterService().getUserPreference().deepCopy();
 		
 		Date startDateValue = (Date) getStartDate().getValue();
 		Date endDateValue = (Date) getEndDate().getValue();
 		upref.setLedgerStartDate(startDateValue);
 		upref.setLedgerEndDate(endDateValue);
 		
-		VaadingaeApplication.getForecasterService().updateUserPreference(upref);
+		AppData.getForecasterService().updateUserPreference(upref);
 	}
 
 	/**
 	 * Update the start and end date on the UI from User Preference values.
 	 */
 	private void setLedgerRangeFromUserPreference() {
-		UserPreference prefs = VaadingaeApplication.getForecasterService().getUserPreference();
+		UserPreference prefs = AppData.getForecasterService().getUserPreference();
 		getStartDate().setValue(prefs.getLedgerStartDate());
 		getEndDate().setValue(prefs.getLedgerEndDate());
 		

@@ -46,6 +46,8 @@ public class FinancialEventDialog extends Window {
 	 */
 	private class EditorFieldFactory extends DefaultFieldFactory {
 		
+		private static final long serialVersionUID = 2818849285165032473L;
+
 		public EditorFieldFactory() {
 			
 		}
@@ -141,8 +143,7 @@ public class FinancialEventDialog extends Window {
 				} catch (RuntimeException e) {
 					return;
 				}
-				VaadingaeApplication application = (VaadingaeApplication)getApplication();
-				application.getForecasterService().create(financialEvent);
+				AppData.getForecasterService().create(financialEvent);
 				managerTab.refreshManagerTable();
 				close();
 			}

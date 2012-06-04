@@ -31,6 +31,22 @@ public class UserPreference implements java.io.Serializable {
 	public UserPreference() {
 		super();
 	}
+	
+	public UserPreference(Long id, String userId, Date ledgerStartDate, Date ledgerEndDate) {
+		this.id=id;
+		this.userId = userId;
+		this.ledgerStartDate = ledgerStartDate;
+		this.ledgerEndDate = ledgerEndDate;
+	}
+	
+	/**
+	 * Returns a (transient) copy of this financial event.
+	 * @return
+	 */
+	public UserPreference deepCopy() {
+		UserPreference up = new UserPreference(id, userId, ledgerStartDate, ledgerEndDate);
+		return up;
+	}
 
 	public String getUserId() {
 		return userId;

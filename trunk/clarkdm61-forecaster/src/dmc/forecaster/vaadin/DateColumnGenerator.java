@@ -1,6 +1,5 @@
 package dmc.forecaster.vaadin;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,6 +15,7 @@ import com.vaadin.ui.Table.ColumnGenerator;
  */
 public class DateColumnGenerator implements ColumnGenerator {
 
+	private static final long serialVersionUID = 5542403913151377054L;
 	SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 	
 	@Override
