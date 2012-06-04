@@ -7,7 +7,9 @@ import java.util.List;
 import com.vaadin.Application;
 import com.vaadin.service.ApplicationContext.TransactionListener;
 
+import dmc.forecaster.client.ForecasterService;
 import dmc.forecaster.client.LedgerEntry;
+import dmc.forecaster.server.ForecasterServiceImpl;
 import dmc.forecaster.shared.FinancialEvent;
 
 /**
@@ -25,6 +27,7 @@ public class AppData implements TransactionListener, Serializable {
 	private static ThreadLocal<AppData> instance = new ThreadLocal<AppData>();
 	private List<FinancialEvent> financialEventList = null;
 	private ArrayList<LedgerEntry> ledgerEntries = null;
+	private ForecasterService forecasterService = null;
 	
 
 	 public AppData(Application app) {
@@ -53,6 +56,13 @@ public class AppData implements TransactionListener, Serializable {
 
 		public static List<FinancialEvent> getFinancialEventList() {
 			return instance.get().financialEventList;
+		}
+		
+		public static ForecasterService getForecasterService() {
+			if (instance.get().forecasterService == null) {
+				instance.get().forecasterService = new ForecasterServiceImpl();
+			}
+			return instance.get().forecasterService;
 		}
 
 		public static void setFinancialEventList(List<FinancialEvent> financialEventList) {

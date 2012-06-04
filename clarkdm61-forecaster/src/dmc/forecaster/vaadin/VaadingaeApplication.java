@@ -1,26 +1,18 @@
 package dmc.forecaster.vaadin;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.vaadin.Application;
 import com.vaadin.ui.Window;
 
-import dmc.forecaster.client.ForecasterService;
-import dmc.forecaster.client.LedgerEntry;
-import dmc.forecaster.server.ForecasterServiceImpl;
-import dmc.forecaster.shared.FinancialEvent;
-
 public class VaadingaeApplication extends Application implements Serializable {
 	
 	private static final long serialVersionUID = 3213035017493473755L;
-	private static ForecasterService forecasterService;
 	
 	@Override
 	public void init() {
 		
-		Window mainWindow = new Window("Vaadingae Application");
+		Window mainWindow = new Window("Financial Forecaster (v3)");
 		mainWindow.setSizeFull();
 
 		 // Create the application data instance
@@ -39,10 +31,4 @@ public class VaadingaeApplication extends Application implements Serializable {
 
 	}
 	
-	public static ForecasterService getForecasterService() {
-		if (forecasterService == null) {
-			forecasterService = new ForecasterServiceImpl();
-		}
-		return forecasterService;
-	}
 }

@@ -19,8 +19,8 @@ public class ForecasterServiceImpl extends RemoteServiceServlet implements
 
 	private static final long serialVersionUID = 2779871172875732317L;
 	private static Logger logger = Logger.getLogger(ForecasterServiceImpl.class.getName());
-	private FinancialEventDAO _financialEventDAO = null;
-	private UserPreferenceDAO _userPreferenceDAO = null;
+	private transient FinancialEventDAO _financialEventDAO = null;
+	private transient UserPreferenceDAO _userPreferenceDAO = null;
 	
 	public FinancialEventDAO getFinancialEventDao() {
 		if (_financialEventDAO == null) {
