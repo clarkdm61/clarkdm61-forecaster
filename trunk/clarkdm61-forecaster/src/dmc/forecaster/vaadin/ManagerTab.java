@@ -1,4 +1,4 @@
-package com.example.vaadingae;
+package dmc.forecaster.vaadin;
 
 import java.io.Serializable;
 import java.util.Collections;
