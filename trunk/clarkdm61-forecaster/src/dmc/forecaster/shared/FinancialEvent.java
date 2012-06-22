@@ -70,7 +70,9 @@ public class FinancialEvent implements java.io.Serializable, Comparable<Financia
 		if (getEndDt() != null) {
 			label += " - " + Util.dateFormat(getEndDt()); 
 		}
-		label += ", " + getName()+", "+ getReoccurrence() + " " + getType() +", " + getAmount();
+		
+		label += ", " + getName()+", "+ getReoccurrence() + " " + getType() +", " +  String.valueOf(getAmount().intValue());
+		
 		return label;
 	}
 
@@ -162,6 +164,14 @@ public class FinancialEvent implements java.io.Serializable, Comparable<Financia
 		return (aDate.equals(getStartDt()) || aDate.after(getStartDt()))
 				&&
 				(aDate.equals(getEndDt()) || aDate.before(getEndDt()));
+	}
+	
+	public Integer getAmountInt() {
+		return getAmount().intValue();
+	}
+	
+	public void setAmountInt(Integer value) {
+		setAmount(new Double(value));
 	}
 
 }

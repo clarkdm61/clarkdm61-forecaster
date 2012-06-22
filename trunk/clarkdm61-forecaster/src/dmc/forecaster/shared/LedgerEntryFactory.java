@@ -61,7 +61,7 @@ public class LedgerEntryFactory {
 			// is date in range of ledger (could be too soon)?
 			if (isDateGreaterThanOrEqualToStart(instanceDate)) {
 				// add to ledger
-				LedgerEntry entry = new LedgerEntry(event.getName(), event.getType(), event.getAmount(), instanceDate);
+				LedgerEntry entry = new LedgerEntry(event.getName(), event.getType(), event.getAmount().intValue(), instanceDate);
 				// highlight unusual events
 				if (event.getReoccurrence().equals(Reoccurrence.TwiceYearly)
 						|| event.getReoccurrence().equals(Reoccurrence.Yearly)
@@ -84,7 +84,7 @@ public class LedgerEntryFactory {
 	private void createLedgerEntry(
 			ArrayList<LedgerEntry> ledgerEntries, FinancialEvent event) {
 		if (isDateInLedgerRange(event.getStartDt())) {
-			LedgerEntry entry = new LedgerEntry(event.getName(), event.getType(), event.getAmount(), event.getStartDt());
+			LedgerEntry entry = new LedgerEntry(event.getName(), event.getType(), event.getAmount().intValue(), event.getStartDt());
 			entry.setRowColor("blue");// TODO: make colors constants
 			ledgerEntries.add(entry);	
 		}
@@ -156,7 +156,7 @@ public class LedgerEntryFactory {
 			Double balance = lastEntry == null ? 0d : lastEntry.getBalance(); 
 			balance += entry.getIncomeAmount();
 			balance -= entry.getExpenseAmount();
-			entry.setBalance(balance);
+			entry.setBalance(balance.intValue());
 
 			if (entry.getBalance() < 2000) {
 				entry.setRowColor("orange");

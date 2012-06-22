@@ -23,6 +23,7 @@ public class DateColumnGenerator implements ColumnGenerator {
 		 // Get the object stored in the cell as a property
         Property prop =
             source.getItem(itemId).getItemProperty(columnId);
+        // the type check is probably overkill here
         if (prop.getType().equals(Date.class)) {
             
         	Date date = (Date) prop.getValue(); 
