@@ -14,6 +14,7 @@ import com.vaadin.ui.Field;
 import com.vaadin.ui.Form;
 import com.vaadin.ui.FormLayout;
 import com.vaadin.ui.HorizontalLayout;
+import com.vaadin.ui.MaskedTextField;
 import com.vaadin.ui.NumericField;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.Select;
@@ -82,12 +83,14 @@ public class FinancialEventDialog extends Window {
 					}
 				});
 				return field;
-			} else if ("amount".equals(pid)) {
-				NumericField field = new NumericField("Amount");
-				field.setNullRepresentation("");
-				field.setRequired(true);
-				return field;
-			}
+			} 
+//				else if ("amountInt".equals(pid)) {
+//				//NumericField field = new NumericField("Amount");
+//				MaskedTextField field = new MaskedTextField("Amount", "######");
+//				field.setNullRepresentation("");
+//				field.setRequired(true);
+//				return field;
+//			}
 			
 			return super.createField(item, propertyId, uiContext);
 		 }
@@ -184,7 +187,7 @@ public class FinancialEventDialog extends Window {
 				"startDt",
 				"reoccurrence",
 				"endDt",
-				"amount"
+				"amountInt"
 				}));
 		
 		Field f = form.getField("name");

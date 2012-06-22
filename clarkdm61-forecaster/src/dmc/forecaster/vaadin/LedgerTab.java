@@ -115,18 +115,18 @@ public class LedgerTab extends CustomComponent {
 		LedgerEntryContainer container = new LedgerEntryContainer(LedgerEntry.class, ledgerEntries);
 			
 		ledgerTable.setContainerDataSource(container);
+		ledgerTable.setSelectable(true); // easier to focus attention on a selectable event
 		
-		// override Date column (only one can exist)
+		// override column formats
 		ledgerTable.removeGeneratedColumn("date"); // in case one already exist, otherwise exception occurs
 		ledgerTable.addGeneratedColumn("date", new DateColumnGenerator());
 		
 		ledgerTable.setVisibleColumns(LedgerEntryContainer.NATURAL_COL_ORDER);
 		ledgerTable.setColumnHeaders(LedgerEntryContainer.COL_HEADERS_ENGLISH);
 		
+		// apply style to row based on ledgerEntry.RowColor
 		ledgerTable.setCellStyleGenerator(new CellStyleGenerator() {
-			
 			private static final long serialVersionUID = -1062010296768544652L;
-
 			@Override
 			public String getStyle(Object itemId, Object propertyId) {
 				LedgerEntry ledgerEntry = (LedgerEntry) itemId;
@@ -136,7 +136,6 @@ public class LedgerTab extends CustomComponent {
 				return null;
 			}
 		});
-		
 		
 	}
 	
@@ -245,3 +244,4 @@ public class LedgerTab extends CustomComponent {
 		return Logger.getLogger(getClass().getName());
 	}
 }
+

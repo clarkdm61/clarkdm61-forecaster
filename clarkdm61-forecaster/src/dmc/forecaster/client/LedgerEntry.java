@@ -9,10 +9,10 @@ public class LedgerEntry implements Comparable<LedgerEntry>, Serializable {
 
 	private static final long serialVersionUID = 423920526198787425L;
 	private String name;
-	private Double incomeAmount;
-	private Double expenseAmount;
+	private Integer incomeAmount;
+	private Integer expenseAmount;
 	private Date date;
-	private Double balance;
+	private Integer balance;
 	private boolean income = false;
 	private String rowColor;
 	
@@ -25,20 +25,20 @@ public class LedgerEntry implements Comparable<LedgerEntry>, Serializable {
 	 * @param amount
 	 * @param date
 	 */
-	public LedgerEntry(String name, FinancialEventType type, Double amount, Date date) {
+	public LedgerEntry(String name, FinancialEventType type, Integer amount, Date date) {
 		super();
 		this.name = name;
 		if (type.equals(FinancialEventType.Income)) {
 			setIncomeAmount(amount);
-			setExpenseAmount(0d);
+			setExpenseAmount(0);
 			income=true;
 		} else {
-			setIncomeAmount(0d);
+			setIncomeAmount(0);
 			setExpenseAmount(amount);
 			income=false;
 		}
 		this.date = date;
-		setBalance(0d);
+		setBalance(0);
 	}
 
 	@Override
@@ -55,19 +55,19 @@ public class LedgerEntry implements Comparable<LedgerEntry>, Serializable {
 		this.name = name;
 	}
 
-	public Double getIncomeAmount() {
+	public Integer getIncomeAmount() {
 		return incomeAmount;
 	}
 
-	public void setIncomeAmount(Double incomeAmount) {
+	public void setIncomeAmount(Integer incomeAmount) {
 		this.incomeAmount = incomeAmount;
 	}
 
-	public Double getExpenseAmount() {
+	public Integer getExpenseAmount() {
 		return expenseAmount;
 	}
 
-	public void setExpenseAmount(Double expenseAmount) {
+	public void setExpenseAmount(Integer expenseAmount) {
 		this.expenseAmount = expenseAmount;
 	}
 
@@ -79,11 +79,11 @@ public class LedgerEntry implements Comparable<LedgerEntry>, Serializable {
 		this.date = date;
 	}
 
-	public Double getBalance() {
+	public Integer getBalance() {
 		return balance;
 	}
 
-	public void setBalance(Double balance) {
+	public void setBalance(Integer balance) {
 		this.balance = balance;
 	}
 	
