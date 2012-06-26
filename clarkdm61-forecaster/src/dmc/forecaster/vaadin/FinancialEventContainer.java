@@ -24,7 +24,7 @@ public class FinancialEventContainer extends BeanItemContainer<FinancialEvent>
 	 * NATURAL_COL_ORDER.
 	 */
 	public static final String[] COL_HEADERS_ENGLISH = new String[] {
-			"Financial Event" };
+			"Event List" };
 
 	public FinancialEventContainer(Class<? super FinancialEvent> type,
 			Collection<? extends FinancialEvent> collection)

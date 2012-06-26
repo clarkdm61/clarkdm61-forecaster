@@ -39,16 +39,6 @@ public class TabPanel extends CustomComponent {
 
 
 
-	
-
-
-
-
-	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
-
-
-
-
 	/**
 	 * The constructor should first build the main layout, set the
 	 * composition root and then do any custom initialization.
@@ -138,7 +128,7 @@ public class TabPanel extends CustomComponent {
 		managerTabPanelRootLayout.setImmediate(false);
 		managerTabPanelRootLayout.setWidth("100.0%");
 		managerTabPanelRootLayout.setHeight("-1px");
-		managerTabPanelRootLayout.setMargin(true);
+		managerTabPanelRootLayout.setMargin(false);
 		managerTabPanelRootLayout.setSpacing(true);
 		
 		// managerComposite_1
