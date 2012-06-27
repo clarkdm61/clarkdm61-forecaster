@@ -10,16 +10,16 @@ import com.vaadin.terminal.FileResource;
 
 import dmc.forecaster.shared.FinancialEvent;
 
-public class EventDownloadStream extends FileResource {
+public class EventDownloader extends FileResource {
 	
 	private static final long serialVersionUID = -9205284785063275818L;
 	public static final String FILE_NAME = "EventData.xml";
 
-	public EventDownloadStream(Application application) {
+	public EventDownloader(Application application) {
 		super(new File(""), application);
 	}
 
-	public EventDownloadStream(File sourceFile, Application application) {
+	public EventDownloader(File sourceFile, Application application) {
 		super(sourceFile, application);
 	}
 
@@ -36,8 +36,8 @@ public class EventDownloadStream extends FileResource {
 		List<FinancialEvent> list = AppData.getFinancialEventList();
 		
 		StringBuffer sb = new StringBuffer();
-		sb.append("<?xml version=\"1.0\"?>");
-		sb.append("<eventList>");
+		sb.append("<?xml version=\"1.0\"?>\n");
+		sb.append("<eventList>\n");
 		for (FinancialEvent fe : list) {
 			sb.append(
 					financialEvent2XML(fe)
@@ -49,7 +49,7 @@ public class EventDownloadStream extends FileResource {
 	}
 
 	private String financialEvent2XML(FinancialEvent fe) {
-		String s = " <financialEvent>";
+		String s = " <financialEvent>\n";
 		s += field2xml("id", fe.getId());
 		s += field2xml("name", fe.getName());
 		s += field2xml("description", fe.getDescription());
@@ -58,7 +58,7 @@ public class EventDownloadStream extends FileResource {
 		s += field2xml("amount", fe.getAmountInt());
 		s += field2xml("startDt", fe.getStartDt());
 		s += field2xml("endDt", fe.getEndDt());
-		s += "</financialEvent>\n";
+		s += " </financialEvent>\n";
 		return s;
 	}
 	
