@@ -15,12 +15,7 @@ public class EventUploader implements Receiver, SucceededListener,
 		FailedListener, Serializable {
 
 	private static final long serialVersionUID = -3129552144357529508L;
-	private class Serializer extends ByteArrayOutputStream implements Serializable {
-
-		private static final long serialVersionUID = 4250831291234920573L;
-		
-	}
-	Serializer _out = null;
+	private transient ByteArrayOutputStream _out = null;
 	
 	@Override
 	public void uploadFailed(FailedEvent event) {
@@ -34,12 +29,13 @@ public class EventUploader implements Receiver, SucceededListener,
 		byte[] bytes = _out.toByteArray();
 		String s =new String(bytes);
 		System.out.println(s);
+		_out = null;
 	}
 
 	@Override
 	public OutputStream receiveUpload(String filename, String mimeType) {
 		log().fine("receiveUpload:" + filename + ", " + mimeType);
-		_out = new Serializer();
+		_out = new ByteArrayOutputStream();
 		return _out;
 	}
 	
