@@ -10,6 +10,10 @@ import com.vaadin.terminal.FileResource;
 
 import dmc.forecaster.shared.FinancialEvent;
 
+/**
+ * Worker class for downloading FinancialEvents as an XML file.
+ *
+ */
 public class EventDownloader extends FileResource {
 	
 	private static final long serialVersionUID = -9205284785063275818L;
