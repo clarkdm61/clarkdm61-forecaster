@@ -87,7 +87,9 @@ public class ManagerTab extends CustomComponent {
 
 		@Override
 		public void onClose(ConfirmDialog dialog) {
-			doDelete();
+			if (dialog.isConfirmed()) {
+				doDelete();
+			}
 		}
 		
 	}
