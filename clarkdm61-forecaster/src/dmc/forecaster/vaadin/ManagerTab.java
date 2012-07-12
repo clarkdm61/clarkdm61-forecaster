@@ -213,7 +213,7 @@ public class ManagerTab extends CustomComponent {
 			}});
 		
 		// The upload widget
-		EventUploader uploader = new EventUploader();
+		EventUploader uploader = new EventUploader(this);
 		uploadControl.addListener((Upload.FailedListener) uploader);
 		uploadControl.addListener((Upload.SucceededListener) uploader);
 		uploadControl.setReceiver(uploader);
