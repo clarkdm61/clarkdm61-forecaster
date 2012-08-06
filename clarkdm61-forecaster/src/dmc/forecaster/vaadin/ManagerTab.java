@@ -139,6 +139,10 @@ public class ManagerTab extends CustomComponent {
 				FinancialEvent financialEvent = (FinancialEvent) itemId;
 				long currTime = System.currentTimeMillis();
 				if (financialEvent.getEndDt() != null && financialEvent.getEndDt().getTime() < currTime) {
+					// end date specified, and is before now.
+					return "oldItem";
+				} else if (financialEvent.getReoccurrence() == Reoccurrence.None && financialEvent.getStartDt().getTime() < currTime) {
+					// one-time event that is in the past
 					return "oldItem";
 				}
 				return null;
