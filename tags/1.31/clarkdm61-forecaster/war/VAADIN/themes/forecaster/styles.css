@@ -1,0 +1,18 @@
+@import url(/VAADIN/themes/reindeer/styles.css);
+/* Style specifically for the "black" cells. */
+
+.v-table-cell-content-oldItem {
+	color:gray;
+}
+
+.v-table-cell-content-red {
+	color:red;
+}
+
+.v-table-cell-content-blue {
+	color:blue;
+}
+
+.v-table-cell-content-orange {
+	color:orange;
+}
