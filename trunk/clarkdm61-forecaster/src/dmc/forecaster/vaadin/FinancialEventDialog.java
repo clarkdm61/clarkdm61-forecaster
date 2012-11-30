@@ -101,8 +101,8 @@ public class FinancialEventDialog extends Window {
 	/**
 	 * Constructor
 	 */
-	public FinancialEventDialog(ManagerTab parent) {
-		managerTab = parent;
+	public FinancialEventDialog(ManagerTab managerTab) {
+		this.managerTab = managerTab;
 		buildMainLayout();
 		setContent(mainLayout);
 	}
