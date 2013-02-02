@@ -187,7 +187,7 @@ public class FinancialEventDialog extends Window {
 				"startDt",
 				"reoccurrence",
 				"endDt",
-				"amountInt"
+				"amount" // accept decimals since i'm too lazy to mess with field-level validation
 				}));
 		
 		Field f = form.getField("name");
