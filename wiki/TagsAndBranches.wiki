@@ -1,12 +1,12 @@
 #summary Explanation of Tags and Branches in SVN
 
 ==Tags==
-  *v0.1 ?
-  *v1.0 ?
-  *v1.01 Tag before fixing date format
-  *v1.02 Tag before upgrading to GAE 1.6.1, GWT 2.4.0
-  *v1.3 Tagged first "complete" Vaadin version. See [Versions] for GAE version.
+  * v0.1 ?
+  * v1.0 ?
+  * v1.01 Tag before fixing date format
+  * v1.02 Tag before upgrading to GAE 1.6.1, GWT 2.4.0
+  * v1.3 Tagged first "complete" Vaadin version. See [Versions] for GAE version.
 ==Branches==
-  *Vaadin6
+  * Vaadin6
 ==Trunk==
-  *Migration to Vaadin7
+  * Migration to Vaadin7
