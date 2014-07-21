@@ -2,6 +2,7 @@ package dmc.forecaster.vaadin;
 
 import com.vaadin.addon.touchkit.ui.TabBarView;
 import com.vaadin.annotations.Theme;
+import com.vaadin.annotations.Widgetset;
 import com.vaadin.data.Container;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Button;
@@ -11,6 +12,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
 @SuppressWarnings("serial")
+@Widgetset("dmc.forecaster.Clarkdm61_forecaster")
 @Theme("forecaster")
 public class ForecasterUI extends UI {
 
