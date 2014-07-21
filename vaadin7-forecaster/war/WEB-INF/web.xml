@@ -26,7 +26,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
   		<param-name>legacyPropertyToString</param-name>
   		<param-value>false</param-value>
   	</init-param>
+  	<init-param>
+    	<param-name>widgetset</param-name>
+    	<param-value>dmc.forecaster.Clarkdm61_forecaster</param-value>
+	</init-param>
   </servlet>
+  
   <servlet-mapping>
   	<servlet-name>Application</servlet-name>
   	<url-pattern>/*</url-pattern>
