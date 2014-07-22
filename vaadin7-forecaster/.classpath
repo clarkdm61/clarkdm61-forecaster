@@ -34,5 +34,6 @@
 	<classpathentry kind="lib" path="war/WEB-INF/lib/vaadin-shared-7.2.4.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/vaadin-slf4j-jdk14-1.6.1.jar"/>
 	<classpathentry kind="lib" path="war/WEB-INF/lib/vaadin-themes-7.2.4.jar"/>
+	<classpathentry kind="lib" path="war/WEB-INF/lib/vaadin-touchkit-agpl-4.0.0.beta1.jar"/>
 	<classpathentry kind="output" path="war/WEB-INF/classes"/>
 </classpath>
